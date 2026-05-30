@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 120" role="img" aria-labelledby="title">
+  <title>DK</title>
+  <path fill="#f2f0e8" d="M17 18h49c25 0 42 15 42 39 0 25-18 43-44 43H17v-4h12V22H17v-4Zm33 4v74h12c16 0 25-15 25-39 0-22-9-35-25-35H50Z"/>
+  <path fill="#f2f0e8" d="M91 18h67v4h-11l-37 31 43 43h10v4H93v-4h11L73 65l-13 11v20h12v4H17v-4h12V22H17v-4h55v4H60v48l57-48H91v-4Z"/>
+</svg>

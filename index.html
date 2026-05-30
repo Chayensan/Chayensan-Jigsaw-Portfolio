@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DK | Jigsaw</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #050505;
+        --black-2: #0a0a0a;
+        --paper: #e4e3e1;
+        --muted: #767676;
+        --line: #343431;
+        --olive: #9caa69;
+        --olive-2: #6e7f5f;
+        --glass: rgba(228, 227, 225, 0.07);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--black);
+        color: var(--paper);
+        font-family: Inter, system-ui, sans-serif;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        pointer-events: none;
+        opacity: 0.28;
+        background-image:
+          radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px),
+          radial-gradient(circle at 70% 80%, rgba(156, 170, 105, 0.14) 0 1px, transparent 1px);
+        background-size: 5px 7px, 11px 13px;
+        mix-blend-mode: screen;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      em {
+        color: var(--olive);
+        font-family: "Crimson Pro", Georgia, serif;
+        font-style: italic;
+      }
+
+      .font-display {
+        font-family: "Crimson Pro", Georgia, serif;
+      }
+
+      .font-label {
+        font-family: "Space Grotesk", Inter, sans-serif;
+      }
+
+      .section-pad {
+        padding: 8.5rem 4rem;
+      }
+
+      .hairline {
+        border-color: rgba(228, 227, 225, 0.18);
+      }
+
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        color: var(--olive);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .kicker::before {
+        content: "+";
+        color: #4d4d4d;
+        font-family: Inter, sans-serif;
+        font-size: 1.55rem;
+        font-weight: 300;
+        line-height: 0;
+      }
+
+      .grid-grain {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+        background-size: 96px 96px;
+      }
+
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.35rem 4rem;
+        color: rgba(228, 227, 225, 0.82);
+        mix-blend-mode: screen;
+      }
+
+      .nav-center,
+      .nav-socials {
+        display: flex;
+        align-items: center;
+        gap: 1.35rem;
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .nav-socials {
+        justify-content: flex-end;
+        gap: 1rem;
+      }
+
+      .nav-center a,
+      .nav-socials a {
+        transition: color 180ms ease;
+      }
+
+      .nav-center a:hover,
+      .nav-socials a:hover {
+        color: var(--olive);
+      }
+
+      .logo {
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: 1.9rem;
+        line-height: 1;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+        isolation: isolate;
+        padding: 7.5rem 4rem 4rem;
+        background:
+          radial-gradient(circle at 58% 58%, rgba(156, 170, 105, 0.13), transparent 24rem),
+          linear-gradient(120deg, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.7) 48%, rgba(5, 5, 5, 0.2)),
+          var(--black);
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -3;
+        opacity: 0.38;
+        background: url("assets/brand-board.png") center / cover no-repeat;
+        filter: saturate(0.45) contrast(1.1);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(90deg, var(--black) 0%, rgba(5, 5, 5, 0.9) 26%, rgba(5, 5, 5, 0.28) 100%),
+          linear-gradient(to bottom, transparent 0%, var(--black) 96%);
+      }
+
+      #network {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero-title {
+        max-width: 74rem;
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: clamp(3.7rem, 7.1vw, 7.9rem);
+        font-weight: 300;
+        line-height: 0.96;
+        letter-spacing: 0;
+        text-shadow: 0 0 42px rgba(228, 227, 225, 0.12);
+      }
+
+      .hero-title span {
+        display: block;
+        white-space: nowrap;
+      }
+
+      .hero-system {
+        position: absolute;
+        right: max(-7rem, -4vw);
+        top: 14%;
+        width: min(39vw, 38rem);
+        aspect-ratio: 1;
+        opacity: 0.78;
+      }
+
+      .orbit {
+        position: absolute;
+        inset: 7%;
+        border: 1px dashed rgba(156, 170, 105, 0.28);
+        border-radius: 999px;
+        animation: turn 38s linear infinite;
+      }
+
+      .orbit:nth-child(2) {
+        inset: 20%;
+        border-style: solid;
+        opacity: 0.42;
+        animation-duration: 24s;
+        animation-direction: reverse;
+      }
+
+      .orbit:nth-child(3) {
+        inset: 33%;
+        opacity: 0.28;
+        animation-duration: 18s;
+      }
+
+      .hero-piece {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: clamp(5.3rem, 7vw, 7.9rem);
+        height: clamp(4.2rem, 5.6vw, 6.2rem);
+        clip-path: polygon(16% 0, 84% 0, 84% 27%, 100% 27%, 100% 73%, 84% 73%, 84% 100%, 16% 100%, 16% 73%, 0 73%, 0 27%, 16% 27%);
+        border: 1px solid rgba(228, 227, 225, 0.32);
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.025) 52%, rgba(156, 170, 105, 0.1)),
+          rgba(14, 14, 14, 0.7);
+        box-shadow:
+          inset 0 1px 14px rgba(255, 255, 255, 0.16),
+          inset 0 -18px 30px rgba(0, 0, 0, 0.48),
+          0 18px 45px rgba(0, 0, 0, 0.32),
+          0 0 26px rgba(156, 170, 105, 0.1);
+        backdrop-filter: blur(12px);
+        color: rgba(255, 255, 255, 0.9);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px black, 0 0 12px rgba(255, 255, 255, 0.18);
+        transition: transform 260ms ease, opacity 260ms ease, filter 260ms ease;
+      }
+
+      .hero-piece:hover {
+        transform: translateY(-10px) scale(1.06) rotate(var(--r));
+        filter: brightness(1.28);
+      }
+
+      .hp-1 {
+        --r: -9deg;
+        left: 11%;
+        top: 15%;
+        transform: rotate(var(--r));
+      }
+
+      .hp-2 {
+        --r: 13deg;
+        right: 12%;
+        top: 19%;
+        transform: rotate(var(--r));
+      }
+
+      .hp-3 {
+        --r: 0deg;
+        left: 41%;
+        top: 43%;
+        transform: rotate(var(--r));
+        box-shadow:
+          inset 0 1px 16px rgba(255, 255, 255, 0.2),
+          inset 0 -18px 30px rgba(0, 0, 0, 0.45),
+          0 0 52px rgba(214, 220, 133, 0.34);
+      }
+
+      .hp-4 {
+        --r: 8deg;
+        left: 14%;
+        bottom: 13%;
+        transform: rotate(var(--r));
+      }
+
+      .hp-5 {
+        --r: -14deg;
+        right: 10%;
+        bottom: 14%;
+        transform: rotate(var(--r));
+      }
+
+      .hp-6 {
+        --r: 18deg;
+        left: 49%;
+        top: 7%;
+        width: 4.8rem;
+        height: 3.8rem;
+        opacity: 0.58;
+        transform: rotate(var(--r));
+      }
+
+      .hp-7 {
+        --r: -20deg;
+        left: 52%;
+        bottom: 4%;
+        width: 4.8rem;
+        height: 3.8rem;
+        opacity: 0.5;
+        transform: rotate(var(--r));
+      }
+
+      .progress-never {
+        position: absolute;
+        left: 4rem;
+        bottom: 3rem;
+        width: min(24rem, calc(100% - 8rem));
+      }
+
+      .progress-never .track {
+        height: 1px;
+        background: rgba(228, 227, 225, 0.16);
+      }
+
+      .progress-never .fill {
+        height: 1px;
+        width: 87%;
+        background: linear-gradient(90deg, transparent, var(--olive));
+        box-shadow: 0 0 18px rgba(156, 170, 105, 0.36);
+      }
+
+      .intro-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8rem;
+        max-width: 86rem;
+      }
+
+      .intro-main {
+        max-width: 66rem;
+      }
+
+      .intro-main h2 {
+        margin-top: 2.5rem;
+        font-size: clamp(2rem, 4vw, 4.35rem);
+        line-height: 1.08;
+        font-weight: 300;
+      }
+
+      .intro-main p {
+        margin-top: 2.5rem;
+        font-size: clamp(1.65rem, 2.8vw, 3.1rem);
+        line-height: 1.05;
+      }
+
+      .intro-jigsaw {
+        display: grid;
+        grid-template-columns: minmax(18rem, 0.72fr) minmax(28rem, 1fr);
+        gap: 5rem;
+        align-items: center;
+      }
+
+      .intro-jigsaw h3 {
+        margin-top: 1.6rem;
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: clamp(1.8rem, 3vw, 3.4rem);
+        font-weight: 300;
+        line-height: 1.05;
+      }
+
+      .intro-jigsaw p {
+        max-width: 29rem;
+        margin-top: 2.5rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      .diagram {
+        position: relative;
+        min-height: 34rem;
+        border: 1px solid rgba(228, 227, 225, 0.14);
+        background:
+          radial-gradient(circle at 52% 52%, rgba(156, 170, 105, 0.13), transparent 13rem),
+          rgba(255, 255, 255, 0.012);
+        overflow: hidden;
+      }
+
+      .diagram::before,
+      .diagram::after {
+        content: "";
+        position: absolute;
+        inset: 16%;
+        border: 1px dashed rgba(156, 170, 105, 0.3);
+        border-radius: 999px;
+      }
+
+      .diagram::after {
+        inset: 29%;
+        border-style: solid;
+        border-color: rgba(228, 227, 225, 0.12);
+      }
+
+      .note {
+        position: absolute;
+        max-width: 11rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        line-height: 1.45;
+      }
+
+      .note strong {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: var(--olive);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .n-foundation {
+        top: 2rem;
+        left: 2rem;
+      }
+
+      .n-connections {
+        top: 2.3rem;
+        right: 2rem;
+      }
+
+      .n-growth {
+        right: 2rem;
+        bottom: 4rem;
+      }
+
+      .n-center {
+        left: 50%;
+        bottom: 1.8rem;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      .diagram-piece {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 8rem;
+        height: 6.5rem;
+        clip-path: polygon(16% 0, 84% 0, 84% 28%, 100% 28%, 100% 72%, 84% 72%, 84% 100%, 16% 100%, 16% 72%, 0 72%, 0 28%, 16% 28%);
+        border: 1px solid rgba(228, 227, 225, 0.35);
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.19), rgba(255, 255, 255, 0.025)),
+          rgba(18, 18, 18, 0.72);
+        box-shadow:
+          inset 0 0 18px rgba(255, 255, 255, 0.12),
+          0 12px 30px rgba(0, 0, 0, 0.42);
+        color: white;
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px #000, 0 0 16px rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .dp-1 {
+        left: 22%;
+        top: 23%;
+        transform: rotate(-12deg);
+      }
+
+      .dp-2 {
+        right: 20%;
+        top: 24%;
+        transform: rotate(13deg);
+      }
+
+      .dp-3 {
+        left: 42%;
+        top: 42%;
+        box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.15), 0 0 44px rgba(214, 220, 133, 0.28);
+      }
+
+      .dp-4 {
+        left: 24%;
+        bottom: 21%;
+        transform: rotate(7deg);
+      }
+
+      .dp-5 {
+        right: 20%;
+        bottom: 21%;
+        transform: rotate(-10deg);
+      }
+
+      .frame-label {
+        position: relative;
+        display: inline-flex;
+        margin-top: 3.5rem;
+        padding: 1rem 1.55rem;
+        color: rgba(228, 227, 225, 0.62);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.67rem;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+      }
+
+      .frame-label::before,
+      .frame-label::after {
+        content: "";
+        position: absolute;
+        width: 0.8rem;
+        height: 0.8rem;
+        border-color: var(--olive);
+      }
+
+      .frame-label::before {
+        left: 0;
+        top: 0;
+        border-left: 1px solid;
+        border-top: 1px solid;
+      }
+
+      .frame-label::after {
+        right: 0;
+        bottom: 0;
+        border-right: 1px solid;
+        border-bottom: 1px solid;
+      }
+
+      .narrative {
+        display: grid;
+        grid-template-columns: minmax(17rem, 0.38fr) minmax(30rem, 1fr);
+        min-height: 42rem;
+        border-top: 1px solid rgba(228, 227, 225, 0.18);
+        border-bottom: 1px solid rgba(228, 227, 225, 0.18);
+      }
+
+      .narrative-top {
+        grid-column: 1 / -1;
+        display: grid;
+        place-items: center;
+        min-height: 5rem;
+        border-bottom: 1px solid rgba(228, 227, 225, 0.18);
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .narrative-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2.5rem;
+        padding: 4rem;
+        border-right: 1px solid rgba(228, 227, 225, 0.18);
+      }
+
+      .narrative-panel h2 {
+        margin-top: 1.5rem;
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: clamp(1.9rem, 3.2vw, 3.6rem);
+        font-weight: 300;
+        line-height: 1;
+      }
+
+      .narrative-panel p {
+        color: var(--paper);
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: 1.18rem;
+        line-height: 1.1;
+      }
+
+      .narrative-stage {
+        position: relative;
+        min-height: 36rem;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(5, 5, 5, 0.1), rgba(5, 5, 5, 0.55)),
+          url("assets/brand-board.png") 47% 41% / 190% no-repeat;
+      }
+
+      .narrative-stage::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 52% 48%, transparent 0 17rem, rgba(5, 5, 5, 0.6) 34rem);
+      }
+
+      .story-piece {
+        position: absolute;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 10rem;
+        height: 8rem;
+        clip-path: polygon(16% 0, 84% 0, 84% 28%, 100% 28%, 100% 72%, 84% 72%, 84% 100%, 16% 100%, 16% 72%, 0 72%, 0 28%, 16% 28%);
+        border: 1px solid rgba(228, 227, 225, 0.34);
+        background:
+          linear-gradient(140deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.04) 48%, rgba(156, 170, 105, 0.12)),
+          rgba(20, 20, 20, 0.75);
+        box-shadow:
+          inset 0 1px 20px rgba(255, 255, 255, 0.16),
+          inset 0 -24px 42px rgba(0, 0, 0, 0.46),
+          0 0 36px rgba(156, 170, 105, 0.11);
+        backdrop-filter: blur(13px);
+        color: rgba(255, 255, 255, 0.92);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px #000, 0 0 14px rgba(255, 255, 255, 0.18);
+      }
+
+      .sp-1 {
+        left: 17%;
+        top: 12%;
+        transform: rotate(-14deg);
+      }
+
+      .sp-2 {
+        right: 18%;
+        top: 13%;
+        transform: rotate(14deg);
+      }
+
+      .sp-3 {
+        left: 43%;
+        top: 38%;
+        transform: rotate(1deg);
+        box-shadow:
+          inset 0 1px 20px rgba(255, 255, 255, 0.2),
+          inset 0 -24px 42px rgba(0, 0, 0, 0.46),
+          0 0 58px rgba(214, 220, 133, 0.3);
+      }
+
+      .sp-4 {
+        left: 20%;
+        bottom: 13%;
+        transform: rotate(9deg);
+      }
+
+      .sp-5 {
+        right: 17%;
+        bottom: 14%;
+        transform: rotate(-12deg);
+      }
+
+      .sp-6 {
+        left: 47%;
+        top: 8%;
+        width: 7rem;
+        height: 5.5rem;
+        opacity: 0.55;
+        transform: rotate(18deg);
+      }
+
+      .work-grid {
+        display: grid;
+        grid-template-columns: 16rem repeat(6, minmax(0, 1fr));
+        gap: 0.8rem;
+      }
+
+      .work-intro {
+        grid-row: span 2;
+        padding-top: 0.9rem;
+      }
+
+      .work-intro h2 {
+        margin-top: 1.6rem;
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: clamp(2rem, 3.5vw, 4.2rem);
+        font-weight: 300;
+        line-height: 0.98;
+      }
+
+      .work-intro p {
+        margin-top: 2.5rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      .work-card {
+        position: relative;
+        min-height: 25rem;
+        grid-column: span 2;
+        overflow: hidden;
+        border: 1px solid rgba(228, 227, 225, 0.2);
+        border-radius: 0.35rem;
+        background: rgba(255, 255, 255, 0.012);
+        padding: 0.8rem;
+        transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+      }
+
+      .work-card:hover {
+        transform: translateY(-0.4rem);
+        border-color: rgba(156, 170, 105, 0.75);
+        background: rgba(156, 170, 105, 0.035);
+      }
+
+      .work-card.feature {
+        min-height: 32rem;
+      }
+
+      .work-image {
+        height: 13.5rem;
+        margin-bottom: 1.6rem;
+        border: 1px solid rgba(228, 227, 225, 0.08);
+        background-size: cover;
+        background-position: center;
+        filter: saturate(0.68) contrast(1.08);
+      }
+
+      .feature .work-image {
+        height: 17rem;
+      }
+
+      .work-no {
+        position: absolute;
+        top: 1.4rem;
+        left: 1.4rem;
+        color: var(--olive);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-shadow: 0 0 20px rgba(156, 170, 105, 0.18);
+      }
+
+      .work-card h3 {
+        color: white;
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .role {
+        margin-top: 0.9rem;
+        color: var(--olive);
+        font-family: "Space Grotesk", Inter, sans-serif;
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .work-card p:not(.role) {
+        margin-top: 1rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        line-height: 1.48;
+      }
+
+      .work-card time {
+        position: absolute;
+        right: 0.8rem;
+        bottom: 1.2rem;
+        left: 0.8rem;
+        border-top: 1px solid rgba(228, 227, 225, 0.12);
+        padding-top: 1rem;
+        color: rgba(228, 227, 225, 0.52);
+        font-size: 0.67rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .img-1 {
+        background-image: radial-gradient(circle, rgba(156, 170, 105, 0.18), transparent 50%), url("assets/work-grid.png");
+        background-position: 50% 7%;
+        background-size: 196%;
+      }
+
+      .img-2 {
+        background-image: url("assets/brand-board.png");
+        background-position: 57% 84%;
+        background-size: 318%;
+      }
+
+      .img-3 {
+        background-image: url("assets/brand-board.png");
+        background-position: 57% 35%;
+        background-size: 305%;
+      }
+
+      .img-4 {
+        background-image: url("assets/work-grid.png");
+        background-position: 72% 21%;
+        background-size: 205%;
+      }
+
+      .img-5 {
+        background-image: url("assets/work-grid.png");
+        background-position: 44% 77%;
+        background-size: 205%;
+      }
+
+      .img-6 {
+        background-image: url("assets/work-grid.png");
+        background-position: 60% 78%;
+        background-size: 205%;
+      }
+
+      .img-7 {
+        background-image: url("assets/work-grid.png");
+        background-position: 78% 77%;
+        background-size: 205%;
+      }
+
+      @keyframes turn {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .site-nav {
+          grid-template-columns: 1fr auto;
+          row-gap: 0.8rem;
+          padding: 1.2rem 1.5rem;
+        }
+
+        .nav-center {
+          grid-column: 1 / -1;
+          grid-row: 2;
+          justify-self: center;
+          display: flex;
+          font-size: 0.63rem;
+        }
+
+        .hero,
+        .section-pad,
+        .narrative-panel {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        .hero-system {
+          right: -16rem;
+          top: 20%;
+          width: 44rem;
+          opacity: 0.48;
+        }
+
+        .intro-jigsaw,
+        .narrative,
+        .work-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .narrative-top,
+        .work-intro {
+          grid-column: auto;
+        }
+
+        .narrative-panel {
+          border-right: 0;
+          border-bottom: 1px solid rgba(228, 227, 225, 0.18);
+        }
+
+        .work-card,
+        .work-card.feature {
+          grid-column: auto;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav-socials {
+          gap: 0.7rem;
+          font-size: 0.62rem;
+        }
+
+        .hero {
+          padding: 6rem 1.5rem 3rem;
+        }
+
+        .hero-title {
+          font-size: clamp(2.85rem, 13vw, 4.5rem);
+          line-height: 0.98;
+        }
+
+        .hero-title span {
+          white-space: normal;
+        }
+
+        .hero-system {
+          top: 32%;
+          right: -18rem;
+          width: 35rem;
+        }
+
+        .progress-never {
+          left: 1.5rem;
+          bottom: 2rem;
+          width: calc(100% - 3rem);
+        }
+
+        .section-pad {
+          padding-top: 6.5rem;
+          padding-bottom: 6.5rem;
+        }
+
+        .diagram {
+          min-height: 31rem;
+        }
+
+        .diagram-piece,
+        .story-piece {
+          width: 6.3rem;
+          height: 5.1rem;
+          font-size: 0.55rem;
+        }
+
+        .note {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="grid-grain">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="logo" href="index.html" aria-label="DK homepage">DK</a>
+      <div class="nav-center">
+        <a href="index.html" aria-current="page">Jigsaw</a>
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="nav-socials">
+        <a href="mailto:hello@desi.studio" aria-label="Email Desi">Gmail</a>
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://twitter.com/" aria-label="Twitter">Twitter</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <canvas id="network" aria-hidden="true"></canvas>
+        <div class="relative z-10 flex min-h-[calc(100svh-11.5rem)] items-center">
+          <h1 id="hero-title" class="hero-title">
+            <span>Hi, I'm Desi — I design</span>
+            <span>the conditions for people</span>
+            <span>to find each other.</span>
+          </h1>
+        </div>
+
+        <div class="hero-system" aria-hidden="true">
+          <div class="orbit"></div>
+          <div class="orbit"></div>
+          <div class="orbit"></div>
+          <span class="hero-piece hp-1">Events</span>
+          <span class="hero-piece hp-2">Community</span>
+          <span class="hero-piece hp-3">Web3</span>
+          <span class="hero-piece hp-4">Growth</span>
+          <span class="hero-piece hp-5">Exploration</span>
+          <span class="hero-piece hp-6">Signal</span>
+          <span class="hero-piece hp-7">Trust</span>
+        </div>
+
+        <div class="progress-never" aria-hidden="true">
+          <div class="track"><div class="fill"></div></div>
+        </div>
+      </section>
+
+      <section class="section-pad border-t hairline" id="intro" aria-labelledby="intro-title">
+        <div class="intro-layout">
+          <div class="intro-main">
+            <p class="kicker">Intro</p>
+            <h2 id="intro-title" class="font-light">
+              I work with founders and teams to build communities run events, and design growth
+              systems that turn early believers into ecosystems. One thread: people.
+            </h2>
+            <p><em>The tools change. The job never does.</em></p>
+          </div>
+
+          <div class="intro-jigsaw">
+            <div>
+              <p class="kicker">My jigsaw narrative</p>
+              <h3>
+                A career isn't a straight line.<br />
+                It's a <em>puzzle</em> you build over time.
+              </h3>
+              <p>
+                Pieces from different moments, fields, and people. Some connect right away. Some
+                take years. All of it <em>shapes the center.</em>
+              </p>
+              <div class="frame-label">Intentional by design</div>
+            </div>
+
+            <div class="diagram" aria-label="Jigsaw career system">
+              <span class="diagram-piece dp-1">Events</span>
+              <span class="diagram-piece dp-2">Community</span>
+              <span class="diagram-piece dp-3">Web3</span>
+              <span class="diagram-piece dp-4">Growth</span>
+              <span class="diagram-piece dp-5">Exploration</span>
+              <p class="note n-foundation"><strong>Foundation</strong>Education, early experiences, and the curiosity that started it all.</p>
+              <p class="note n-connections"><strong>Connections</strong>Some click instantly. Others find their piece years later.</p>
+              <p class="note n-growth"><strong>Growth</strong>Communities. Systems. Impact that compounds beyond me.</p>
+              <p class="note n-center"><strong>The center</strong>The version of me that's still becoming.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="narrative" aria-labelledby="narrative-title">
+        <div class="narrative-top">
+          Most careers come with a box, a picture on the lid, a clear finished image. Mine didn't.
+          What I have instead is a table full of fragments from very different worlds.
+        </div>
+
+        <aside class="narrative-panel">
+          <div>
+            <p class="kicker">The jigsaw</p>
+            <h2 id="narrative-title">Every piece counts.</h2>
+            <p class="mt-8">
+              Not everything connects yet.<br /><br />
+              Building in public<br />
+              Learning in private<br />
+              Scaling in trust
+            </p>
+          </div>
+          <div class="grid gap-7 text-sm text-[#767676]">
+            <p><span class="font-label text-[#9caa69]">Hover</span><br />Explore</p>
+            <p><span class="font-label text-[#9caa69]">Click</span><br />Focus</p>
+          </div>
+        </aside>
+
+        <div class="narrative-stage" aria-label="Orbiting jigsaw system">
+          <span class="story-piece sp-1">Events</span>
+          <span class="story-piece sp-2">Community</span>
+          <span class="story-piece sp-3">Web3</span>
+          <span class="story-piece sp-4">Growth</span>
+          <span class="story-piece sp-5">Exploration</span>
+          <span class="story-piece sp-6">Trust</span>
+        </div>
+      </section>
+
+      <section class="section-pad" id="work-preview" aria-labelledby="work-title">
+        <div class="work-grid">
+          <aside class="work-intro">
+            <p class="kicker">Work : view my evolution</p>
+            <h2 id="work-title">The<br />Clusters</h2>
+            <p>
+              Each role. Each challenge. Each piece that taught me something new.
+              <br /><br /><em>Still assembling.</em>
+            </p>
+          </aside>
+
+          <article class="work-card feature">
+            <div class="work-image img-1"></div>
+            <span class="work-no">01</span>
+            <h3>Tago Capital</h3>
+            <p class="role">BD</p>
+            <p>A full-stack product studio for high-agency founders.</p>
+            <time>Apr 2026 - Present</time>
+          </article>
+
+          <article class="work-card feature">
+            <div class="work-image img-2"></div>
+            <span class="work-no">02</span>
+            <h3>Lemon Tree Tech.</h3>
+            <p class="role">Partnerships &amp; Growth</p>
+            <p>Market-making fund focused on exploring and supporting emerging DEX.</p>
+            <time>Apr 2024 - Present</time>
+          </article>
+
+          <article class="work-card feature">
+            <div class="work-image img-3"></div>
+            <span class="work-no">03</span>
+            <h3>Derive.xyz</h3>
+            <p class="role">Growth Marketer</p>
+            <p>The leading onchain options platform for BTC, ETH, SOL, and HYPE.</p>
+            <time>Sept 2024 - Feb 2026</time>
+          </article>
+
+          <article class="work-card">
+            <div class="work-image img-4"></div>
+            <span class="work-no">04</span>
+            <h3>Bruce Media</h3>
+            <p class="role">Social Media Intern</p>
+            <p>A boutique creative agency and consultancy that specialises in sport.</p>
+            <time>Jan 2023 - Apr 2023</time>
+          </article>
+
+          <article class="work-card">
+            <div class="work-image img-5"></div>
+            <span class="work-no">05</span>
+            <h3>Misura</h3>
+            <p class="role">Sales &amp; Design Consultant</p>
+            <p>Curating high-end Italian and Spanish furniture for modern, design-led living.</p>
+            <time>Jun 2022 - Dec 2022</time>
+          </article>
+
+          <article class="work-card">
+            <div class="work-image img-6"></div>
+            <span class="work-no">06</span>
+            <h3>RMIT</h3>
+            <p class="role">Freelance Interior Designer</p>
+            <p>Interior design and events liaison for campus initiatives and projects.</p>
+            <time>Mar 2022 - Nov 2022</time>
+          </article>
+
+          <article class="work-card">
+            <div class="work-image img-7"></div>
+            <span class="work-no">07</span>
+            <h3>JAU Snacks / Mr Yao</h3>
+            <p class="role">Graphic Designer</p>
+            <p>Branding for Taiwanese street food.</p>
+            <time>Aug 2021 - Feb 2022</time>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const canvas = document.querySelector("#network");
+      const ctx = canvas.getContext("2d");
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let w = 0;
+      let h = 0;
+      let points = [];
+      let pointer = { x: 0, y: 0, active: false };
+
+      function size() {
+        const ratio = Math.min(devicePixelRatio || 1, 2);
+        w = canvas.offsetWidth;
+        h = canvas.offsetHeight;
+        canvas.width = w * ratio;
+        canvas.height = h * ratio;
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        points = Array.from({ length: Math.max(70, Math.min(135, Math.round(w / 14))) }, (_, index) => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: index % 11 === 0 ? 2.2 : 1,
+          pulse: Math.random() * Math.PI * 2,
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        points.forEach((p) => {
+          if (!reduced) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.pulse += 0.018;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+          }
+        });
+
+        for (let i = 0; i < points.length; i++) {
+          for (let j = i + 1; j < points.length; j++) {
+            const a = points[i];
+            const b = points[j];
+            const d = Math.hypot(a.x - b.x, a.y - b.y);
+            const nearPointer =
+              pointer.active &&
+              (Math.hypot(a.x - pointer.x, a.y - pointer.y) < 240 ||
+                Math.hypot(b.x - pointer.x, b.y - pointer.y) < 240);
+            if (d < (nearPointer ? 175 : 82)) {
+              const alpha = (1 - d / (nearPointer ? 175 : 82)) * (nearPointer ? 0.42 : 0.12);
+              ctx.strokeStyle = `rgba(156, 170, 105, ${alpha})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        points.forEach((p) => {
+          const alpha = 0.28 + Math.sin(p.pulse) * 0.18;
+          ctx.fillStyle = `rgba(228, 227, 225, ${p.r > 1 ? 0.78 : alpha})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        if (!reduced) requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", size);
+      window.addEventListener("pointermove", (event) => {
+        pointer = { x: event.clientX, y: event.clientY, active: true };
+      });
+      window.addEventListener("pointerleave", () => {
+        pointer.active = false;
+      });
+
+      size();
+      draw();
+    </script>
+  </body>
+</html>
