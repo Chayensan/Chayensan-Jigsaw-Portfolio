@@ -2,40 +2,242 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #030303;
-  --bg-2: #080806;
-  --panel: #11110e;
-  --text: #e8e4d6;
-  --muted: #858173;
-  --line: rgba(232, 228, 214, 0.16);
-  --line-strong: rgba(232, 228, 214, 0.28);
-  --moss: #9caa69;
-  --ember: #c8a95b;
-  --gutter: clamp(1.5rem, 6vw, 6.5rem);
-  --max: 88rem;
-  --type-label: 0.66rem;
-  --type-body: 0.875rem;
-  --type-title: 1.4375rem;
-  --type-display: clamp(2.05rem, 3.2vw, 3rem);
-  --nav-height: 4.55rem;
-  --section-y: clamp(7.5rem, 14vw, 13rem);
-  --section-gap: clamp(6rem, 12vw, 12rem);
-  --work-gap: clamp(5rem, 8vw, 8rem);
-  --work-content-width: min(104rem, calc(100vw - (var(--gutter) * 2)));
-  --work-card-offset: calc(((var(--work-content-width) - var(--work-gap)) * 0.242424) + var(--work-gap));
-  --font-display: IvyPresto, "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Avenir Next", "Neue Haas Grotesk Text", "Segoe UI", sans-serif;
-  --font-label: Satoshi, "Avenir Next", "Segoe UI", sans-serif;
-  color-scheme: dark;
+/* =========================
+   LOCAL WEB FONTS
+========================= */
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
 }
 
-* {
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+/* =========================
+   ROOT DESIGN TOKENS
+========================= */
+
+  --font-display: "Clash Display", Arial, sans-serif;
+  --font-body: "Satoshi", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --fs-h1: clamp(3rem, 5vw, 4.5rem);
+  --fs-h2: clamp(2.2rem, 3.5vw, 3rem);
+  --fs-h3: 1.6rem;
+
+  --fs-body-xl: 1.25rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-body-sm: 0.875rem;
+
+  --fs-mono: 0.8rem;
+  --fs-mono-sm: 0.7rem;
+
+  --lh-tight: 1.1;
+  --lh-body: 1.6;
+
+  --ls-tight: -0.02em;
+  --ls-wide: 0.08em;
+
+  --color-text-primary: #FBF8EC;
+  --color-text-secondary: rgba(232, 228, 214, 0.75);
+  --color-text-tertiary: rgba(232, 228, 214, 0.5);
+  --color-accent: #9CAA69;
+  --color-bg: #0b0b0b;
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+    /* =========================
+     COMPATIBILITY / LEGACY ALIASES
+     keep old CSS working while enforcing new system
+  ========================= */
+
+  --fs-display-xl: clamp(3.2rem, 6vw, 6.25rem);
+  --fs-anchor: clamp(5.8rem, 10.6vw, 10.8rem);
+
+  --lh-snug: 1.18;
+  --lh-normal: 1.45;
+
+  --space-2xs: 0.25rem;
+  --space-4xl: clamp(4.5rem, 8vw, 7.5rem);
+  --space-5xl: clamp(6rem, 12vw, 12rem);
+  --space-section: clamp(7.5rem, 14vw, 13rem);
+  --space-section-sm: clamp(5rem, 9vw, 8rem);
+  --space-section-lg: clamp(8rem, 15vw, 14rem);
+
+  --bg: var(--color-bg);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-tertiary);
+  --moss: var(--color-accent);
+  --line: rgba(232, 228, 214, 0.16);
+  --line-strong: rgba(232, 228, 214, 0.28);
+
+  --font-ui: var(--font-body);
+  --font-meta: var(--font-mono);
+
+  --font-sans: var(--font-body);
+  --font-label: var(--font-body);
+
+  --type-label: var(--fs-mono-sm);
+  --type-body: var(--fs-body-sm);
+  --type-title: var(--fs-h3);
+  --type-display: var(--fs-h1);
+
+  --gutter: clamp(1.5rem, 6vw, 6.5rem);
+  --max: 88rem;
+  --section-y: var(--space-section);
+  --section-gap: var(--space-5xl);
+  --work-gap: var(--space-5xl);
+}
+
+/* =========================
+   RESET
+========================= */
+*, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
+  font-size: 16px;
   background: var(--bg);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  font-weight: 500;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+/* =========================
+   BODY TEXT
+========================= */
+p {
+  font-size: var(--fs-body);
+  color: var(--color-text-secondary);
+  max-width: 65ch;
+}
+
+.text-lg { font-size: var(--fs-body-lg); }
+.text-xl { font-size: var(--fs-body-xl); }
+.text-sm { font-size: var(--fs-body-sm); }
+
+/* =========================
+   MONO
+========================= */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* =========================
+   TYPE UTILITIES
+========================= */
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.subheading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+/* =========================
+   SPACING
+========================= */
+.stack-sm > * + * { margin-top: var(--space-sm); }
+.stack-md > * + * { margin-top: var(--space-md); }
+.stack-lg > * + * { margin-top: var(--space-lg); }
+.stack-xl > * + * { margin-top: var(--space-xl); }
+.stack-2xl > * + * { margin-top: var(--space-2xl); }
+
+/* =========================
+   SECTION
+========================= */
+section {
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.section-heading {
+  margin-bottom: var(--space-lg);
 }
 
 body {
@@ -47,9 +249,9 @@ body {
     radial-gradient(circle at 11% 76%, rgba(156, 170, 105, 0.1), transparent 28rem),
     linear-gradient(180deg, #030303, #070706 44%, #030303);
   color: var(--text);
-  font-family: var(--font-sans);
-  font-size: var(--type-body);
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
 body::before {
@@ -118,13 +320,16 @@ button {
 
 .nav-center,
 .nav-socials,
+.scroll-label {
+  font-family: var(--font-ui);
+}
+
 .eyebrow,
-.scroll-label,
 .ticker-strip,
 .section-header,
 .frame-label,
 .role {
-  font-family: var(--font-label);
+  font-family: var(--font-meta);
   text-transform: uppercase;
 }
 
@@ -153,7 +358,7 @@ button {
   padding: 0.7rem 1rem;
   border-radius: 999px;
   color: rgba(232, 228, 214, 0.54);
-  font-size: 0.62rem;
+  font-size: var(--fs-mono-sm);
   font-weight: 700;
   letter-spacing: 0.16em;
   white-space: nowrap;
@@ -174,7 +379,7 @@ button {
 
 .nav-item-index {
   color: rgba(232, 228, 214, 0.32);
-  font-size: 0.55rem;
+  font-size: var(--fs-mono-sm);
   letter-spacing: 0.2em;
 }
 
@@ -306,8 +511,8 @@ button {
   left: 0;
   top: -1.1rem;
   color: rgba(232, 228, 214, 0.32);
-  font-family: var(--font-label);
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
   letter-spacing: 0.04em;
 }
 
@@ -348,11 +553,11 @@ button {
 
 .hero-line-one {
   color: rgba(232, 228, 214, 0.92);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1.2rem, 1.65vw, 1.85rem);
   font-style: italic;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: var(--lh-snug);
   animation-delay: 0.12s;
 }
 
@@ -363,7 +568,7 @@ button {
   font-family: var(--font-display);
   font-size: clamp(2.9rem, 5.6vw, 6.25rem);
   font-weight: 500;
-  line-height: 0.92;
+  line-height: var(--lh-tight);
   letter-spacing: 0;
 }
 
@@ -382,7 +587,7 @@ button {
   color: rgba(232, 228, 214, 0.82);
   font-size: clamp(0.9rem, 1.05vw, 1.06rem);
   font-style: italic;
-  line-height: 1.2;
+  line-height: var(--lh-snug);
   animation: hero-line-in 0.72s 0.58s both cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -393,7 +598,7 @@ button {
   padding-bottom: 0.22rem;
   border-bottom: 1px solid rgba(156, 170, 105, 0.75);
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.82rem, 0.95vw, 0.98rem);
   font-style: italic;
   font-weight: 400;
@@ -406,9 +611,9 @@ button {
   display: grid;
   gap: clamp(1rem, 1.6vw, 1.45rem);
   color: var(--moss);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.88rem, 1vw, 1rem);
-  line-height: 1.18;
+  line-height: var(--lh-snug);
   animation: hero-line-in 0.78s 0.48s both cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -419,7 +624,7 @@ button {
 .hero-note-kicker,
 .hero-note-caps,
 .hero-signal h2 {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.8rem, 0.9vw, 0.92rem);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -485,7 +690,7 @@ button {
   margin-top: clamp(0.7rem, 1.2vw, 1rem);
   color: rgba(156, 170, 105, 0.88);
   font-size: clamp(0.82rem, 0.95vw, 0.98rem);
-  line-height: 1.18;
+  line-height: var(--lh-snug);
 }
 
 .hero-strip-end {
@@ -624,9 +829,8 @@ button {
   position: relative;
   z-index: 2;
   color: rgba(255, 255, 255, 0.92);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.11em;
   text-transform: uppercase;
   text-shadow:
@@ -650,9 +854,8 @@ button {
 .detail-card p {
   margin: 0 0 1rem;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -663,16 +866,15 @@ button {
   font-family: var(--font-display);
   font-size: var(--type-title);
   font-weight: 300;
-  line-height: 1.02;
+  line-height: var(--lh-tight);
 }
 
 .detail-card a {
   display: inline-flex;
   margin-top: 1.25rem;
   color: rgba(232, 228, 214, 0.64);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -699,7 +901,7 @@ button {
   margin: 0 0 1.7rem;
   color: var(--moss);
   font-size: var(--type-label);
-  font-weight: 800;
+  font-family: var(--font-mono);
   letter-spacing: 0.18em;
 }
 
@@ -760,9 +962,8 @@ button {
 .section-kicker p {
   margin: 0;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -778,10 +979,10 @@ button {
   max-width: min(68rem, 84vw);
   margin: 0;
   color: rgba(232, 228, 214, 0.88);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--type-display);
   font-weight: 300;
-  line-height: 1.16;
+  line-height: var(--lh-snug);
   letter-spacing: 0;
 }
 
@@ -791,7 +992,7 @@ button {
   font-family: var(--font-display);
   font-size: var(--type-title);
   font-style: italic;
-  line-height: 1.16;
+  line-height: var(--lh-snug);
 }
 
 .intro-diagram {
@@ -851,18 +1052,17 @@ button {
   left: 0;
   top: clamp(2rem, 4vw, 3.5rem);
   color: rgba(156, 170, 105, 0.58);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: 1.7rem;
   font-weight: 300;
-  line-height: 1;
+  line-height: var(--lh-tight);
 }
 
 .jigsaw-kicker {
   margin: 0 0 clamp(1.35rem, 2.6vw, 2.2rem);
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -873,7 +1073,7 @@ button {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 4.6rem);
   font-weight: 300;
-  line-height: 1.05;
+  line-height: var(--lh-tight);
   letter-spacing: 0;
 }
 
@@ -889,9 +1089,9 @@ button {
 .jigsaw-panel p {
   margin: 0;
   color: rgba(232, 228, 214, 0.68);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.78rem, 0.95vw, 0.98rem);
-  line-height: 1.55;
+  line-height: var(--lh-body);
 }
 
 .jigsaw-mindset {
@@ -1011,7 +1211,7 @@ button {
   max-width: 10rem;
   color: rgba(232, 228, 214, 0.76);
   font-size: clamp(0.78rem, 0.9vw, 0.9rem);
-  line-height: 1.42;
+  line-height: var(--lh-normal);
 }
 
 .driver-icon,
@@ -1048,10 +1248,10 @@ button {
 .jigsaw-resonance h3,
 .jigsaw-approach h3,
 .jigsaw-thread h3 {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1.75rem, 2.8vw, 3rem);
   font-weight: 300;
-  line-height: 1.12;
+  line-height: var(--lh-snug);
 }
 
 .build-piece-row {
@@ -1093,9 +1293,8 @@ button {
     radial-gradient(circle at 50% 56%, rgba(205, 222, 98, 0.08), transparent 58%),
     rgba(4, 4, 4, 0.08);
   color: rgba(205, 222, 98, 0.82);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: clamp(0.78rem, 1vw, 0.95rem);
-  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   box-shadow:
@@ -1174,9 +1373,8 @@ button {
   position: relative;
   z-index: 1;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: clamp(0.95rem, 1.45vw, 1.45rem);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-shadow:
@@ -1343,17 +1541,17 @@ button {
 
 .approach-list span {
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: 1.1rem;
-  line-height: 1;
+  line-height: var(--lh-tight);
 }
 
 .approach-list h4 {
   margin: 0 0 0.35rem;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
+
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1385,10 +1583,10 @@ button {
   max-width: 17rem;
   margin-top: clamp(1.8rem, 3vw, 2.5rem);
   color: var(--moss);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.8rem, 0.95vw, 0.98rem);
   font-weight: 500;
-  line-height: 1.45;
+  line-height: var(--lh-normal);
 }
 
 .thread-map {
@@ -1408,9 +1606,8 @@ button {
     radial-gradient(circle at 50% 50%, rgba(205, 222, 98, 0.24), transparent 42%),
     rgba(232, 228, 214, 0.018);
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: clamp(0.56rem, 0.72vw, 0.72rem);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1610,9 +1807,8 @@ button {
     linear-gradient(142deg, rgba(232, 228, 214, 0.16), rgba(232, 228, 214, 0.03) 46%, rgba(0, 0, 0, 0.58)),
     rgba(17, 17, 14, 0.9);
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   box-shadow: 0 20px 44px rgba(0, 0, 0, 0.36);
@@ -1633,14 +1829,14 @@ button {
   margin: 0;
   color: var(--muted);
   font-size: var(--type-body);
-  line-height: 1.45;
+  line-height: var(--lh-normal);
 }
 
 .system-node strong {
   display: block;
   margin-bottom: 0.45rem;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -1697,7 +1893,7 @@ button {
   color: rgba(232, 228, 214, 0.58);
   text-align: center;
   font-size: clamp(0.78rem, 0.95vw, 0.95rem);
-  line-height: 1.45;
+  line-height: var(--lh-normal);
 }
 
 .narrative-grid {
@@ -1738,19 +1934,18 @@ button {
 .narrative-copy > p:not(.eyebrow) {
   margin: clamp(1.2rem, 2vw, 1.9rem) 0 0;
   color: rgba(232, 228, 214, 0.82);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--type-body);
-  line-height: 1.55;
+  line-height: var(--lh-body);
 }
 
 .narrative-copy > .narrative-instruction {
   margin-top: clamp(1.15rem, 1.8vw, 1.65rem);
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.03em;
-  line-height: 1.2;
+  line-height: var(--lh-snug);
   text-transform: uppercase;
 }
 
@@ -1927,7 +2122,7 @@ button {
   color: rgba(232, 228, 214, 0.68);
   cursor: pointer;
   font-size: var(--type-label);
-  line-height: 1;
+  line-height: var(--lh-tight);
 }
 
 .jigsaw-layer-close:hover,
@@ -1939,9 +2134,8 @@ button {
 .jigsaw-layer-card p {
   margin: 0 2rem 0.7rem 0;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -1952,7 +2146,7 @@ button {
   font-family: var(--font-display);
   font-size: var(--type-title);
   font-weight: 300;
-  line-height: 0.96;
+  line-height: var(--lh-tight);
 }
 
 .jigsaw-layer-card span {
@@ -1960,7 +2154,7 @@ button {
   margin-top: 0.9rem;
   color: rgba(232, 228, 214, 0.74);
   font-size: var(--type-body);
-  line-height: 1.5;
+  line-height: var(--lh-normal);
 }
 
 .jigsaw-detail-panel {
@@ -1979,9 +2173,8 @@ button {
 .jigsaw-detail-panel p {
   margin: 0;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -1992,7 +2185,7 @@ button {
   font-family: var(--font-display);
   font-size: var(--type-title);
   font-weight: 300;
-  line-height: 1.08;
+  line-height: var(--lh-tight);
 }
 
 .jigsaw-detail-panel span,
@@ -2000,7 +2193,7 @@ button {
   display: block;
   color: rgba(232, 228, 214, 0.72);
   font-size: var(--type-body);
-  line-height: 1.58;
+  line-height: var(--lh-body);
 }
 
 .jigsaw-detail-panel span {
@@ -2027,11 +2220,10 @@ button {
   border-radius: 999px;
   background: rgba(156, 170, 105, 0.075);
   color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: calc(var(--type-label) * 0.86);
-  font-weight: 800;
   letter-spacing: 0.04em;
-  line-height: 1;
+  line-height: var(--lh-tight);
   padding: 0.34rem 0.55rem;
   text-transform: uppercase;
   white-space: normal;
@@ -2069,16 +2261,15 @@ button {
   margin: clamp(2.5rem, 4vw, 3.5rem) 0 0;
   color: var(--muted);
   font-size: var(--type-body);
-  line-height: 1.6;
+  line-height: var(--lh-body);
 }
 
 .work-intro a {
   display: inline-flex;
   margin-top: clamp(2.25rem, 4vw, 3.5rem);
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -2145,21 +2336,21 @@ button {
   font-family: var(--font-display);
   font-size: var(--type-title);
   font-weight: 300;
-  line-height: 1.02;
+  line-height: var(--lh-tight);
 }
 
 .work-card p {
   max-width: 24rem;
   color: var(--muted);
   font-size: var(--type-body);
-  line-height: 1.58;
+  line-height: var(--lh-body);
 }
 
 .work-card .role {
   margin: clamp(1.25rem, 2vw, 1.8rem) 0 0;
   color: var(--moss);
   font-size: var(--type-label);
-  font-weight: 800;
+  font-family: var(--font-mono);
   letter-spacing: 0.1em;
 }
 
@@ -2267,9 +2458,9 @@ button {
   margin: 0;
   color: var(--text);
   font-family: var(--font-display);
-  font-size: 53.6px;
+  font-size: var(--fs-h1);
   font-weight: 300;
-  line-height: 0.98;
+  line-height: var(--lh-tight);
 }
 
 .work-hero-content > p:not(.eyebrow) {
@@ -2278,7 +2469,7 @@ button {
   margin: 0;
   color: rgba(232, 228, 214, 0.7);
   font-size: var(--type-body);
-  line-height: 1.62;
+  line-height: var(--lh-body);
 }
 
 .work-hero-media {
@@ -2340,7 +2531,7 @@ button {
   margin: 2rem 0 0;
   color: var(--muted);
   font-size: var(--type-body);
-  line-height: 1.62;
+  line-height: var(--lh-body);
 }
 
 .about-page {
@@ -2418,10 +2609,10 @@ button {
   max-width: calc(100% - 3rem);
   margin: 0;
   color: var(--moss);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1.5rem, 3.35vw, 3.35rem);
   font-weight: 700;
-  line-height: 1.03;
+  line-height: var(--lh-tight);
   letter-spacing: 0;
   text-align: center;
   white-space: normal;
@@ -2466,10 +2657,10 @@ button {
   display: grid;
   gap: clamp(1rem, 2vw, 1.35rem);
   color: rgba(232, 228, 214, 0.68);
-  font-family: var(--font-label);
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
   font-weight: 700;
-  line-height: 1.6;
+  line-height: var(--lh-body);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2493,8 +2684,8 @@ button {
 .about-copy {
   max-width: 39rem;
   color: rgba(232, 228, 214, 0.82);
-  font-size: 14px;
-  line-height: 1.72;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
 }
 
 .about-copy p {
@@ -2506,7 +2697,7 @@ button {
   color: var(--text);
   font-family: var(--font-display);
   font-size: var(--type-title);
-  line-height: 1.18;
+  line-height: var(--lh-snug);
 }
 
 .about-copy p + p {
@@ -2623,11 +2814,11 @@ button {
 .case-hero h1 {
   margin: 0;
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: clamp(2.1rem, 4vw, 4.25rem);
-  font-weight: 800;
-  letter-spacing: 0;
-  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
   text-transform: uppercase;
 }
 
@@ -2636,7 +2827,7 @@ button {
   margin: clamp(0.85rem, 1.8vw, 1.35rem) 0 0;
   color: rgba(232, 228, 214, 0.62);
   font-size: var(--type-body);
-  line-height: 1.6;
+  line-height: var(--lh-body);
 }
 
 .case-main-image {
@@ -2686,13 +2877,12 @@ button {
 
 .case-copy-block .tagline p,
 .case-gallery-section .tagline p {
-  font-size: 10.56px;
+  font-size: var(--fs-mono-sm);
 }
 
 .case-meta dt {
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2701,7 +2891,7 @@ button {
   margin: 0.35rem 0 0;
   color: rgba(232, 228, 214, 0.72);
   font-size: var(--type-body);
-  line-height: 1.5;
+  line-height: var(--lh-normal);
 }
 
 .case-copy-block {
@@ -2716,7 +2906,7 @@ button {
 .case-copy-block li {
   color: rgba(232, 228, 214, 0.72);
   font-size: var(--type-body);
-  line-height: 1.68;
+  line-height: var(--lh-body);
 }
 
 .case-copy-block p {
@@ -2760,9 +2950,8 @@ button {
 .case-achievement-section h3 {
   margin: 0;
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2833,16 +3022,15 @@ button {
   gap: 0.55rem;
   place-items: center;
   color: rgba(232, 228, 214, 0.46);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .case-gallery-placeholder span {
   color: var(--moss);
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: var(--type-title);
   font-weight: 300;
   letter-spacing: 0;
@@ -2860,9 +3048,8 @@ button {
 
 .case-pagination a {
   color: var(--moss);
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -2930,7 +3117,7 @@ button {
 
 .community-eyebrow,
 .community-meta {
-  font-family: var(--font-label);
+  font-family: var(--font-mono);
   text-transform: uppercase;
 }
 
@@ -2938,7 +3125,7 @@ button {
   margin: 0 0 clamp(1.1rem, 2vw, 1.7rem);
   color: var(--moss);
   font-size: var(--type-label);
-  font-weight: 800;
+  font-family: var(--font-mono);
   letter-spacing: 0.08em;
 }
 
@@ -2947,9 +3134,9 @@ button {
   margin: 0;
   color: var(--text);
   font-family: var(--font-display);
-  font-size: 53.6px;
+  font-size: var(--fs-h1);
   font-weight: 400;
-  line-height: 1;
+  line-height: var(--lh-tight);
   letter-spacing: 0;
 }
 
@@ -2957,7 +3144,7 @@ button {
   margin: clamp(1.5rem, 2.6vw, 2.3rem) 0 0;
   color: rgba(156, 170, 105, 0.86);
   font-size: clamp(0.64rem, 0.8vw, 0.78rem);
-  font-weight: 800;
+  font-family: var(--font-mono);
   letter-spacing: 0.09em;
 }
 
@@ -2966,8 +3153,8 @@ button {
   gap: clamp(1rem, 1.8vw, 1.45rem);
   margin-top: clamp(2.4rem, 4vw, 3.75rem);
   color: rgba(232, 228, 214, 0.76);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
 }
 
 .community-story p,
@@ -2980,7 +3167,7 @@ button {
   color: var(--text);
   font-family: var(--font-display);
   font-size: clamp(1.65rem, 2.8vw, 2.65rem);
-  line-height: 1.08;
+  line-height: var(--lh-tight);
 }
 
 .community-visual {
@@ -3067,10 +3254,10 @@ button {
 .community-building-title p,
 .community-building-title h2 {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1.65rem, 3.15vw, 3.4rem);
   font-weight: 400;
-  line-height: 1.18;
+  line-height: var(--lh-snug);
   letter-spacing: 0.02em;
 }
 
@@ -3118,19 +3305,19 @@ button {
   right: 0;
   bottom: calc(100% + 0.6rem);
   color: rgba(232, 228, 214, 0.8);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 1.5vw, 1.35rem);
-  line-height: 1;
+  line-height: var(--lh-tight);
 }
 
 .community-frame figcaption {
   position: absolute;
   color: rgba(156, 170, 105, 0.92);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 1.45vw, 1.45rem);
   font-weight: 400;
   letter-spacing: 0;
-  line-height: 1.2;
+  line-height: var(--lh-snug);
   white-space: nowrap;
   text-shadow: 0 0 1.8rem rgba(156, 170, 105, 0.24);
 }
@@ -3184,10 +3371,10 @@ button {
   z-index: 3;
   margin: 0;
   color: rgba(156, 170, 105, 0.94);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 1.45vw, 1.45rem);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: var(--lh-snug);
   letter-spacing: 0;
   text-shadow: 0 0 1.8rem rgba(156, 170, 105, 0.28);
   white-space: nowrap;
@@ -3232,19 +3419,19 @@ button {
 
 .who-intro h1 {
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(2.25rem, 4vw, 3.7rem);
   font-weight: 400;
-  line-height: 1.12;
+  line-height: var(--lh-snug);
   letter-spacing: 0;
 }
 
 .who-intro p {
   max-width: 34rem;
   color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.98rem, 1.35vw, 1.22rem);
-  line-height: 1.48;
+  line-height: var(--lh-normal);
 }
 
 .who-media {
@@ -3273,10 +3460,10 @@ button {
   transform: translate(-50%, -50%);
   border-right: 1px solid rgba(218, 231, 151, 0.8);
   color: var(--moss);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1.45rem, 3.3vw, 3.35rem);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: var(--lh-tight);
   text-align: center;
   white-space: nowrap;
   text-shadow:
@@ -3293,9 +3480,9 @@ button {
   gap: 2rem;
   padding: clamp(2.1rem, 4vw, 3.5rem) 0;
   color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(0.95rem, 1.35vw, 1.2rem);
-  line-height: 1.35;
+  line-height: var(--lh-snug);
 }
 
 .who-meta p:last-child {
@@ -3312,9 +3499,9 @@ button {
   width: min(48rem, 100%);
   margin-left: auto;
   color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 1.38vw, 1.22rem);
-  line-height: 1.56;
+  line-height: var(--lh-body);
 }
 
 .who-story p + p {
@@ -3403,7 +3590,7 @@ button {
   font-family: var(--font-display);
   font-size: clamp(30px, 3.75vw, 56px);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: var(--lh-tight);
   letter-spacing: -0.04em;
 }
 
@@ -3412,10 +3599,10 @@ button {
   align-items: center;
   gap: 0.38rem;
   color: #7c8f6a;
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: var(--lh-snug);
   text-decoration: none;
   text-underline-offset: 0.22em;
   transition: color 180ms ease, text-decoration-color 180ms ease;
@@ -3478,15 +3665,15 @@ button {
 .footer-location,
 .footer-copyright {
   color: #b7b2a9;
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  line-height: 1.45;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-normal);
 }
 
 .footer-copyright {
   color: #6f6a63;
   font-family: "IBM Plex Mono", "Geist Mono", monospace;
-  font-size: 0.76rem;
+  font-size: var(--fs-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -3910,7 +4097,7 @@ button {
   }
 
   .work-hero h1 {
-    font-size: 53.6px;
+    font-size: var(--fs-h1);
   }
 
   .work-hero-media {
@@ -3959,11 +4146,11 @@ button {
   }
 
   .community-copy h1 {
-    font-size: 53.6px;
+    font-size: var(--fs-h1);
   }
 
   .community-story {
-    font-size: 14px;
+    font-size: var(--fs-body-sm);
   }
 
   .community-visual {
@@ -4103,7 +4290,7 @@ button {
 
   .intro-statement h2 {
     font-size: var(--type-display);
-    line-height: 1.16;
+    line-height: var(--lh-snug);
   }
 
   .intro-emphasis {
@@ -4269,7 +4456,7 @@ button {
 
   .footer-availability,
   .footer-location {
-    font-size: 0.88rem;
+    font-size: var(--fs-body-sm);
   }
 
   .footer-copyright {
