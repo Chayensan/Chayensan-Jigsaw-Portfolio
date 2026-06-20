@@ -59,6 +59,16 @@
   --fs-h2: clamp(2.2rem, 3.5vw, 3rem);
   --fs-h3: 1.6rem;
 
+  /* Editorial display roles */
+  --fs-display-hero: clamp(2.9rem, 5.6vw, 6.25rem);
+  --fs-heading-feature: clamp(2rem, 4vw, 4.6rem);
+  --fs-heading-section: clamp(1.75rem, 2.8vw, 3rem);
+  --fs-heading-footer: clamp(1.875rem, 3.75vw, 3.5rem);
+
+  /* Supporting text roles */
+  --fs-ui: clamp(0.82rem, 0.95vw, 0.98rem);
+  --fs-annotation: clamp(1rem, 1.45vw, 1.45rem);
+
   --fs-body-xl: 1.25rem;
   --fs-body-lg: 1.125rem;
   --fs-body: 1rem;
@@ -67,7 +77,14 @@
   --fs-mono: 0.8rem;
   --fs-mono-sm: 0.7rem;
 
+  /* Line-height system */
+  --lh-anchor: 0.82;
   --lh-tight: 1.1;
+  --lh-display: var(--lh-tight);
+  --lh-heading: var(--lh-tight);
+  --lh-snug: 1.18;
+  --lh-compact: 1.32;
+  --lh-normal: 1.45;
   --lh-body: 1.6;
 
   --ls-tight: -0.02em;
@@ -87,16 +104,13 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
 
-    /* =========================
-     COMPATIBILITY / LEGACY ALIASES
+  /* =========================
+    COMPATIBILITY / LEGACY ALIASES
      keep old CSS working while enforcing new system
   ========================= */
 
-  --fs-display-xl: clamp(3.2rem, 6vw, 6.25rem);
+  --fs-display-xl: var(--fs-display-hero);
   --fs-anchor: clamp(5.8rem, 10.6vw, 10.8rem);
-
-  --lh-snug: 1.18;
-  --lh-normal: 1.45;
 
   --space-2xs: 0.25rem;
   --space-4xl: clamp(4.5rem, 8vw, 7.5rem);
@@ -104,6 +118,13 @@
   --space-section: clamp(7.5rem, 14vw, 13rem);
   --space-section-sm: clamp(5rem, 9vw, 8rem);
   --space-section-lg: clamp(8rem, 15vw, 14rem);
+
+  /* Semantic layout spacing */
+  --space-panel: clamp(4rem, 8vw, 7rem);
+  --space-panel-lg: var(--space-4xl);
+
+  --gap-grid: clamp(1rem, 2vw, 2rem);
+  --gap-card-list: clamp(2rem, 3vw, 3rem);
 
   --bg: var(--color-bg);
   --text: var(--color-text-primary);
@@ -123,8 +144,18 @@
   --type-title: var(--fs-h3);
   --type-display: var(--fs-h1);
 
+  /* Container system */
   --gutter: clamp(1.5rem, 6vw, 6.5rem);
-  --max: 88rem;
+
+  --container-wide: 112rem;
+  --container-layout: 104rem;
+  --container-standard: 88rem;
+  --container-intro: 78rem;
+  --container-case: 74rem;
+
+  --max: var(--container-standard);
+  --work-content-width: min(100%, 44rem);
+
   --section-y: var(--space-section);
   --section-gap: var(--space-5xl);
   --work-gap: var(--space-5xl);
@@ -147,11 +178,13 @@ html {
 /* =========================
    HEADINGS
 ========================= */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--font-display);
-  letter-spacing: var(--ls-tight);
-  line-height: var(--lh-tight);
   font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-tight);
 }
 
 h1 { font-size: var(--fs-h1); }
@@ -189,21 +222,21 @@ p {
 .display {
   font-family: var(--font-display);
   font-size: var(--fs-h1);
-  line-height: var(--lh-tight);
+  line-height: var(--lh-display);
   letter-spacing: var(--ls-tight);
 }
 
 .heading {
   font-family: var(--font-display);
   font-size: var(--fs-h2);
-  line-height: var(--lh-tight);
+  line-height: var(--lh-heading);
   letter-spacing: var(--ls-tight);
 }
 
 .subheading {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
-  line-height: var(--lh-tight);
+  line-height: var(--lh-heading);
   letter-spacing: var(--ls-tight);
 }
 
@@ -232,10 +265,6 @@ p {
 /* =========================
    SECTION
 ========================= */
-section {
-  padding: var(--space-3xl) var(--space-lg);
-}
-
 .section-heading {
   margin-bottom: var(--space-lg);
 }
@@ -392,7 +421,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: var(--space-md);
   color: rgba(232, 228, 214, 0.62);
 }
 
@@ -523,7 +552,7 @@ button {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(13rem, 18rem);
   gap: clamp(2rem, 7vw, 7rem);
-  width: min(100%, 112rem);
+  width: min(100%, var(--container-wide));
   margin: 0 auto;
   padding-bottom: clamp(2rem, 4.8vw, 4.75rem);
 }
@@ -566,7 +595,7 @@ button {
   max-width: 15ch;
   color: #fbf8ec;
   font-family: var(--font-display);
-  font-size: clamp(2.9rem, 5.6vw, 6.25rem);
+  font-size: var(--fs-display-hero);
   font-weight: 500;
   line-height: var(--lh-tight);
   letter-spacing: 0;
@@ -599,7 +628,7 @@ button {
   border-bottom: 1px solid rgba(156, 170, 105, 0.75);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: clamp(0.82rem, 0.95vw, 0.98rem);
+  font-size: var(--fs-ui);
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -689,7 +718,7 @@ button {
   max-width: 14rem;
   margin-top: clamp(0.7rem, 1.2vw, 1rem);
   color: rgba(156, 170, 105, 0.88);
-  font-size: clamp(0.82rem, 0.95vw, 0.98rem);
+  font-size: var(--fs-ui);
   line-height: var(--lh-snug);
 }
 
@@ -723,7 +752,7 @@ button {
 
 .jigsaw-cluster {
   min-height: 100dvh;
-  padding: clamp(5rem, 9vw, 8rem) var(--gutter);
+  padding: var(--space-section-sm) var(--gutter);
   background:
     radial-gradient(circle at 52% 52%, rgba(156, 170, 105, 0.12), transparent 28rem),
     linear-gradient(180deg, #030303, #080806 52%, #030303);
@@ -732,7 +761,7 @@ button {
 .section-header {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 2rem;
+  gap: var(--space-xl);
   align-items: end;
   max-width: var(--max);
   margin: 0 auto;
@@ -882,7 +911,7 @@ button {
 .intro-section {
   display: grid;
   gap: var(--section-gap);
-  padding: var(--section-y) var(--gutter) clamp(8rem, 15vw, 14rem);
+  padding: var(--section-y) var(--gutter) var(--space-section-lg);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background:
@@ -1071,7 +1100,7 @@ button {
   margin: 0;
   color: var(--text);
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4.6rem);
+  font-size: var(--fs-heading-feature);
   font-weight: 300;
   line-height: var(--lh-tight);
   letter-spacing: 0;
@@ -1178,7 +1207,7 @@ button {
 .driver-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: var(--gap-grid);
   margin-top: clamp(2.75rem, 5vw, 4.75rem);
 }
 
@@ -1241,7 +1270,7 @@ button {
   grid-template-columns: minmax(18rem, 0.52fr) minmax(0, 1.48fr);
   align-items: center;
   gap: clamp(3.25rem, 7vw, 7rem);
-  padding: clamp(4.5rem, 8vw, 7.5rem) 0;
+  padding: var(--space-panel-lg) 0;
 }
 
 .jigsaw-build h3,
@@ -1249,7 +1278,7 @@ button {
 .jigsaw-approach h3,
 .jigsaw-thread h3 {
   font-family: var(--font-body);
-  font-size: clamp(1.75rem, 2.8vw, 3rem);
+  font-size: var(--fs-heading-section);
   font-weight: 300;
   line-height: var(--lh-snug);
 }
@@ -1265,7 +1294,7 @@ button {
   position: relative;
   display: grid;
   place-items: center;
-  gap: 1rem;
+  gap: var(--space-md);
   min-height: clamp(9rem, 13vw, 12rem);
   padding: 1.45rem 1.15rem;
   border: 1px solid rgba(156, 170, 105, 0.16);
@@ -1283,7 +1312,7 @@ button {
   max-width: 7.8rem;
   color: rgba(232, 228, 214, 0.78);
   font-size: clamp(0.68rem, 0.8vw, 0.8rem);
-  line-height: 1.32;
+  line-height: var(--lh-compact);
 }
 
 .build-piece-empty {
@@ -1334,7 +1363,7 @@ button {
   grid-template-columns: minmax(16rem, 0.62fr) minmax(18rem, 1fr) minmax(12rem, 0.45fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: var(--space-panel) 0;
 }
 
 .resonance-map {
@@ -1523,7 +1552,7 @@ button {
   grid-template-columns: minmax(16rem, 0.55fr) minmax(20rem, 0.88fr) minmax(16rem, 0.57fr);
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(2.25rem, 4vw, 3.5rem);
+  padding: var(--space-panel) 0 clamp(2.25rem, 4vw, 3.5rem);
 }
 
 .approach-list {
@@ -1536,7 +1565,7 @@ button {
 .approach-list article {
   display: grid;
   grid-template-columns: 1.2rem minmax(0, 1fr);
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .approach-list span {
@@ -1570,7 +1599,7 @@ button {
   grid-template-columns: minmax(16rem, 0.55fr) minmax(28rem, 1.45fr);
   align-items: center;
   gap: clamp(2rem, 6vw, 7rem);
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(5rem, 10vw, 9rem);
+  padding: var(--space-panel) 0 clamp(5rem, 10vw, 9rem);
   border-bottom: 1px solid rgba(232, 228, 214, 0.11);
 }
 
@@ -1738,7 +1767,7 @@ button {
   .jigsaw-resonance h3,
   .jigsaw-approach h3,
   .jigsaw-thread h3 {
-    font-size: clamp(1.75rem, 8vw, 2.55rem);
+    font-size: var(--fs-heading-section);
   }
 
   .jigsaw-hero-visual {
@@ -1903,9 +1932,9 @@ button {
     minmax(0, 1fr)
     clamp(15.5rem, 19vw, 20rem);
   gap: 0;
-  inline-size: min(104rem, 100%);
+  inline-size: min(var(--container-layout), 100%);
   block-size: 34rem;
-  max-width: 104rem;
+  max-width: var(--container-layout);
   margin: 0 auto;
   overflow: hidden;
   contain: layout paint;
@@ -2233,7 +2262,7 @@ button {
   display: grid;
   grid-template-columns: minmax(17rem, 0.32fr) minmax(0, 1fr);
   gap: var(--work-gap);
-  max-width: 104rem;
+  max-width: var(--container-layout);
   margin: 0 auto;
   padding: var(--section-y) var(--gutter);
 }
@@ -2277,7 +2306,7 @@ button {
 .work-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2rem, 3vw, 3rem);
+  gap: var(--gap-card-list);
 }
 
 .work-card {
@@ -2358,7 +2387,7 @@ button {
   align-self: end;
   margin-top: clamp(2.75rem, 4.5vw, 5rem);
   border-top: 1px solid rgba(232, 228, 214, 0.12);
-  padding-top: 1rem;
+  padding-top: var(--space-md);
   color: rgba(232, 228, 214, 0.5);
   font-size: var(--type-label);
   letter-spacing: 0.04em;
@@ -2516,7 +2545,7 @@ button {
 }
 
 .page-intro {
-  max-width: 78rem;
+  max-width: var(--container-intro);
   margin: 0 auto;
   padding: clamp(5rem, 11vw, 9rem) var(--gutter) clamp(3rem, 7vw, 6rem);
 }
@@ -2540,7 +2569,7 @@ button {
 }
 
 .about-story {
-  width: min(74rem, 100%);
+  width: min(var(--container-case), 100%);
   margin: 0 auto;
 }
 
@@ -2768,7 +2797,10 @@ button {
 }
 
 .case-study {
-  width: min(74rem, calc(100vw - (var(--gutter) * 2)));
+  width: min(
+  var(--container-case),
+  calc(100vw - (var(--gutter) * 2))
+);
   margin: 0 auto;
   padding: clamp(5.25rem, 8vw, 7.25rem) 0 clamp(5rem, 10vw, 8rem);
 }
@@ -3077,7 +3109,10 @@ button {
 
 .community-hero {
   position: relative;
-  width: min(112rem, calc(100vw - (var(--gutter) * 2)));
+  width: min(
+    var(--container-wide),
+    calc(100vw - (var(--gutter) * 2))
+);
   min-height: calc(100dvh - 4.6rem);
   display: grid;
   grid-template-columns: minmax(22rem, 0.86fr) minmax(24rem, 1.14fr);
@@ -3205,7 +3240,10 @@ button {
 }
 
 .community-building {
-  width: min(112rem, calc(100vw - (var(--gutter) * 2)));
+  width: min(
+    var(--container-wide),
+    calc(100vw - (var(--gutter) * 2))
+);
   margin: 0 auto;
   min-height: clamp(66rem, 92vw, 90rem);
   display: grid;
@@ -3314,7 +3352,7 @@ button {
   position: absolute;
   color: rgba(156, 170, 105, 0.92);
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.45vw, 1.45rem);
+  font-size: var(--fs-annotation);
   font-weight: 400;
   letter-spacing: 0;
   line-height: var(--lh-snug);
@@ -3372,7 +3410,7 @@ button {
   margin: 0;
   color: rgba(156, 170, 105, 0.94);
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.45vw, 1.45rem);
+  font-size: var(--fs-annotation);
   font-weight: 400;
   line-height: var(--lh-snug);
   letter-spacing: 0;
@@ -3477,7 +3515,7 @@ button {
 .who-meta {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
-  gap: 2rem;
+  gap: var(--space-xl);
   padding: clamp(2.1rem, 4vw, 3.5rem) 0;
   color: rgba(232, 228, 214, 0.78);
   font-family: var(--font-body);
@@ -3562,7 +3600,7 @@ button {
   width: min(var(--max), 100%);
   display: grid;
   gap: clamp(1.5rem, 2.4vw, 1.95rem);
-  margin: 0;
+  margin: 0 auto;
   padding-top: clamp(2.2rem, 3.8vw, 3rem);
 }
 
@@ -3588,7 +3626,7 @@ button {
   max-width: 12ch;
   color: #f5f3ee;
   font-family: var(--font-display);
-  font-size: clamp(30px, 3.75vw, 56px);
+  font-size: var(--fs-heading-footer);
   font-weight: 400;
   line-height: var(--lh-tight);
   letter-spacing: -0.04em;
@@ -3641,14 +3679,14 @@ button {
   display: grid;
   justify-items: end;
   align-content: start;
-  gap: 2rem;
+  gap: var(--space-xl);
   text-align: right;
 }
 
 .footer-meta-block {
   display: grid;
   justify-items: end;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .footer-meta-rule {
@@ -3691,8 +3729,8 @@ button {
   margin: 0;
   width: 100%;
   font-family: var(--font-display);
-  font-size: clamp(5.8rem, 10.6vw, 10.8rem);
-  line-height: 0.82;
+  font-size: var(--fs-anchor);
+  line-height: var(--lh-anchor);
   letter-spacing: -0.04em;
   white-space: nowrap;
   pointer-events: none;
@@ -4193,7 +4231,7 @@ button {
   .site-nav {
     grid-template-columns: minmax(0, 1fr) auto;
     row-gap: 0.8rem;
-    column-gap: 1rem;
+    column-gap: var(--space-md);
     padding-top: 0.85rem;
   }
 
@@ -4276,7 +4314,7 @@ button {
   .tagline,
   .section-kicker {
     grid-template-columns: auto auto minmax(3rem, 1fr);
-    gap: 1rem;
+    gap: var(--space-md);
     margin-bottom: clamp(4rem, 16vw, 6.5rem);
   }
 
@@ -4446,7 +4484,7 @@ button {
   .footer-meta {
     justify-items: start;
     text-align: left;
-    gap: 1rem;
+    gap: var(--space-md);
   }
 
   .footer-meta-block {
@@ -4461,7 +4499,7 @@ button {
 
   .footer-copyright {
     text-align: left;
-    font-size: 0.72rem;
+    font-size: var(--fs-mono-sm);
   }
 
   .footer-anchor {
