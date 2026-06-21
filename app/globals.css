@@ -47,9 +47,9 @@
 }
 
 :root {
-/* =========================
-   ROOT DESIGN TOKENS
-========================= */
+  /* =========================
+     ROOT DESIGN TOKENS
+  ========================= */
 
   --font-display: "Clash Display", Arial, sans-serif;
   --font-body: "Satoshi", sans-serif;
@@ -1683,139 +1683,6 @@ button {
   left: 2%;
   top: 43%;
   transform: rotate(4deg);
-}
-
-@media (max-width: 1100px) {
-  .jigsaw-mindset,
-  .jigsaw-build,
-  .jigsaw-resonance,
-  .jigsaw-approach,
-  .jigsaw-thread {
-    grid-template-columns: 1fr;
-  }
-
-  .jigsaw-mindset {
-    min-height: auto;
-  }
-
-  .jigsaw-copy,
-  .jigsaw-build > div:first-child,
-  .jigsaw-resonance > div:first-child,
-  .jigsaw-approach > div:first-child,
-  .jigsaw-thread > div:first-child {
-    max-width: 36rem;
-  }
-
-  .jigsaw-hero-visual {
-    min-height: clamp(22rem, 58vw, 34rem);
-  }
-
-  .jigsaw-orbital,
-  .jigsaw-board {
-    width: min(34rem, 86vw);
-  }
-
-  .driver-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: 2.5rem;
-  }
-
-  .driver-card:nth-child(4) {
-    border-left: 0;
-  }
-
-  .build-piece-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .approach-list {
-    max-width: 34rem;
-  }
-
-  .approach-blank {
-    max-width: 28rem;
-  }
-
-  .thread-map {
-    min-height: clamp(24rem, 70vw, 32rem);
-  }
-}
-
-@media (max-width: 720px) {
-  .jigsaw-panel {
-    padding-left: 2.25rem;
-  }
-
-  .jigsaw-panel::before {
-    left: 0.1rem;
-  }
-
-  .jigsaw-mindset,
-  .jigsaw-build,
-  .jigsaw-resonance,
-  .jigsaw-approach,
-  .jigsaw-thread {
-    padding-top: clamp(3rem, 12vw, 4.5rem);
-    padding-bottom: clamp(3rem, 12vw, 4.5rem);
-  }
-
-  .jigsaw-panel h3 {
-    font-size: clamp(2rem, 10vw, 3rem);
-  }
-
-  .jigsaw-build h3,
-  .jigsaw-resonance h3,
-  .jigsaw-approach h3,
-  .jigsaw-thread h3 {
-    font-size: var(--fs-heading-section);
-  }
-
-  .jigsaw-hero-visual {
-    min-height: clamp(18rem, 75vw, 26rem);
-  }
-
-  .jigsaw-orbital,
-  .jigsaw-board {
-    width: min(27rem, 92vw);
-  }
-
-  .driver-grid,
-  .build-piece-row {
-    grid-template-columns: 1fr;
-  }
-
-  .driver-card,
-  .driver-card:first-child {
-    justify-items: start;
-    min-height: auto;
-    padding: 1.45rem 0;
-    border-left: 0;
-    border-top: 1px solid rgba(232, 228, 214, 0.09);
-    text-align: left;
-  }
-
-  .driver-card p {
-    max-width: none;
-  }
-
-  .build-piece + .build-piece {
-    margin-left: 0;
-    margin-top: -1px;
-  }
-
-  .resonance-map {
-    min-height: 14rem;
-  }
-
-  .approach-list {
-    padding-left: 1.5rem;
-  }
-
-  .thread-map {
-    min-height: 31rem;
-    transform: scale(0.9);
-    transform-origin: left center;
-  }
 }
 
 .intro-system {
@@ -3867,6 +3734,64 @@ button {
 }
 
 @media (max-width: 1100px) {
+  /* JIGSAW — TABLET */
+
+  .jigsaw-mindset,
+  .jigsaw-build,
+  .jigsaw-resonance,
+  .jigsaw-approach,
+  .jigsaw-thread {
+    grid-template-columns: 1fr;
+  }
+
+  .jigsaw-mindset {
+    min-height: auto;
+  }
+
+  .jigsaw-copy,
+  .jigsaw-build > div:first-child,
+  .jigsaw-resonance > div:first-child,
+  .jigsaw-approach > div:first-child,
+  .jigsaw-thread > div:first-child {
+    max-width: 36rem;
+  }
+
+  .jigsaw-hero-visual {
+    min-height: clamp(22rem, 58vw, 34rem);
+  }
+
+  .jigsaw-orbital,
+  .jigsaw-board {
+    width: min(34rem, 86vw);
+  }
+
+  .driver-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+
+  .driver-card:nth-child(4) {
+    border-left: 0;
+  }
+
+  .build-piece-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .approach-list {
+    max-width: 34rem;
+  }
+
+  .approach-blank {
+    max-width: 28rem;
+  }
+
+  .thread-map {
+    min-height: clamp(24rem, 70vw, 32rem);
+  }
+
+  /* GLOBAL — TABLET */
+
   .hero-section {
     min-height: auto;
   }
@@ -4097,6 +4022,85 @@ button {
 }
 
 @media (max-width: 720px) {
+    /* JIGSAW — MOBILE */
+
+  .jigsaw-panel {
+    padding-left: 2.25rem;
+  }
+
+  .jigsaw-panel::before {
+    left: 0.1rem;
+  }
+
+  .jigsaw-mindset,
+  .jigsaw-build,
+  .jigsaw-resonance,
+  .jigsaw-approach,
+  .jigsaw-thread {
+    padding-top: clamp(3rem, 12vw, 4.5rem);
+    padding-bottom: clamp(3rem, 12vw, 4.5rem);
+  }
+
+  .jigsaw-panel h3 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .jigsaw-build h3,
+  .jigsaw-resonance h3,
+  .jigsaw-approach h3,
+  .jigsaw-thread h3 {
+    font-size: var(--fs-heading-section);
+  }
+
+  .jigsaw-hero-visual {
+    min-height: clamp(18rem, 75vw, 26rem);
+  }
+
+  .jigsaw-orbital,
+  .jigsaw-board {
+    width: min(27rem, 92vw);
+  }
+
+  .driver-grid,
+  .build-piece-row {
+    grid-template-columns: 1fr;
+  }
+
+  .driver-card,
+  .driver-card:first-child {
+    justify-items: start;
+    min-height: auto;
+    padding: 1.45rem 0;
+    border-left: 0;
+    border-top: 1px solid rgba(232, 228, 214, 0.09);
+    text-align: left;
+  }
+
+  .driver-card p {
+    max-width: none;
+  }
+
+  .build-piece + .build-piece {
+    margin-left: 0;
+    margin-top: -1px;
+  }
+
+  .resonance-map {
+    min-height: 14rem;
+  }
+
+  .approach-list {
+    padding-left: 1.5rem;
+  }
+
+  .thread-map {
+    min-height: 31rem;
+    transform: scale(0.9);
+    transform-origin: left center;
+  }
+
+  /* GLOBAL — MOBILE */
+
   :root {
     --nav-height: 7.25rem;
   }
@@ -4439,7 +4443,10 @@ button {
   }
 
   .case-study {
-    width: min(100% - (var(--gutter) * 2), 74rem);
+    width: min(
+      calc(100% - (var(--gutter) * 2)),
+      var(--container-case)
+    );
     padding-top: clamp(7.5rem, 24vw, 9rem);
   }
 
