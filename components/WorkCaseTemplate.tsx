@@ -1,14 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 import type { WorkCaseStudy } from "@/components/site-data";
 import Tagline from "./Tagline";
-
-const reveal = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
-};
 
 type WorkCaseTemplateProps = {
   study: WorkCaseStudy;
@@ -36,60 +28,30 @@ export default function WorkCaseTemplate({
 
   return (
     <article className="case-study">
-      <motion.header
-        className="case-hero"
-        initial="hidden"
-        animate="visible"
-        transition={{ staggerChildren: 0.08 }}
-      >
-        <motion.h1 variants={reveal} transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}>
-          {study.title}
-        </motion.h1>
-        <motion.p variants={reveal} transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}>
-          {study.deck}
-        </motion.p>
-      </motion.header>
+      <header className="case-hero">
+        <h1>{study.title}</h1>
+        <p>{study.deck}</p>
+      </header>
 
-      <motion.figure
-        className="case-main-image"
-        initial={{ opacity: 0, y: 26, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.86, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <figure className="case-main-image">
         <img src={study.heroImage} alt={`${study.title} main project visual`} />
-      </motion.figure>
+      </figure>
 
-      <motion.dl
-        className="case-meta"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ staggerChildren: 0.08 }}
-      >
+      <dl className="case-meta">
         {study.meta.map((item) => (
-          <motion.div
-            key={item.label}
-            variants={reveal}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div key={item.label}>
             <dt>{item.label}</dt>
             <dd>{item.value}</dd>
-          </motion.div>
+          </div>
         ))}
-      </motion.dl>
+      </dl>
 
-      <motion.section
-        className="case-copy-block"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ staggerChildren: 0.1 }}
-      >
-        <motion.div variants={reveal} transition={{ duration: 0.66, ease: [0.16, 1, 0.3, 1] }}>
+      <section className="case-copy-block">
+        <div>
           <Tagline text="Intro" />
           <p>{study.intro}</p>
-        </motion.div>
-        <motion.div variants={reveal} transition={{ duration: 0.66, ease: [0.16, 1, 0.3, 1] }}>
+        </div>
+        <div>
           <Tagline text="Key achievements" />
           {hasSections ? (
             <div className="case-achievement-sections">
@@ -116,27 +78,19 @@ export default function WorkCaseTemplate({
               ))}
             </ul>
           )}
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
       {hasGallery ? (
-        <motion.section
-          className="case-gallery-section"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{ staggerChildren: 0.08 }}
-        >
+        <section className="case-gallery-section">
           <Tagline text="Gallery" />
           <div className="case-gallery">
             {gallerySlots.map((image, index) => (
-              <motion.figure
+              <figure
                 key={image ? `${image.src}-${index}` : `gallery-slot-${index + 1}`}
                 className={`case-gallery-item case-gallery-item-${index + 1} ${
                   image ? "" : "case-gallery-placeholder"
                 }`}
-                variants={reveal}
-                transition={{ duration: 0.64, ease: [0.16, 1, 0.3, 1] }}
               >
                 {image ? (
                   <img src={image.src} alt={image.alt} loading="lazy" />
@@ -146,10 +100,10 @@ export default function WorkCaseTemplate({
                     Gallery image slot
                   </figcaption>
                 )}
-              </motion.figure>
+              </figure>
             ))}
           </div>
-        </motion.section>
+        </section>
       ) : null}
 
       <nav className="case-pagination" aria-label="Work case navigation">

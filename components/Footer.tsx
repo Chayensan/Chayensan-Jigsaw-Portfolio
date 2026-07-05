@@ -1,25 +1,47 @@
-"use client";
-
-import { ArrowUp } from "@phosphor-icons/react";
-
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  };
-
   return (
     <footer className="site-footer">
-      <button className="footer-top" type="button" onClick={scrollToTop} aria-label="Back to top">
-        <ArrowUp size={30} weight="regular" aria-hidden="true" />
-        Back to Top
-      </button>
-
+      <div className="footer-top-rule" aria-hidden="true" />
       <div className="footer-inner">
-        <h2>Let&apos;s find your missing piece.</h2>
-        <div className="footer-copy">
-          <p>OPEN TO ROLES IN WEB3 AND AI.</p>
-          <p>You found your way here, If you&apos;re building something that needs people at the center of it,</p>
-          <p>I&apos;d love to hear about it.</p>
+        <div className="footer-main">
+          <div className="footer-statement">
+            <h2>
+              If people are part of the product,
+              <br />
+              we should talk.
+            </h2>
+            <a className="footer-cta" href="mailto:hello@desi.studio">
+              <span>Start something meaningful</span>
+              <span className="footer-cta-arrow" aria-hidden="true">
+                &rarr;
+              </span>
+            </a>
+            <span className="footer-cta-rule" aria-hidden="true" />
+          </div>
+
+          <div className="footer-meta">
+            <div className="footer-meta-block">
+              <span className="footer-meta-rule" aria-hidden="true" />
+              <p className="footer-availability">
+                Currently open to roles in Web3 &amp; AI.
+              </p>
+            </div>
+            <div className="footer-meta-block">
+              <span className="footer-meta-rule footer-meta-rule-muted" aria-hidden="true" />
+              <p className="footer-location">Based in Jakarta / Global</p>
+            </div>
+            <div className="footer-meta-block">
+              <span className="footer-meta-rule footer-meta-rule-muted" aria-hidden="true" />
+              <p className="footer-copyright">&copy; 2026 Desi Kamdrawati</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-divider" aria-hidden="true" />
+
+        <div className="footer-anchor-wrap" aria-hidden="true">
+          <p className="footer-anchor">Systems of Belonging</p>
+          <p className="footer-anchor-reflection">Systems of Belonging</p>
         </div>
       </div>
     </footer>
