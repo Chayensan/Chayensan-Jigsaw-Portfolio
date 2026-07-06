@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>06 — BuilderOS Design System · Surveyed Ground</title>
+<style>
+  :root{
+    --ground:#0B0B09; --ground-quiet:#141310; --panel:#11110E;
+    --line:rgba(232,228,214,0.16); --line-strong:rgba(232,228,214,0.28);
+    --bone:#E8E4D6; --bone-2:#B7B2A9; --meta:#858173;
+    --ember:#C8A95B; --moss:#9CAA69; --moss-deep:#4E5A44;
+    --mono:"IBM Plex Mono","Geist Mono",ui-monospace,monospace;
+    --sans:"Satoshi","Avenir Next","Segoe UI",system-ui,sans-serif;
+    --display:"Clash Display","Satoshi","Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--bone);
+    font-family:var(--sans);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* very-low-opacity ground grain, never on text */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:80px 40px 120px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--meta)}
+  h1{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.02em;margin:.4rem 0 1rem;color:var(--bone)}
+  h2{font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);margin:0 0 .2rem;color:var(--bone)}
+  h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ember);margin:0 0 .8rem}
+  p{color:var(--bone-2);max-width:65ch}
+  section{border-top:1px solid var(--line);padding:56px 0 0;margin-top:56px}
+  .lede{color:var(--bone);font-size:1.05rem}
+  .hr{height:1px;background:var(--line);border:0;margin:0}
+  /* the single survey hairline gesture */
+  .surveyline{height:1px;background:linear-gradient(90deg,transparent,var(--line-strong),transparent);margin:28px 0}
+  /* swatches */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin:20px 0}
+  .sw{border:1px solid var(--line);background:var(--panel)}
+  .sw .chip{height:64px}
+  .sw .meta{padding:10px 12px;font-family:var(--mono);font-size:12px;color:var(--bone-2)}
+  .sw .meta b{display:block;color:var(--bone);font-weight:500}
+  .sw .job{color:var(--meta)}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.9rem}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--meta);font-weight:500}
+  td{color:var(--bone-2)}
+  code,.mono{font-family:var(--mono);font-size:.85em;color:var(--ember)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ember)}
+  /* plate + caption demo */
+  .plate{border:1px solid var(--line);background:var(--panel);aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;color:var(--meta);font-family:var(--mono);font-size:12px}
+  .caption{font-family:var(--mono);font-size:12px;color:var(--bone-2);margin-top:10px;line-height:1.5}
+  /* terrain demo */
+  .terrain{border:1px solid var(--line);height:140px;background:
+    linear-gradient(0deg,rgba(11,11,9,.55),rgba(11,11,9,.15)),
+    linear-gradient(120deg,#2b3325,#4E5A44 55%,#20261b);
+    filter:saturate(.8);position:relative}
+  .terrain .chip{position:absolute;left:12px;bottom:12px;background:var(--ground);border:1px solid var(--line);color:var(--bone-2);font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:4px 8px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}.wrap{padding:56px 20px 96px}}
+  .rules{list-style:none;padding:0;margin:16px 0}
+  .rules li{border-left:2px solid var(--moss);padding:6px 0 6px 14px;margin:0 0 10px;color:var(--bone-2)}
+  .ban li{border-left-color:var(--ember)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);color:var(--meta);padding:3px 8px;margin:2px 4px 2px 0}
+  .accent-ember{color:var(--ember)} .accent-moss{color:var(--moss)}
+  a{color:var(--moss);text-decoration:underline;text-underline-offset:3px}
+  .note{font-family:var(--mono);font-size:12px;color:var(--meta);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">06 · Design System · Direction A</div>
+  <h1>Surveyed Ground</h1>
+  <p class="lede">Atmosphere is the ground. Evidence is the mark. The two never occupy the same layer. This page renders the build rules on the system's own palette — dark near-black ground, bone text, one ember accent for evidence, one moss accent for interaction, hairline borders, and no glow.</p>
+  <div class="surveyline"></div>
+  <p class="note">Derived from 03-visual-direction.md and 04-voice-and-copy.md. Invents no new visual direction and no new copy. Companion to docs/design.md. Font stacks fall back to system faces until public/fonts (Clash Display · Satoshi · IBM Plex Mono) is created.</p>
+
+  <section>
+    <h3>01 · Ground &amp; text tokens</h3>
+    <h2>Colour — the ground and the marks</h2>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#0B0B09"></div><div class="meta"><b>--ground</b>#0B0B09<span class="job">primary near-black</span></div></div>
+      <div class="sw"><div class="chip" style="background:#141310"></div><div class="meta"><b>--ground-quiet</b>#141310<span class="job">warm charcoal · quiet zones</span></div></div>
+      <div class="sw"><div class="chip" style="background:#11110E;border-bottom:1px solid var(--line)"></div><div class="meta"><b>--panel</b>#11110E<span class="job">plates · capsules · chips</span></div></div>
+      <div class="sw"><div class="chip" style="background:#E8E4D6"></div><div class="meta"><b>--bone</b>#E8E4D6<span class="job">display + body · ≥7:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:#B7B2A9"></div><div class="meta"><b>--bone-2</b>#B7B2A9<span class="job">secondary · ≥4.5:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:#858173"></div><div class="meta"><b>--meta</b>#858173<span class="job">mono metadata at rest</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>02 · The two accents — fixed jobs</h3>
+    <h2>Ember marks evidence. Moss marks interaction.</h2>
+    <p>Exactly two accents, one job each, one accent per section. Colour never carries meaning alone — every accent state ships with a text or border change beside it. Derive flagship is ember territory; the jigsaw is moss territory. Cold blue and yellow are dropped.</p>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#C8A95B"></div><div class="meta"><b>--ember</b>#C8A95B<span class="job">verified numerals · evidence · focus rings</span></div></div>
+      <div class="sw"><div class="chip" style="background:#9CAA69"></div><div class="meta"><b>--moss</b>#9CAA69<span class="job">hover · active nav tick · selected parcel</span></div></div>
+      <div class="sw"><div class="chip" style="background:#4E5A44"></div><div class="meta"><b>--moss-deep</b>#4E5A44<span class="job">pressed / active only</span></div></div>
+    </div>
+    <p class="note accent-ember">Evidence example — tabular numerals, ember on the verified number only: <span class="num">15,000 → 40,000+</span> members through the TGE period.</p>
+    <p class="note">Moss-on-ground is the riskiest pairing — contrast-test before approval. If it fails 4.5:1 for text, moss is borders/ticks only and text uses bone.</p>
+  </section>
+
+  <section>
+    <h3>03 · Typography</h3>
+    <h2>Three families, sharpened jobs</h2>
+    <table>
+      <tr><th>Token</th><th>Family</th><th>Job</th></tr>
+      <tr><td class="mono">--font-display</td><td>Clash Display</td><td>Display statements &amp; section headings only. Never below 28px.</td></tr>
+      <tr><td class="mono">--font-sans</td><td>Satoshi</td><td>Body &amp; interface. 16–18px, line-height 1.6, ≤65ch.</td></tr>
+      <tr><td class="mono">--font-mono</td><td>IBM Plex Mono</td><td>Entire annotation register. Minimum 12px. Uppercase labels 0.08em; sentence-case captions; tabular numerals.</td></tr>
+    </table>
+    <div style="font-family:var(--display);font-size:clamp(2rem,5vw,3.5rem);line-height:1.02;letter-spacing:-.02em;color:var(--bone)">I design the conditions for people to find each other.</div>
+    <p style="margin-top:16px">Body — Satoshi at 16–18px on solid ground, measure capped at 65 characters. Warmth comes from plain speech and specificity, never from poetic lines stacked on every row.</p>
+    <p class="mono" style="color:var(--meta)">MONO LABEL · 12PX · 0.08EM TRACKING · UPPERCASE</p>
+    <p class="note">Serif concession is PROVISIONAL: one serif face, footer statement + About pull-line only, decided from a prototype. The live Ivy-Presto-carries-everything drift must be reconciled first.</p>
+  </section>
+
+  <section>
+    <h3>04 · Two image classes</h3>
+    <h2>Every image is Terrain or a Plate</h2>
+    <div class="grid2">
+      <div>
+        <div class="terrain"><span class="chip">COMMUNITY · 03</span></div>
+        <p class="caption">Terrain — bounded, grained, desaturated atmosphere. Never behind text. Full bleed only for the jigsaw field and case-page route imagery.</p>
+      </div>
+      <div>
+        <div class="plate">ARTEFACT PLATE</div>
+        <p class="caption">Traders Breakfast, Coinfest Bali · Derive's first live event, <span class="num">100+</span> attendees · produced</p>
+      </div>
+    </div>
+    <p class="note">Plates: 1px hairline border, mandatory mono caption beneath on solid ground, native aspect, lazy-load against a solid placeholder. Never more than three plates per viewport. Text never sits on imagery.</p>
+  </section>
+
+  <section>
+    <h3>05 · Caption schema</h3>
+    <h2>Evidence appears only as annotation</h2>
+    <table>
+      <tr><th>Type</th><th>Structure</th></tr>
+      <tr><td>Evidence</td><td>project · artefact or figure · Desi's verb — ember on verified number only</td></tr>
+      <tr><td>Event</td><td>name · place · attendance if verified · role verb — no atmosphere adjectives</td></tr>
+      <tr><td>Artefact</td><td>what it is · what it was for · Desi's contribution — under 15 words</td></tr>
+      <tr><td>Confidential</td><td>name the domain only — never clients, targets, pipelines, terms</td></tr>
+      <tr><td>Early-stage</td><td>the question being tested — never an outcome that doesn't exist</td></tr>
+    </table>
+    <p class="note">No KPI cards. No floating figures. One proof per artefact. No counting animation on numerals. If a number can't travel with its artefact and caption, it doesn't appear.</p>
+  </section>
+
+  <section>
+    <h3>06 · Jigsaw — the one signature interaction</h3>
+    <h2>A completed, surveyed field</h2>
+    <p>Seven irregular parcels cut from one continuous terrain photo by 1px survey lines. No interlocking tabs. Complete from the first frame — distinguished by seam, tone, and texture, never absence. Appears once; moss territory. Parcels are real buttons in DOM order with a 2px moss focus ring; arrow keys move between them; capsule/bottom-sheet traps focus and closes on Escape.</p>
+    <table>
+      <tr><th>Chapter</th><th>Evidence line</th><th>→</th></tr>
+      <tr><td>Spatial Design</td><td>RMIT Interior Design (Hons) · origin</td><td>About</td></tr>
+      <tr><td>Events</td><td>Traders Breakfast · 100+ attendees</td><td>Derive</td></tr>
+      <tr><td>Community</td><td>Derive Discord · 15,000 → 40,000+</td><td>Derive</td></tr>
+      <tr><td>Sports Media</td><td>Bruce Media · NFL, A-League, PGA</td><td>—</td></tr>
+      <tr><td>Growth</td><td>Believe in SomETHing · 430+ protocols</td><td>Derive</td></tr>
+      <tr><td>Partnerships</td><td>Current: Lemon Tree, Tago Capital</td><td>Now</td></tr>
+      <tr><td>Product</td><td>HUNCHR · founding stage, in progress</td><td>Now</td></tr>
+    </table>
+    <p class="note">The metaphor is explained in words exactly once, on About. Everywhere else it survives only as a quiet seam motif in section dividers.</p>
+  </section>
+
+  <section>
+    <h3>07 · Section rules</h3>
+    <div class="grid2">
+      <div>
+        <h2 style="font-size:1.2rem">Derive flagship</h2>
+        <p>Densest section, deliberately. Ember territory. One large plate + two stacked plates, captions beneath carry the numbers. ~3× the Now section. Plates lift 2px on hover with a border brighten — nothing else.</p>
+      </div>
+      <div>
+        <h2 style="font-size:1.2rem">Now ledger</h2>
+        <p>Three rows — HUNCHR, Lemon Tree, Tago. No images, no metrics. Status tags only. Verbs of testing, never achievement. Restraint is the honesty. HUNCHR row ~1.3×.</p>
+      </div>
+      <div>
+        <h2 style="font-size:1.2rem">Work hierarchy</h2>
+        <p>Narrative weight, not chronology. Tiers: Flagship · Current · Selected · Foundations (never "Archive"). RMIT never adjacent to Derive metrics. Recruiter experience index up top.</p>
+      </div>
+      <div>
+        <h2 style="font-size:1.2rem">About</h2>
+        <p>Only personal-first page. Portrait as a bounded plate, marks in the rail, no glowing pill. Essay at 65ch. The jigsaw explained once, here. "Systems of Belonging" survives as one phrase.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>08 · Motion</h3>
+    <h2>Settling, not performing</h2>
+    <ul class="rules">
+      <li>Page entry: fade up 8px, staggered by section, once.</li>
+      <li>The only scroll-linked effect sitewide: jigsaw parcels gaining definition on entry.</li>
+      <li>Capsule: 250ms fade + 8px rise. Hover: 150ms border/label brighten. Routes: 150ms fade.</li>
+      <li>Reduced motion: everything instant; parcels render fully defined.</li>
+    </ul>
+    <p class="note">Static under all conditions: hero, all body text, all captions, the footer statement.</p>
+  </section>
+
+  <section>
+    <h3>09 · Global bans</h3>
+    <ul class="rules ban">
+      <li>No glow, anywhere. No text on imagery. No third accent.</li>
+      <li>No KPI cards. No floating figures. No counting/odometer numerals.</li>
+      <li>No childish puzzle tabs. No interlocking pieces. No repeated jigsaw explanation.</li>
+      <li>No neon / generic-crypto styling. No per-word text animation. Nothing below 12px.</li>
+      <li>No invented copy — escalate instead. Retired vocabulary stays retired.</li>
+    </ul>
+    <div class="surveyline"></div>
+    <p class="note">Full rules, tokens, provisional decisions, and prototype order: see docs/design.md.</p>
+  </section>
+
+</div>
+</body>
+</html>
