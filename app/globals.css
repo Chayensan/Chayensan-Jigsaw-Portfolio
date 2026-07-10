@@ -2,6 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================================
+   CSS MAP — Phase 2 audit (docs/implementation-roadmap.md, Phase 2)
+   ============================================================================
+   Read this before deleting or repurposing a selector in this file. Nothing
+   below may be removed just because it "looks legacy" — only once the phase
+   named as its owner has actually rebuilt the component that uses it.
+
+   STATUS KEYS
+     CURRENT       Matches docs/design.md. Safe to build on directly.
+     LIVE/LEGACY   Still rendered by a real route today. The visual system it
+                   implements (old jigsaw model, glow, etc.) is superseded by
+                   docs/design.md and will be replaced by its owning phase —
+                   do not delete before that phase ships.
+     ORPHANED      Proven zero references across every .tsx/.ts file under
+                   components/ and app/ (grepped, including dynamic
+                   className template strings and site-data.ts). The owning component
+                   is not imported by any route. Left in place anyway per the
+                   Phase 2 rule: retire only when Phase 5 replaces the jigsaw.
+     DRIFT         Active glow or other banned-per-§0.4 styling, tied to a
+                   component not yet rebuilt. Flagged here, not fixed here.
+
+   SECTION MAP (selector prefix → owning component/route → status)
+   ----------------------------------------------------------------------------
+   :root tokens, resets, .film-grain      globals               CURRENT (Phase 1 reconciled)
+   .site-nav, .nav-*, .wordmark           Navbar.tsx            LIVE/LEGACY — owned by Phase 3
+   .hero-*, .scroll-label, .ticker-*      HeroSection/Ticker    LIVE/LEGACY — owned by Phase 3
+                                                                 (hero h1 text-shadow is DRIFT)
+   .jigsaw-cluster, .cluster-*,           JigsawCluster.tsx /   ORPHANED — none of these three
+   .puzzle-piece, .piece-*,               PuzzlePiece.tsx /     components is imported by any
+   .detail-card, .section-header          DetailCard.tsx        app/ route today. Retire only
+                                                                 when Phase 5 rebuilds the jigsaw.
+                                                                 .puzzle-piece::after box-shadow
+                                                                 is active glow (DRIFT).
+   .intro-section, .intro-statement,      IntroSection.tsx      LIVE/LEGACY — homepage narrative
+   .intro-diagram, .jigsaw-panel,                                panels ("mindset/build/resonance/
+   .jigsaw-mindset, .jigsaw-build,                               approach"). Not yet claimed by a
+   .jigsaw-resonance, .jigsaw-approach,                          named phase — confirm with Desi
+   .driver-*, .build-piece*,                                     before any phase rebuilds or
+   .resonance-*, .approach-*                                     retires it. Contains active glow
+                                                                 (.build-piece-empty, .resonance-*)
+                                                                 — DRIFT.
+   .eyebrow, .tagline                     shared kicker label   CURRENT, but see "dead but not
+                                                                 removed" below — .section-kicker
+                                                                 and .frame-label are dead classes
+                                                                 mixed into these shared selectors.
+   .narrative-section, .narrative-*,      NarrativeSection.tsx  LIVE — the *actual* current
+   .jigsaw-svg, .jigsaw-layer-image,                             interactive jigsaw (hotspot-on-
+   .jigsaw-layer-controls, .jigsaw-hotspot,                      image model). This is the model
+   .jigsaw-detail-panel, .jigsaw-skill-list                      Phase 5 replaces with the seven-
+                                                                 parcel surveyed field — do not
+                                                                 delete before Phase 5 ships.
+                                                                 .jigsaw-hotspot::before/::after are
+                                                                 already quarantined (content: none),
+                                                                 inert glow kept as historical record.
+   .work-section, .work-*, .image-*       WorkSection.tsx       LIVE/LEGACY — owned by Phase 8
+   .work-hero*                            app/work/page.tsx     LIVE/LEGACY — owned by Phase 8
+   .about-*                               app/about(-me2)       LIVE/LEGACY — owned by Phase 9.
+                                                                 about-me2 is slated for deletion +
+                                                                 redirect in Phase 9. .about-badge is
+                                                                 a quarantined glow pill (comment
+                                                                 already in place); .about-hero-image h1
+                                                                 is text-on-imagery — banned, fixed
+                                                                 in Phase 9.
+   .who-*                                 app/who/page.tsx      LIVE/LEGACY — slated for deletion +
+                                                                 redirect in Phase 9.
+   .community-*                           app/community/page.tsx LIVE/LEGACY — Phase 10 decision
+                                                                 (ship to evidence bar, or retire the
+                                                                 route). Floating sentiment labels
+                                                                 here are retired vocabulary either way.
+   .case-*                                WorkCaseTemplate.tsx  LIVE/LEGACY — owned by Phase 8
+   .site-footer, .footer-*                Footer.tsx            CURRENT — locked footer copy, no
+                                                                 phase currently rebuilds it.
+   @keyframes ...                         various                see inline notes; two dead keyframes
+                                                                 (orbit-turn, hero-aura-in) removed
+                                                                 in Phase 2.
+   @media (max-width: 1100px / 720px)     paired with above     same status as the base rule each
+                                                                 block overrides.
+   @media (prefers-reduced-motion)        globals               CURRENT
+
+   DEAD CODE REMOVED IN PHASE 2 (proven zero references via grep across every
+   .tsx/.ts file under components/ and app/, including dynamic className
+   strings in site-data.ts; a whole-repo check confirmed these names only ever
+   matched the *legacy static* index.html/about.html/work.html/styles.css —
+   never anything the Next app renders):
+     .page-intro, .intro-system, .stage-piece, .system-node, .node-foundation,
+     .node-connections, .node-explorations, .node-growth, .node-center,
+     .jigsaw-thread, .thread-map, .thread-core, .thread-node(-one..-six),
+     .jigsaw-layer-card, .jigsaw-layer-close, @keyframes orbit-turn,
+     @keyframes hero-aura-in.
+
+   DEAD BUT NOT REMOVED — same zero-reference proof as above, but the class
+   is embedded in a comma-separated selector shared with live classes
+   (e.g. ".tagline, .section-kicker"). Surgical removal risks a typo
+   breaking a live rule for one line of dead-selector savings; left for a
+   later, more isolated pass rather than edited here:
+     .section-kicker, .frame-label, .intro-narrative(-copy).
+   ============================================================================ */
+
 :root {
   /* Ground/panel — docs/design.md §1.1. --bg raised to the approved warmer near-black. */
   --bg: #0b0b09;
@@ -1408,98 +1506,6 @@ button {
   min-height: clamp(12rem, 18vw, 17rem);
 }
 
-.jigsaw-thread {
-  display: grid;
-  grid-template-columns: minmax(16rem, 0.55fr) minmax(28rem, 1.45fr);
-  align-items: center;
-  gap: clamp(2rem, 6vw, 7rem);
-  padding: clamp(4rem, 8vw, 7rem) 0 clamp(5rem, 10vw, 9rem);
-  border-bottom: 1px solid rgba(232, 228, 214, 0.11);
-}
-
-.jigsaw-thread p {
-  margin-top: clamp(1.2rem, 2.4vw, 2rem);
-}
-
-.jigsaw-thread strong {
-  display: block;
-  max-width: 17rem;
-  margin-top: clamp(1.8rem, 3vw, 2.5rem);
-  color: var(--moss);
-  font-family: var(--font-sans);
-  font-size: clamp(0.8rem, 0.95vw, 0.98rem);
-  font-weight: 500;
-  line-height: 1.45;
-}
-
-.thread-map {
-  position: relative;
-  min-height: clamp(24rem, 38vw, 34rem);
-}
-
-.thread-core,
-.thread-node {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  width: clamp(9rem, 14vw, 13rem);
-  aspect-ratio: 1;
-  border: 1px solid rgba(156, 170, 105, 0.14);
-  background:
-    radial-gradient(circle at 50% 50%, rgba(205, 222, 98, 0.24), transparent 42%),
-    rgba(232, 228, 214, 0.018);
-  color: var(--moss);
-  font-family: var(--font-label);
-  font-size: clamp(0.56rem, 0.72vw, 0.72rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.thread-core {
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  font-size: clamp(0.98rem, 1.8vw, 1.75rem);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 54px rgba(205, 222, 98, 0.2);
-}
-
-.thread-node-one {
-  left: 31%;
-  top: 9%;
-  transform: rotate(-5deg);
-}
-
-.thread-node-two {
-  right: 11%;
-  top: 8%;
-  transform: rotate(5deg);
-}
-
-.thread-node-three {
-  right: 0;
-  top: 44%;
-}
-
-.thread-node-four {
-  right: 18%;
-  bottom: 0;
-  transform: rotate(2deg);
-}
-
-.thread-node-five {
-  left: 30%;
-  bottom: 3%;
-  transform: rotate(-4deg);
-}
-
-.thread-node-six {
-  left: 2%;
-  top: 43%;
-  transform: rotate(4deg);
-}
-
 @media (max-width: 1100px) {
   .jigsaw-mindset,
   .jigsaw-build,
@@ -1549,10 +1555,6 @@ button {
 
   .approach-blank {
     max-width: 28rem;
-  }
-
-  .thread-map {
-    min-height: clamp(24rem, 70vw, 32rem);
   }
 }
 
@@ -1625,102 +1627,6 @@ button {
   .approach-list {
     padding-left: 1.5rem;
   }
-
-  .thread-map {
-    min-height: 31rem;
-    transform: scale(0.9);
-    transform-origin: left center;
-  }
-}
-
-.intro-system {
-  position: relative;
-  min-height: clamp(32rem, 50vw, 46rem);
-  margin-top: clamp(1rem, 4vw, 3.5rem);
-}
-
-.stage-piece {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  width: 8.5rem;
-  height: 6.9rem;
-  clip-path: polygon(17% 0, 80% 0, 80% 18%, 93% 18%, 100% 30%, 93% 42%, 80% 42%, 80% 100%, 17% 100%, 17% 78%, 2% 78%, 0 63%, 2% 49%, 17% 49%);
-  border: 1px solid rgba(232, 228, 214, 0.28);
-  background:
-    linear-gradient(142deg, rgba(232, 228, 214, 0.16), rgba(232, 228, 214, 0.03) 46%, rgba(0, 0, 0, 0.58)),
-    rgba(17, 17, 14, 0.9);
-  color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-label);
-  font-size: var(--type-label);
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.36);
-}
-
-.intro-system img {
-  position: absolute;
-  left: 46%;
-  top: 46%;
-  width: min(42rem, 58vw);
-  transform: translate(-50%, -50%);
-  opacity: 0.92;
-  filter: saturate(0.86) contrast(1.08) drop-shadow(0 0 44px rgba(156, 170, 105, 0.12));
-}
-
-.system-node {
-  position: absolute;
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--type-body);
-  line-height: 1.45;
-}
-
-.system-node strong {
-  display: block;
-  margin-bottom: 0.45rem;
-  color: var(--moss);
-  font-family: var(--font-label);
-  font-size: var(--type-label);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.system-node span {
-  display: block;
-}
-
-.node-foundation {
-  left: 3%;
-  top: 10%;
-  max-width: 16rem;
-}
-
-.node-connections {
-  right: 0;
-  top: 10%;
-  max-width: 16rem;
-}
-
-.node-explorations {
-  left: 12%;
-  bottom: 10%;
-  max-width: 16rem;
-}
-
-.node-growth {
-  right: 2%;
-  bottom: 10%;
-  max-width: 15rem;
-}
-
-.node-center {
-  left: 47%;
-  bottom: 3%;
-  transform: translateX(-50%);
-  text-align: center;
-  max-width: 17rem;
 }
 
 .narrative-section {
@@ -1936,72 +1842,6 @@ button {
 .jigsaw-hotspot:focus-visible {
   outline: 1px solid rgba(218, 231, 151, 0.68);
   outline-offset: 0.2rem;
-}
-
-.jigsaw-layer-card {
-  position: absolute;
-  z-index: 7;
-  width: min(20rem, calc(100% - 2rem));
-  padding: 1rem 1.05rem 1.1rem;
-  border: 1px solid rgba(232, 228, 214, 0.2);
-  border-radius: 0.35rem;
-  background: rgba(9, 10, 8, 0.74);
-  box-shadow:
-    0 0 0 1px rgba(156, 170, 105, 0.08) inset,
-    0 1.4rem 4.5rem rgba(0, 0, 0, 0.42),
-    0 0 4rem rgba(156, 170, 105, 0.12);
-  backdrop-filter: blur(14px);
-  animation: layer-card-in 180ms ease both;
-}
-
-.jigsaw-layer-close {
-  position: absolute;
-  right: 0.7rem;
-  top: 0.65rem;
-  display: grid;
-  width: 1.35rem;
-  height: 1.35rem;
-  place-items: center;
-  border: 1px solid rgba(232, 228, 214, 0.18);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(232, 228, 214, 0.68);
-  cursor: pointer;
-  font-size: var(--type-label);
-  line-height: 1;
-}
-
-.jigsaw-layer-close:hover,
-.jigsaw-layer-close:focus-visible {
-  border-color: rgba(218, 231, 151, 0.54);
-  color: var(--text);
-}
-
-.jigsaw-layer-card p {
-  margin: 0 2rem 0.7rem 0;
-  color: var(--moss);
-  font-family: var(--font-label);
-  font-size: var(--type-label);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.jigsaw-layer-card h3 {
-  margin: 0;
-  color: var(--text);
-  font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: 300;
-  line-height: 0.96;
-}
-
-.jigsaw-layer-card span {
-  display: block;
-  margin-top: 0.9rem;
-  color: rgba(232, 228, 214, 0.74);
-  font-size: var(--type-body);
-  line-height: 1.5;
 }
 
 .jigsaw-detail-panel {
@@ -2363,25 +2203,6 @@ button {
   height: 100%;
   object-fit: cover;
   filter: saturate(0.2) contrast(1.26) brightness(0.8);
-}
-
-.page-intro {
-  max-width: 78rem;
-  margin: 0 auto;
-  padding: clamp(5rem, 11vw, 9rem) var(--gutter) clamp(3rem, 7vw, 6rem);
-}
-
-.page-intro h1 {
-  max-width: 68rem;
-  font-size: var(--type-display);
-}
-
-.page-intro p:not(.eyebrow) {
-  max-width: 42rem;
-  margin: 2rem 0 0;
-  color: var(--muted);
-  font-size: var(--type-body);
-  line-height: 1.62;
 }
 
 .about-page {
@@ -3575,12 +3396,6 @@ button {
   }
 }
 
-@keyframes orbit-turn {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes hero-line-in {
   from {
     opacity: 0;
@@ -3590,18 +3405,6 @@ button {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes hero-aura-in {
-  from {
-    opacity: 0;
-    transform: rotate(-14deg) scale(0.92);
-  }
-
-  to {
-    opacity: 1;
-    transform: rotate(-14deg) scale(1);
   }
 }
 
@@ -3742,23 +3545,6 @@ button {
 
   .intro-statement h2 {
     max-width: 100%;
-  }
-
-  .intro-system {
-    min-height: 43rem;
-  }
-
-  .intro-system img {
-    left: 50%;
-    width: min(42rem, 88vw);
-  }
-
-  .node-foundation {
-    left: 0;
-  }
-
-  .node-connections {
-    right: 0;
   }
 
   .narrative-copy {
@@ -4149,47 +3935,6 @@ button {
     margin-top: clamp(3.5rem, 13vw, 6rem);
   }
 
-  .intro-system {
-    min-height: 48rem;
-    overflow: hidden;
-  }
-
-  .intro-system img {
-    top: 47%;
-    width: 36rem;
-    max-width: none;
-  }
-
-  .system-node {
-    font-size: var(--type-body);
-  }
-
-  .node-foundation {
-    left: 0;
-    top: 0;
-  }
-
-  .node-connections {
-    right: 0;
-    top: 0;
-    text-align: right;
-  }
-
-  .node-explorations {
-    left: 0;
-    bottom: 13%;
-  }
-
-  .node-growth {
-    right: 0;
-    bottom: 13%;
-    text-align: right;
-  }
-
-  .node-center {
-    bottom: 0;
-  }
-
   .section-header {
     grid-template-columns: 1fr;
   }
@@ -4219,13 +3964,6 @@ button {
     inset: 0;
     width: 100%;
     height: 100%;
-  }
-
-  .jigsaw-layer-card {
-    left: 1rem !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: 1rem !important;
   }
 
   .work-grid {
