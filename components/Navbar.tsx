@@ -38,9 +38,10 @@ export default function Navbar({ active }: { active: NavKey }) {
         ))}
       </nav>
 
-      <div className="nav-socials" aria-label="Social links">
-        <a href={socialLinks.gmail} aria-label="Email Desi">
-          <EnvelopeSimple size={18} weight="regular" />
+      <div className="nav-socials" aria-label="Contact and social links">
+        <a href={socialLinks.gmail} className="nav-email">
+          <EnvelopeSimple size={16} weight="regular" aria-hidden="true" />
+          Email
         </a>
         <a href={socialLinks.linkedin} aria-label="LinkedIn">
           <LinkedinLogo size={18} weight="regular" />
