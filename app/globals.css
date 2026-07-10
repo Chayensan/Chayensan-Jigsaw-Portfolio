@@ -26,6 +26,10 @@
    SECTION MAP (selector prefix → owning component/route → status)
    ----------------------------------------------------------------------------
    :root tokens, resets, .film-grain      globals               CURRENT (Phase 1 reconciled)
+   .caption, .caption-figure,             Caption.tsx /         CURRENT (Phase 4) — shared evidence
+   .plate, .plate-*,                      Plate.tsx /           primitives. Not yet wired into any
+   .annotation,                           Annotation.tsx /      section; consumed by Phase 5+.
+   .evidence-mark, .evidence-mark-*       EvidenceMark.tsx
    .site-nav, .nav-*, .wordmark           Navbar.tsx            LIVE/LEGACY — owned by Phase 3
    .hero-*, .scroll-label, .ticker-*      HeroSection/Ticker    LIVE/LEGACY — owned by Phase 3
                                                                  (hero h1 text-shadow is DRIFT)
@@ -228,6 +232,101 @@ button {
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   mix-blend-mode: screen;
+}
+
+/* Shared evidence primitives — Phase 4 (docs/implementation-roadmap.md).
+   Caption, Plate, Annotation, EvidenceMark. Generic and data-driven —
+   later phases (jigsaw, Derive, Work, About) consume these, not fork them. */
+
+.caption {
+  margin: 0;
+  color: var(--bone-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.caption-figure {
+  color: var(--ember);
+}
+
+.plate {
+  position: relative;
+  display: block;
+  margin: 0;
+}
+
+.plate-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.plate-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 4px;
+}
+
+.plate-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+  transition:
+    transform var(--dur-hover) var(--ease),
+    border-color var(--dur-hover) var(--ease);
+}
+
+.plate-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plate-link:hover ~ .plate-frame,
+.plate-link:focus-visible ~ .plate-frame {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+}
+
+.plate-caption {
+  margin: 0.75rem 0 0;
+}
+
+.annotation {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.evidence-mark {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.evidence-mark-figure {
+  margin: 0;
+  color: var(--ember);
+  font-family: var(--font-mono);
+  font-size: var(--type-title);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.evidence-mark-qualifier {
+  margin: 0;
+  color: var(--bone-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.02em;
 }
 
 .site-nav {
