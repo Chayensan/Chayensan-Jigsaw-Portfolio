@@ -1,10 +1,19 @@
-﻿export type Piece = {
-  id: "events" | "community" | "web3" | "growth" | "exploration";
+﻿export type JigsawChapterId =
+  | "spatial-design"
+  | "events"
+  | "community"
+  | "sports-media"
+  | "growth"
+  | "partnerships"
+  | "product";
+
+export type JigsawChapter = {
+  id: JigsawChapterId;
   label: string;
-  subtext: string;
-  rotation: number;
-  positionClass: string;
-  cardClass: string;
+  capability: string;
+  evidence: string;
+  href: string;
+  weight: number;
 };
 
 export type WorkItem = {
@@ -48,46 +57,67 @@ export const socialLinks = {
   twitter: "https://twitter.com/",
 };
 
-export const pieces: Piece[] = [
+// Seven-chapter surveyed-field model — docs/fable/04-voice-and-copy.md
+// §Approved Jigsaw labels. Replaces the retired five-category model
+// (events/community/web3/growth/exploration) per Phase 5 of
+// docs/implementation-roadmap.md. Labels, capability lines, and evidence
+// lines are used verbatim; do not paraphrase.
+export const jigsawChapters: JigsawChapter[] = [
+  {
+    id: "spatial-design",
+    label: "Spatial Design",
+    capability: "Environments that shape behaviour.",
+    evidence: "RMIT Interior Design (Hons) · origin of the practice",
+    href: "/about",
+    weight: 13,
+  },
   {
     id: "events",
     label: "Events",
-    subtext: "Layers of energy. Designed to be felt.",
-    rotation: -8,
-    positionClass: "left-[8%] top-[13%] md:left-[10%] md:top-[15%]",
-    cardClass: "left-[8%] top-[34%] md:left-[18%] md:top-[20%]",
+    capability: "From invitation to follow-through.",
+    evidence: "Traders Breakfast, Coinfest Bali · 100+ attendees",
+    href: "/work/derive-xyz",
+    weight: 16,
   },
   {
     id: "community",
     label: "Community",
-    subtext: "From chaos to signal.",
-    rotation: 5,
-    positionClass: "right-[7%] top-[12%] md:right-[12%] md:top-[16%]",
-    cardClass: "right-[5%] top-[34%] md:right-[23%] md:top-[22%]",
+    capability: "Turning members into participants.",
+    evidence: "Derive Discord · 15,000 → 40,000+",
+    href: "/work/derive-xyz",
+    weight: 14,
   },
   {
-    id: "web3",
-    label: "Web3",
-    subtext: "Invisible systems. Real impact.",
-    rotation: -3,
-    positionClass: "left-[37%] top-[42%] md:left-[42%] md:top-[39%]",
-    cardClass: "left-[18%] top-[57%] md:left-[54%] md:top-[38%]",
+    id: "sports-media",
+    label: "Sports Media",
+    capability: "Writing for fans, by code and by platform.",
+    evidence: "Bruce Media · NFL, A-League, PGA",
+    href: "/work/bruce-media",
+    weight: 11,
   },
   {
     id: "growth",
     label: "Growth",
-    subtext: "Loops that compound.",
-    rotation: 10,
-    positionClass: "left-[7%] bottom-[12%] md:left-[15%] md:bottom-[14%]",
-    cardClass: "left-[10%] bottom-[34%] md:left-[24%] md:bottom-[22%]",
+    capability: "Converting attention into activity.",
+    evidence: "Believe in SomETHing · 430+ protocols",
+    href: "/work/derive-xyz",
+    weight: 17,
   },
   {
-    id: "exploration",
-    label: "Exploration",
-    subtext: "Not every question needs an answer yet.",
-    rotation: -6,
-    positionClass: "right-[4%] bottom-[10%] md:right-[10%] md:bottom-[13%]",
-    cardClass: "right-[5%] bottom-[32%] md:right-[21%] md:bottom-[20%]",
+    id: "partnerships",
+    label: "Partnerships",
+    capability: "Finding the overlap between two roadmaps.",
+    evidence: "Current: Lemon Tree, Tago Capital",
+    href: "/work",
+    weight: 12,
+  },
+  {
+    id: "product",
+    label: "Product",
+    capability: "Early distribution and user research.",
+    evidence: "HUNCHR · founding stage, in progress",
+    href: "/work",
+    weight: 17,
   },
 ];
 
