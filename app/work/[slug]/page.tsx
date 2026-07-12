@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import WorkCaseTemplate from "@/components/WorkCaseTemplate";
 import {
   getWorkCaseStudy,
+  workCaseStudies,
   workItems,
   type WorkCaseStudy,
 } from "@/components/site-data";
@@ -15,7 +16,11 @@ type WorkDetailPageProps = {
 };
 
 export function generateStaticParams() {
-  return workItems.map((item) => ({ slug: item.slug }));
+  const slugs = new Set([
+    ...workItems.map((item) => item.slug),
+    ...workCaseStudies.map((study) => study.slug),
+  ]);
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 function getTemplateStudy(slug: string): WorkCaseStudy {

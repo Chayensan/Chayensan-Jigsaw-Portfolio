@@ -3075,11 +3075,27 @@ button {
     row-gap: 0.6rem;
   }
 
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only, invisible padding. */
+  .nav-center a {
+    min-height: 2.75rem;
+  }
+
   .nav-socials {
     align-self: center;
     justify-content: flex-end;
     gap: 0.75rem;
     min-width: 0;
+  }
+
+  .nav-socials a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  .nav-socials a:not(.nav-email) {
+    justify-content: center;
+    min-width: 2.75rem;
   }
 
   .hero-section {
@@ -3096,6 +3112,13 @@ button {
   .hero-actions {
     flex-wrap: wrap;
     gap: 1.1rem;
+  }
+
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  .hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
   }
 
   .tagline,
@@ -3148,9 +3171,24 @@ button {
     justify-self: start;
   }
 
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  .work-row-link,
+  .work-flagship-link,
+  .derive-case-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
   .case-study {
     width: min(100% - (var(--gutter) * 2), 74rem);
     padding-top: clamp(7.5rem, 24vw, 9rem);
+  }
+
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  .case-back-link {
+    align-items: center;
+    min-height: 2.75rem;
   }
 
   .case-meta,
@@ -3169,6 +3207,13 @@ button {
   .case-pagination {
     margin-left: 0;
     margin-right: 0;
+  }
+
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  .case-pagination a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
   }
 
   .site-footer {
