@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import Caption, { type CaptionContent } from "@/components/Caption";
 
 type PlateImage = {
@@ -11,6 +12,10 @@ type PlateProps = {
   aspectRatio?: string;
   href?: string;
   className?: string;
+  // Text-only plate content, used when no photographic artefact exists to
+  // pair with a caption (docs/implementation-roadmap.md Phase 6: "no
+  // suitable assets — create text/evidence plates without images").
+  children?: ReactNode;
 };
 
 function captionToAlt(caption: CaptionContent): string {
@@ -31,6 +36,7 @@ export default function Plate({
   aspectRatio = "4 / 3",
   href,
   className,
+  children,
 }: PlateProps) {
   const classes = className ? `plate ${className}` : "plate";
   const alt = captionToAlt(caption);
@@ -41,6 +47,8 @@ export default function Plate({
       <span className="plate-frame" style={{ aspectRatio }}>
         {image ? (
           <Image src={image.src} alt="" fill sizes="100vw" />
+        ) : children ? (
+          <span className="plate-frame-content">{children}</span>
         ) : null}
       </span>
       <Caption {...caption} as="figcaption" className="plate-caption" />

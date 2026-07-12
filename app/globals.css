@@ -70,6 +70,15 @@
                                                                  ember appears only on evidence
                                                                  figures inside the capsule.
    .work-section, .work-*, .image-*       WorkSection.tsx       LIVE/LEGACY — owned by Phase 8
+   .derive-section, .derive-*,            DeriveFlagship.tsx /  CURRENT (Phase 6) — flagship proof
+   .plate-frame-content,                  WorkSection.tsx       section, ember territory. Renders
+   .plate-frame-kicker,                                         inside WorkSection.tsx (homepage/
+   .plate-frame-statement                                       compact only) before the work grid.
+                                                                 plate-frame-content/-kicker/-statement
+                                                                 are a generic Plate.tsx text-plate
+                                                                 variant (Phase 4 API addition), used
+                                                                 here for the Traders Breakfast plate
+                                                                 since no photo asset exists.
    .work-hero*                            app/work/page.tsx     LIVE/LEGACY — owned by Phase 8
    .about-*                               app/about(-me2)       LIVE/LEGACY — owned by Phase 9.
                                                                  about-me2 is slated for deletion +
@@ -1884,6 +1893,125 @@ button {
   background-size: cover;
 }
 
+/* Derive flagship — Phase 6 (docs/implementation-roadmap.md). Ember territory:
+   evidence numerals only (via Caption's renderFigure), no moss decoration.
+   Consumes Plate/Caption from Phase 4; renders inside WorkSection.tsx, homepage
+   (compact) only, between the jigsaw/narrative section and the work grid. */
+
+.derive-section {
+  padding: var(--section-y) var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+.derive-header {
+  max-width: var(--max);
+  margin: 0 auto clamp(3rem, 6vw, 4.5rem);
+}
+
+.derive-kicker {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.derive-header h2 {
+  max-width: 30ch;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.derive-role {
+  max-width: var(--measure);
+  margin: clamp(1.5rem, 2.5vw, 2rem) 0 0;
+  color: var(--bone-secondary);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.derive-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  gap: var(--col-gutter);
+  max-width: var(--max);
+  margin: 0 auto;
+  align-items: start;
+}
+
+.derive-plate-primary {
+  grid-column: 1 / span 7;
+}
+
+.derive-plate-secondary-stack {
+  display: flex;
+  grid-column: 8 / span 5;
+  flex-direction: column;
+  gap: var(--col-gutter);
+}
+
+.derive-plate-secondary {
+  width: 100%;
+}
+
+.plate-frame-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.plate-frame-kicker {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plate-frame-statement {
+  margin: 0;
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.derive-case-link {
+  display: block;
+  width: 100%;
+  max-width: var(--max);
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease);
+}
+
+.derive-case-link:hover,
+.derive-case-link:focus-visible {
+  color: var(--bone);
+}
+
+.derive-case-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+
 .work-hero {
   position: relative;
   display: grid;
@@ -3282,6 +3410,15 @@ button {
 
   .intro-statement h2 {
     max-width: 100%;
+  }
+
+  .derive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .derive-plate-primary,
+  .derive-plate-secondary-stack {
+    grid-column: 1 / -1;
   }
 
   .field-layout {

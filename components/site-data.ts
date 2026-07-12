@@ -1,4 +1,6 @@
-﻿export type JigsawChapterId =
+﻿import type { CaptionContent } from "@/components/Caption";
+
+export type JigsawChapterId =
   | "spatial-design"
   | "events"
   | "community"
@@ -466,6 +468,68 @@ export const workCaseStudies: WorkCaseStudy[] = [
 
 export const getWorkCaseStudy = (slug: string) =>
   workCaseStudies.find((study) => study.slug === slug);
+
+// Derive flagship homepage section — docs/implementation-roadmap.md Phase 6.
+// Captions are locked verbatim in docs/fable/04-voice-and-copy.md
+// §Approved Derive captions. Do not paraphrase or round the figures.
+export type DeriveEvidencePlate = {
+  id: string;
+  image?: { src: string };
+  aspectRatio: string;
+  caption: CaptionContent;
+  content?: { kicker: string; statement: string };
+};
+
+export const deriveFlagship: {
+  kicker: string;
+  heading: string;
+  role: string;
+  href: string;
+  primary: DeriveEvidencePlate;
+  secondary: DeriveEvidencePlate[];
+} = {
+  kicker: "Flagship proof",
+  heading: "Derive: one role, the clearest proof.",
+  role:
+    "Derive.xyz, 2024 to February 2026. Desi worked across community growth, events, campaigns, and partnerships through a full rebrand and token launch. She grew Discord across the TGE period, produced Derive's first live event at Coinfest Bali, contributed to the Believe in SomETHing ecosystem campaign, and built the Framer landing page end to end. Product and brand communication, ecosystem development.",
+  href: "/work/derive-xyz",
+  primary: {
+    id: "discord",
+    image: { src: "/assets/work-cases/derive-main.png" },
+    aspectRatio: "16 / 10",
+    caption: {
+      kind: "evidence",
+      project: "Discord",
+      figure: "15,000 → 40,000+ members through the TGE period",
+      verb: "community growth across Discord, Telegram, and X",
+    },
+  },
+  secondary: [
+    {
+      id: "believe-in-something",
+      image: { src: "/assets/work-cases/derive-gallery-02.png" },
+      aspectRatio: "16 / 9",
+      caption: {
+        kind: "evidence",
+        project: "Believe in SomETHing",
+        figure: "ecosystem campaign, 430+ protocols",
+        verb: "contributor",
+      },
+    },
+    {
+      id: "traders-breakfast",
+      aspectRatio: "16 / 9",
+      caption: {
+        kind: "event",
+        name: "Traders Breakfast",
+        place: "Coinfest Bali",
+        attendance: "Derive's first live event, 100+ attendees",
+        verb: "produced",
+      },
+      content: { kicker: "Event", statement: "Traders Breakfast, Coinfest Bali" },
+    },
+  ],
+};
 
 
 

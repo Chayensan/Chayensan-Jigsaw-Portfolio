@@ -1,4 +1,4 @@
-import type { ElementType } from "react";
+import type { ElementType, ReactNode } from "react";
 
 export type EvidenceCaption = {
   kind: "evidence";
@@ -29,6 +29,30 @@ export type CaptionProps = CaptionContent & {
   className?: string;
 };
 
+// Matches the verified numeral inside a figure string (e.g. "15,000 → 40,000+"
+// or "430+") so ember highlights only the number, per docs/design.md §1.3
+// ("ember on the verified number only") — same pattern as NarrativeSection's
+// evidence-line rendering.
+const FIGURE_PATTERN = /[\d][\d,]*(?:\s*→\s*[\d,]+)?\+?/g;
+
+function renderFigure(figure: string): ReactNode {
+  const matches = figure.match(FIGURE_PATTERN);
+  if (!matches) return figure;
+  const parts = figure.split(FIGURE_PATTERN);
+  const nodes: ReactNode[] = [];
+  parts.forEach((part, index) => {
+    if (part) nodes.push(part);
+    if (matches[index]) {
+      nodes.push(
+        <span key={index} className="caption-figure">
+          {matches[index]}
+        </span>,
+      );
+    }
+  });
+  return nodes;
+}
+
 export default function Caption(props: CaptionProps) {
   const { as: Tag = "p", className, ...content } = props;
   const classes = className ? `caption ${className}` : "caption";
@@ -36,9 +60,7 @@ export default function Caption(props: CaptionProps) {
   if (content.kind === "evidence") {
     return (
       <Tag className={classes}>
-        {content.project} ·{" "}
-        <span className="caption-figure">{content.figure}</span> ·{" "}
-        {content.verb}
+        {content.project} · {renderFigure(content.figure)} · {content.verb}
       </Tag>
     );
   }
