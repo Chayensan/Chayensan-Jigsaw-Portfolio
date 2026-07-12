@@ -107,15 +107,21 @@
    .work-hero*                            app/work/page.tsx     CURRENT (Phase 8) — retired "pieces
                                                                  with fingerprints" headline replaced
                                                                  with plain, structural copy.
-   .about-*                               app/about(-me2)       LIVE/LEGACY — owned by Phase 9.
-                                                                 about-me2 is slated for deletion +
-                                                                 redirect in Phase 9. .about-badge is
-                                                                 a quarantined glow pill (comment
-                                                                 already in place); .about-hero-image h1
-                                                                 is text-on-imagery — banned, fixed
-                                                                 in Phase 9.
-   .who-*                                 app/who/page.tsx      LIVE/LEGACY — slated for deletion +
-                                                                 redirect in Phase 9.
+   .about-*                               app/about/page.tsx    CURRENT (Phase 9) — the only
+                                                                 personal-first page. Rebuilt on the
+                                                                 Plate/Caption/Annotation/Tagline
+                                                                 primitives; no text on imagery, no
+                                                                 glow pill. /who and /about-me2 now
+                                                                 redirect to /about (route-level
+                                                                 redirect() calls, not next.config.mjs).
+   (.who-*, .about-page-v2 — removed)     n/a                   RETIRED Phase 9: app/who/page.tsx and
+                                                                 app/about-me2/page.tsx are now
+                                                                 redirect-only; their markup and every
+                                                                 selector under .who-* (plus the unused
+                                                                 .about-page-v2 hook and the
+                                                                 whoTypewriter/whoCaret keyframes) is
+                                                                 deleted, not quarantined — nothing else
+                                                                 referenced them.
    .community-*                           app/community/page.tsx LIVE/LEGACY — Phase 10 decision
                                                                  (ship to evidence bar, or retire the
                                                                  route). Floating sentiment labels
@@ -2332,232 +2338,78 @@ button {
   padding: clamp(0.85rem, 2vw, 1.7rem) var(--gutter) clamp(5rem, 10vw, 8rem);
 }
 
-.about-story {
+.about-top {
   width: min(74rem, 100%);
   margin: 0 auto;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line);
 }
 
-.about-hero-image {
-  position: relative;
-  isolation: isolate;
-  min-height: clamp(21rem, 46vw, 34rem);
-  overflow: hidden;
-  border: 1px solid rgba(232, 228, 214, 0.13);
-  background: #050505;
-}
-
-.about-hero-image::before,
-.about-hero-image::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-.about-hero-image::before {
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(rgba(232, 228, 214, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232, 228, 214, 0.032) 1px, transparent 1px);
-  background-size: 7.5rem 7.5rem;
-  opacity: 0.5;
-}
-
-.about-hero-image::after {
-  inset: clamp(1rem, 2vw, 1.5rem);
-  z-index: 3;
-  border: 1px solid rgba(232, 228, 214, 0.11);
-  opacity: 0.72;
-}
-
-.about-hero-image video {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 62% 34%;
-  filter: saturate(0.72) contrast(1.1) brightness(0.62);
-  transform: scale(1.03);
-}
-
-.about-hero-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(circle at 48% 44%, rgba(156, 170, 105, 0.18), transparent 28%),
-    linear-gradient(90deg, rgba(3, 3, 3, 0.72), rgba(3, 3, 3, 0.28) 48%, rgba(3, 3, 3, 0.78)),
-    linear-gradient(180deg, rgba(3, 3, 3, 0.1), rgba(3, 3, 3, 0.7));
-}
-
-.about-hero-image h1 {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 4;
-  width: min(32ch, calc(100% - 3rem));
-  max-width: calc(100% - 3rem);
-  margin: 0;
-  color: var(--moss);
-  font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 3.35vw, 3.35rem);
-  font-weight: 700;
-  line-height: 1.03;
+.about-heading {
+  max-width: 18ch;
+  margin: clamp(1.25rem, 3vw, 2rem) 0 clamp(2rem, 4vw, 3rem);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: 600;
+  line-height: 1.08;
   letter-spacing: 0;
-  text-align: center;
-  white-space: normal;
-  transform: translate3d(-50%, -50%, 0);
-  animation: none;
-  text-shadow:
-    0 0 22px rgba(156, 170, 105, 0.36),
-    0 0 42px rgba(156, 170, 105, 0.16);
-}
-
-.about-hero-image h1 span {
-  display: inline-block;
-  width: auto;
-  max-width: 100%;
-  overflow: visible;
-  vertical-align: bottom;
-  animation: none;
-}
-
-.about-hero-image h1 span::after {
-  content: none;
-}
-
-.about-body {
-  display: grid;
-  grid-template-columns: minmax(12rem, 0.34fr) minmax(0, 0.66fr);
-  gap: clamp(4rem, 9vw, 8rem);
-  padding-top: clamp(3rem, 6vw, 5.25rem);
 }
 
 .about-rail {
-  position: sticky;
-  top: 7.5rem;
-  align-self: start;
-}
-
-.about-tagline {
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.about-availability {
-  display: grid;
-  gap: clamp(1rem, 2vw, 1.35rem);
-  color: rgba(232, 228, 214, 0.68);
-  font-family: var(--font-label);
-  font-size: 0.76rem;
-  font-weight: 700;
-  line-height: 1.6;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.about-availability p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 2.5rem);
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.about-badge {
-  /* Glow quarantined per docs/design.md §0.4 — the pill shape itself is retired in Phase 9
-     (About renders availability as plain mono text), not before. */
-  width: fit-content;
-  border: 1px solid rgba(218, 231, 151, 0.42);
-  border-radius: 999px;
-  padding: 0.46rem 0.74rem;
-  color: var(--moss);
-  background: rgba(156, 170, 105, 0.09);
-  box-shadow: inset 0 0 0 1px rgba(218, 231, 151, 0.08);
+.about-rail li {
+  color: var(--bone-secondary);
+}
+
+.about-essay {
+  width: min(74rem, 100%);
+  margin: 0 auto;
+  padding-top: clamp(3rem, 6vw, 5.25rem);
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem);
 }
 
 .about-copy {
-  max-width: 39rem;
+  max-width: var(--measure);
+  display: grid;
+  gap: clamp(1.45rem, 2.4vw, 2rem);
   color: rgba(232, 228, 214, 0.82);
-  font-size: 14px;
+  font-size: var(--type-body);
   line-height: 1.72;
 }
 
 .about-copy p {
   margin: 0;
-  animation: aboutCopyIn 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.about-copy p:first-child {
-  color: var(--text);
-  font-family: var(--font-display);
-  font-size: var(--type-title);
-  line-height: 1.18;
+.about-origin {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
 }
 
-.about-copy p + p {
-  margin-top: clamp(1.45rem, 2.4vw, 2rem);
+.about-origin-copy {
+  max-width: var(--measure);
+  color: rgba(232, 228, 214, 0.82);
+  font-size: var(--type-body);
+  line-height: 1.72;
 }
 
-.about-copy p:nth-child(2) {
-  animation-delay: 90ms;
+.about-origin-copy p {
+  margin: 0;
 }
 
-.about-copy p:nth-child(3) {
-  animation-delay: 180ms;
-}
-
-.about-copy p:nth-child(4) {
-  animation-delay: 270ms;
-}
-
-.about-copy p:nth-child(5) {
-  animation-delay: 360ms;
-}
-
-@keyframes aboutTextIn {
-  from {
-    opacity: 0;
-    transform: translate3d(-50%, calc(-50% + 1rem), 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(-50%, -50%, 0);
-  }
-}
-
-@keyframes aboutTypewriter {
-  0%,
-  10% {
-    width: 0;
-  }
-
-  34%,
-  76% {
-    width: 16ch;
-  }
-
-  96%,
-  100% {
-    width: 0;
-  }
-}
-
-@keyframes aboutCaret {
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes aboutCopyIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 0.65rem, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+.about-plate {
+  width: 100%;
 }
 
 .case-study {
@@ -2835,13 +2687,6 @@ button {
 }
 
 .case-pagination a:hover {
-  color: var(--text);
-}
-
-.who-page {
-  min-height: 100dvh;
-  padding: clamp(4.75rem, 7vw, 6.75rem) var(--gutter) clamp(7rem, 11vw, 11rem);
-  background: #030303;
   color: var(--text);
 }
 
@@ -3176,124 +3021,6 @@ button {
   top: 42%;
 }
 
-.who-shell {
-  width: min(var(--max), 100%);
-  margin: 0 auto;
-}
-
-.who-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(22rem, 0.95fr);
-  align-items: end;
-  gap: clamp(3rem, 8vw, 8rem);
-  margin-bottom: clamp(3rem, 5.5vw, 5rem);
-}
-
-.who-intro h1,
-.who-intro p,
-.who-media,
-.who-meta p,
-.who-story p {
-  margin: 0;
-}
-
-.who-intro h1 {
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: clamp(2.25rem, 4vw, 3.7rem);
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: 0;
-}
-
-.who-intro p {
-  max-width: 34rem;
-  color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
-  font-size: clamp(0.98rem, 1.35vw, 1.22rem);
-  line-height: 1.48;
-}
-
-.who-media {
-  position: relative;
-  height: clamp(20rem, 32vw, 34rem);
-  overflow: hidden;
-  background: #050505;
-}
-
-.who-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: saturate(0.95) contrast(1.02);
-}
-
-.who-media figcaption {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 38ch;
-  max-width: calc(100% - 3rem);
-  overflow: hidden;
-  transform: translate(-50%, -50%);
-  border-right: 1px solid rgba(218, 231, 151, 0.8);
-  color: var(--moss);
-  font-family: var(--font-sans);
-  font-size: clamp(1.45rem, 3.3vw, 3.35rem);
-  font-weight: 700;
-  line-height: 1.05;
-  text-align: center;
-  white-space: nowrap;
-  text-shadow:
-    0 0 18px rgba(156, 170, 105, 0.22),
-    0 2px 18px rgba(0, 0, 0, 0.28);
-  animation:
-    whoTypewriter 7.8s steps(38, end) 800ms infinite,
-    whoCaret 800ms step-end infinite;
-}
-
-.who-meta {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 2rem;
-  padding: clamp(2.1rem, 4vw, 3.5rem) 0;
-  color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
-  line-height: 1.35;
-}
-
-.who-meta p:last-child {
-  justify-self: center;
-}
-
-.who-divider {
-  height: 1px;
-  margin-bottom: clamp(4rem, 7vw, 7rem);
-  background: rgba(232, 228, 214, 0.16);
-}
-
-.who-story {
-  width: min(48rem, 100%);
-  margin-left: auto;
-  color: rgba(232, 228, 214, 0.78);
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.38vw, 1.22rem);
-  line-height: 1.56;
-}
-
-.who-story p + p {
-  margin-top: clamp(1.9rem, 3.2vw, 3rem);
-}
-
-.who-story .who-location {
-  margin-top: clamp(5rem, 9vw, 9rem);
-  color: rgba(232, 228, 214, 0.86);
-  text-align: center;
-}
-
 .site-footer {
   position: relative;
   min-height: min(65vh, 46rem);
@@ -3513,29 +3240,6 @@ button {
   }
 }
 
-@keyframes whoTypewriter {
-  0%,
-  8% {
-    width: 0;
-  }
-
-  35%,
-  72% {
-    width: 38ch;
-  }
-
-  92%,
-  100% {
-    width: 0;
-  }
-}
-
-@keyframes whoCaret {
-  50% {
-    border-color: transparent;
-  }
-}
-
 @keyframes layer-card-in {
   from {
     opacity: 0;
@@ -3569,22 +3273,8 @@ button {
     max-width: 16ch;
   }
 
-  .who-intro,
-  .who-meta {
+  .about-origin {
     grid-template-columns: 1fr;
-  }
-
-  .who-intro {
-    align-items: start;
-    gap: clamp(1.5rem, 4vw, 2.25rem);
-  }
-
-  .who-meta p:last-child {
-    justify-self: start;
-  }
-
-  .who-story {
-    margin-left: 0;
   }
 
   .intro-diagram,
@@ -3626,20 +3316,6 @@ button {
 
   .work-flagship {
     grid-template-columns: 1fr;
-  }
-
-  .about-body {
-    grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 8vw, 4rem);
-  }
-
-  .about-rail {
-    position: static;
-  }
-
-  .about-availability {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
   }
 
   .community-hero {
@@ -3751,28 +3427,6 @@ button {
     justify-self: start;
   }
 
-  .who-page {
-    padding-top: clamp(3rem, 12vw, 4.5rem);
-  }
-
-  .who-intro h1 {
-    font-size: clamp(2.15rem, 10vw, 3.25rem);
-  }
-
-  .who-intro p,
-  .who-meta,
-  .who-story {
-    font-size: clamp(0.95rem, 4.2vw, 1.12rem);
-  }
-
-  .who-media {
-    height: clamp(15rem, 58vw, 23rem);
-  }
-
-  .who-media figcaption {
-    font-size: clamp(1rem, 4.9vw, 1.8rem);
-  }
-
   .work-hero {
     min-height: calc(100dvh - 5.5rem);
     padding-top: clamp(2.5rem, 10vw, 4rem);
@@ -3798,22 +3452,14 @@ button {
     padding-top: clamp(2rem, 8vw, 3.25rem);
   }
 
-  .about-hero-image {
-    min-height: clamp(18rem, 72vw, 28rem);
-  }
-
-  .about-hero-image h1 {
-    max-width: calc(100% - 1.5rem);
-    font-size: clamp(1rem, 4.55vw, 1.95rem);
-  }
-
-  .about-copy {
+  .about-heading {
     max-width: none;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
 
-  .about-availability {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
+  .about-copy,
+  .about-origin-copy {
+    max-width: none;
   }
 
   .community-page {

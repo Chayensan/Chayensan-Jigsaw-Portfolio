@@ -133,7 +133,7 @@ export default function IntroSection() {
               <br />
               a straight line.
               <br />
-              <em>It&apos;s a puzzle you build over time.</em>
+              <em>It&apos;s one practice, built over time.</em>
             </h3>
             <p className="jigsaw-lede">
               I don&apos;t really believe growth is only metrics.
