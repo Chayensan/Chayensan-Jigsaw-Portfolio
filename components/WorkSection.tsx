@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { workItems } from "@/components/site-data";
 import DeriveFlagship from "./DeriveFlagship";
+import NowLedger from "./NowLedger";
 import Tagline from "./Tagline";
 
 export default function WorkSection({ compact = true }: { compact?: boolean }) {
   return (
     <>
-      {compact ? <DeriveFlagship /> : null}
+      {compact ? (
+        <>
+          <DeriveFlagship />
+          <NowLedger />
+        </>
+      ) : null}
       <section className={`work-section ${compact ? "" : "work-section-full"}`} aria-labelledby="work-title">
         <aside className="work-intro">
           <Tagline text="Work" />

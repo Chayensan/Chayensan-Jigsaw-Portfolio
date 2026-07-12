@@ -480,6 +480,53 @@ export type DeriveEvidencePlate = {
   content?: { kicker: string; statement: string };
 };
 
+// Now ledger — docs/implementation-roadmap.md Phase 7. Current direction,
+// not flagship proof: HUNCHR, Lemon Tree Technologies, Tago Capital.
+// Testing verbs only, no metrics, no invented outcomes — every line traces
+// back to docs/fable/career-context-and-portfolio-evidence.md.
+export type NowLedgerRow = {
+  id: string;
+  index: string;
+  name: string;
+  role: string;
+  description: string;
+  direction?: string;
+  status: string;
+  primary?: boolean;
+};
+
+export const nowLedger: NowLedgerRow[] = [
+  {
+    id: "hunchr",
+    index: "01",
+    name: "HUNCHR",
+    role: "Founding-stage BD & Growth",
+    description:
+      "A free social sports competition app — private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. Desi is running early distribution experiments: warm invites, football and community outreach, and onboarding-friction research.",
+    direction: "An early signal toward product-led, social-competition growth.",
+    status: "ACTIVE · 2026 · EARLY",
+    primary: true,
+  },
+  {
+    id: "lemon-tree",
+    index: "02",
+    name: "Lemon Tree Technologies",
+    role: "Partnerships & Growth",
+    description:
+      "An early-stage trading, liquidity, and market-structure company; public details stay confidential. Desi supports partnerships and growth — venue and market research, and outreach strategy.",
+    status: "ACTIVE · 2026 · BD",
+  },
+  {
+    id: "tago-capital",
+    index: "03",
+    name: "Tago Capital",
+    role: "Business Development",
+    description:
+      "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi researches prospects and markets, and coordinates founder and partner outreach.",
+    status: "ACTIVE · 2026 · BD",
+  },
+];
+
 export const deriveFlagship: {
   kicker: string;
   heading: string;

@@ -79,6 +79,13 @@
                                                                  variant (Phase 4 API addition), used
                                                                  here for the Traders Breakfast plate
                                                                  since no photo asset exists.
+   .now-section, .now-*                   NowLedger.tsx /       CURRENT (Phase 7) — Now ledger, no
+                                           WorkSection.tsx       accent, no Plate/Terrain. Renders
+                                                                 inside WorkSection.tsx (homepage/
+                                                                 compact only), directly after
+                                                                 DeriveFlagship and before the work
+                                                                 grid. Rows carry no href — see
+                                                                 NowLedger.tsx's own comment.
    .work-hero*                            app/work/page.tsx     LIVE/LEGACY — owned by Phase 8
    .about-*                               app/about(-me2)       LIVE/LEGACY — owned by Phase 9.
                                                                  about-me2 is slated for deletion +
@@ -2012,6 +2019,135 @@ button {
   outline-offset: 3px;
 }
 
+/* Now ledger — Phase 7 (docs/implementation-roadmap.md). Deliberately no
+   Plate/Terrain and no accent: this section carries no ember-worthy verified
+   numbers, and moss is reserved for interaction states elsewhere. Quiet
+   alternating zone per docs/design.md §1.1 (--ground-quiet). Renders inside
+   WorkSection.tsx, homepage (compact) only, directly after Derive flagship. */
+
+.now-section {
+  background: var(--ground-quiet);
+  padding: var(--section-y) var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+.now-header {
+  max-width: var(--max);
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.now-kicker {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.now-header h2 {
+  max-width: 26ch;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.now-intro {
+  max-width: var(--measure);
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--bone-secondary);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.now-ledger {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.now-row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding: clamp(1.75rem, 3vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.now-row-index {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+}
+
+.now-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.now-row-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+}
+
+.now-row-name {
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 500;
+}
+
+.now-row-primary .now-row-name {
+  font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+}
+
+.now-row-role {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.now-row-description {
+  max-width: var(--measure);
+  margin: 0;
+  color: var(--bone-secondary);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.now-row-direction {
+  max-width: var(--measure);
+  margin: 0;
+  color: var(--bone-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  line-height: 1.5;
+}
+
+.now-row-status {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  justify-self: end;
+}
+
 .work-hero {
   position: relative;
   display: grid;
@@ -3421,6 +3557,10 @@ button {
     grid-column: 1 / -1;
   }
 
+  .now-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  }
+
   .field-layout {
     grid-template-columns: 1fr;
   }
@@ -3553,6 +3693,19 @@ button {
 @media (max-width: 720px) {
   :root {
     --nav-height: 7.25rem;
+  }
+
+  .now-row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .now-row-index {
+    order: -1;
+  }
+
+  .now-row-status {
+    justify-self: start;
   }
 
   .who-page {
