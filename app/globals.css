@@ -754,6 +754,25 @@ button {
   background: rgba(232, 228, 214, 0.18);
 }
 
+/* Throughline — Phase 12 bridge (19C). Static statement on solid ground
+   between Hero and the Surveyed Field. No panel, no imagery. */
+
+.throughline-section {
+  padding: var(--section-y) var(--gutter);
+  background: var(--ground);
+  border-bottom: 1px solid var(--line);
+}
+
+.throughline-statement {
+  max-width: var(--measure);
+  margin: 0;
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: var(--type-throughline);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
 /* Surveyed Field — Phase 5 (docs/implementation-roadmap.md). One continuous
    terrain photograph cut by 1px survey lines into seven irregular parcels.
    Complete from the first frame; no interlocking tabs, no missing pieces.
