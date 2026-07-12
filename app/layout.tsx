@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DK | Still Assembling",
+  title: "Desi Kamdrawati",
   description:
     "Desi designs conditions for people to find each other across events, community, Web3, and growth.",
 };
