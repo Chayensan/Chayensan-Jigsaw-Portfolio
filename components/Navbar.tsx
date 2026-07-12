@@ -4,7 +4,7 @@ import Link from "next/link";
 import { EnvelopeSimple, LinkedinLogo, XLogo } from "@phosphor-icons/react";
 import { socialLinks } from "@/components/site-data";
 
-type NavKey = "jigsaw" | "work" | "community" | "about" | "who";
+type NavKey = "jigsaw" | "work" | "about" | "who";
 
 const navItems: Array<{
   key: Exclude<NavKey, "who">;
@@ -14,8 +14,7 @@ const navItems: Array<{
 }> = [
   { key: "jigsaw", href: "/", label: "Jigsaw", index: "01" },
   { key: "work", href: "/work", label: "Work", index: "02" },
-  { key: "community", href: "/community", label: "Community", index: "03" },
-  { key: "about", href: "/about", label: "About", index: "04" },
+  { key: "about", href: "/about", label: "About", index: "03" },
 ];
 
 export default function Navbar({ active }: { active: NavKey }) {
