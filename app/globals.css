@@ -69,11 +69,26 @@
                                                                  Moss is this section's one accent;
                                                                  ember appears only on evidence
                                                                  figures inside the capsule.
-   .work-section, .work-*, .image-*       WorkSection.tsx       LIVE/LEGACY — owned by Phase 8
+   .work-section, .work-index*,           WorkSection.tsx       CURRENT (Phase 8) — Work index.
+   .work-tier*, .work-flagship*,                                Editorial archive, hairline-
+   .work-row*                                                   separated tiers (Flagship/Current/
+                                                                 Selected/Foundations), not a card
+                                                                 wall. Old five/six-item card grid
+                                                                 (.work-grid, .work-card, .work-image,
+                                                                 .work-number, .image-tago/-lemon/
+                                                                 -derive/-bruce/-misura/-rmit) is
+                                                                 removed — Flagship now renders one
+                                                                 Plate (reusing deriveFlagship data),
+                                                                 Current/Selected/Foundations render
+                                                                 as text rows (Current reuses nowLedger
+                                                                 data directly, so Work/Now copy never
+                                                                 drifts). RMIT is absent by design
+                                                                 (About material + jigsaw piece only,
+                                                                 never a Work entry).
    .derive-section, .derive-*,            DeriveFlagship.tsx /  CURRENT (Phase 6) — flagship proof
    .plate-frame-content,                  WorkSection.tsx       section, ember territory. Renders
    .plate-frame-kicker,                                         inside WorkSection.tsx (homepage/
-   .plate-frame-statement                                       compact only) before the work grid.
+   .plate-frame-statement                                       compact only) before the work index.
                                                                  plate-frame-content/-kicker/-statement
                                                                  are a generic Plate.tsx text-plate
                                                                  variant (Phase 4 API addition), used
@@ -84,9 +99,14 @@
                                                                  inside WorkSection.tsx (homepage/
                                                                  compact only), directly after
                                                                  DeriveFlagship and before the work
-                                                                 grid. Rows carry no href — see
-                                                                 NowLedger.tsx's own comment.
-   .work-hero*                            app/work/page.tsx     LIVE/LEGACY — owned by Phase 8
+                                                                 index teaser. Rows carry no href —
+                                                                 see NowLedger.tsx's own comment (the
+                                                                 Work index's Current tier reuses the
+                                                                 same nowLedger data with its own
+                                                                 optional read-more link instead).
+   .work-hero*                            app/work/page.tsx     CURRENT (Phase 8) — retired "pieces
+                                                                 with fingerprints" headline replaced
+                                                                 with plain, structural copy.
    .about-*                               app/about(-me2)       LIVE/LEGACY — owned by Phase 9.
                                                                  about-me2 is slated for deletion +
                                                                  redirect in Phase 9. .about-badge is
@@ -100,7 +120,18 @@
                                                                  (ship to evidence bar, or retire the
                                                                  route). Floating sentiment labels
                                                                  here are retired vocabulary either way.
-   .case-*                                WorkCaseTemplate.tsx  LIVE/LEGACY — owned by Phase 8
+   .case-*                                WorkCaseTemplate.tsx  CURRENT (Phase 8) — case-study
+                                                                 template. Gallery renders every
+                                                                 study.galleryImages entry with a
+                                                                 mono Caption (no fixed slot count,
+                                                                 no placeholders — fixes the old
+                                                                 6-slot silent image drop that lost
+                                                                 Misura's/Bruce Media's 7th photo).
+                                                                 .case-achievement-sections/-section
+                                                                 (RMIT-only) removed along with RMIT.
+                                                                 .case-back-link, .case-confidentiality-
+                                                                 note, .case-achievement-annotated,
+                                                                 .case-annotation-list are new.
    .site-footer, .footer-*                Footer.tsx            CURRENT — locked footer copy, no
                                                                  phase currently rebuilds it.
    @keyframes ...                         various                see inline notes; two dead keyframes
@@ -1773,131 +1804,165 @@ button {
   text-transform: uppercase;
 }
 
-.work-grid {
+/* Work index — Phase 8 (docs/implementation-roadmap.md). Editorial archive,
+   not a card wall: tiers are hairline-separated rows, evidence weight drops
+   from Flagship (one Plate) through Current/Selected/Foundations (text
+   rows). No KPI cards, no glow, ember reserved for Flagship's evidence
+   figure only (via Caption); moss marks interaction (links, focus). */
+
+.work-index {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(2rem, 3vw, 3rem);
+  gap: clamp(3.5rem, 6vw, 5.5rem);
+  max-width: var(--max);
+  margin: 0 auto;
 }
 
-.work-card {
-  position: relative;
+.work-tier {
   display: grid;
-  grid-template-columns: minmax(30rem, 1.9fr) minmax(16rem, 0.74fr);
-  column-gap: clamp(2rem, 3.5vw, 3.75rem);
-  min-height: clamp(24rem, 32vw, 33rem);
-  overflow: hidden;
-  border: 1px solid rgba(232, 228, 214, 0.18);
-  border-radius: 0.35rem;
-  background: rgba(255, 255, 255, 0.012);
-  padding: clamp(1.1rem, 1.5vw, 1.45rem);
-  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  gap: clamp(1.5rem, 2.5vw, 2rem);
 }
 
-.work-card.featured {
-  min-height: clamp(24rem, 32vw, 33rem);
+.work-tier-label {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.work-card:hover,
-.work-card:focus-visible {
-  transform: translateY(-0.35rem);
-  border-color: rgba(156, 170, 105, 0.74);
-  background: rgba(156, 170, 105, 0.035);
+.work-flagship {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--col-gutter);
+  align-items: start;
 }
 
-.work-image {
-  grid-row: 1 / span 5;
-  height: 100%;
-  min-height: clamp(22rem, 30vw, 31rem);
-  margin-bottom: 0;
-  border: 1px solid rgba(232, 228, 214, 0.08);
-  background-position: center;
-  background-size: cover;
-  filter: saturate(0.66) contrast(1.08);
+.work-flagship-plate {
+  width: 100%;
 }
 
-.featured .work-image {
-  height: 100%;
+.work-flagship-body {
+  display: grid;
+  align-content: start;
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.work-number {
-  position: absolute;
-  left: 1.5rem;
-  top: 1.3rem;
-  color: var(--moss);
+.work-flagship-body h3 {
+  margin: 0;
+  color: var(--bone);
   font-family: var(--font-display);
-  font-size: var(--type-display);
-  font-weight: 300;
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-weight: 500;
 }
 
-.work-card h3 {
-  margin: clamp(0.6rem, 1.4vw, 1.35rem) 0 0;
-  color: white;
-  font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: 300;
-  line-height: 1.02;
-}
-
-.work-card p {
-  max-width: 24rem;
-  color: var(--muted);
+.work-flagship-role {
+  margin: 0;
+  color: var(--bone-secondary);
   font-size: var(--type-body);
-  line-height: 1.58;
+  line-height: 1.6;
 }
 
-.work-card .role {
-  margin: clamp(1.25rem, 2vw, 1.8rem) 0 0;
+.work-flagship-link {
   color: var(--moss);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: 800;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease);
 }
 
-.work-card time {
-  align-self: end;
-  margin-top: clamp(2.75rem, 4.5vw, 5rem);
-  border-top: 1px solid rgba(232, 228, 214, 0.12);
-  padding-top: 1rem;
-  color: rgba(232, 228, 214, 0.5);
-  font-size: var(--type-label);
+.work-flagship-link:hover,
+.work-flagship-link:focus-visible {
+  color: var(--bone);
+}
+
+.work-row-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.work-row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: baseline;
+  padding: clamp(1.5rem, 2.5vw, 2rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.work-row-index {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+}
+
+.work-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.work-row-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+}
+
+.work-row-name {
+  color: var(--bone);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+}
+
+.work-row-role {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.image-tago {
-  background-image: url("/assets/work-tago-main.png");
-  background-position: center;
-  background-size: cover;
+.work-row-description {
+  max-width: var(--measure);
+  margin: 0;
+  color: var(--bone-secondary);
+  font-size: var(--type-body);
+  line-height: 1.6;
 }
 
-.image-lemon {
-  background-image: url("/assets/work-lemon-main.png");
-  background-position: center;
-  background-size: cover;
+.work-row-link {
+  width: fit-content;
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease);
 }
 
-.image-derive {
-  background-image: url("/assets/work-derive-main.png");
-  background-position: center;
-  background-size: cover;
+.work-row-link:hover,
+.work-row-link:focus-visible {
+  color: var(--bone);
 }
 
-.image-bruce {
-  background-image: url("/assets/work-bruce-main.jpg");
-  background-position: center;
-  background-size: cover;
-}
-
-.image-misura {
-  background-image: url("/assets/work-misura-main.png");
-  background-position: center;
-  background-size: cover;
-}
-
-.image-rmit {
-  background-image: url("/assets/work-rmit-main.png");
-  background-position: center;
-  background-size: cover;
+.work-row-status {
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  justify-self: end;
 }
 
 /* Derive flagship — Phase 6 (docs/implementation-roadmap.md). Ember territory:
@@ -2666,71 +2731,37 @@ button {
   text-shadow: 0 0 0.55rem rgba(218, 231, 151, 0.48);
 }
 
-.case-achievement-sections {
-  display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
-}
-
-.case-achievement-section {
-  display: grid;
-  gap: 0.95rem;
-}
-
-.case-achievement-section h3 {
-  margin: 0;
-  color: var(--moss);
-  font-family: var(--font-label);
-  font-size: var(--type-label);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.case-achievement-section ul {
-  display: grid;
-  gap: 0.95rem;
-  margin: 0;
-  padding-left: 1.15rem;
-  list-style: disc;
-}
-
 .case-gallery-section {
   width: 100%;
   max-width: none;
   margin: clamp(4rem, 8vw, 7rem) 0 0;
 }
 
+/* Renders every image in study.galleryImages — no fixed slot count, no
+   placeholders (Phase 8 fix: the old 6-slot grid silently dropped any
+   image past the 6th; Misura and Bruce Media both have 7). */
 .case-gallery {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
   gap: clamp(0.8rem, 1.4vw, 1.15rem);
 }
 
 .case-gallery-item {
   position: relative;
-  min-height: clamp(12rem, 20vw, 18rem);
   margin: 0;
-  overflow: hidden;
-  border: 1px solid rgba(232, 228, 214, 0.09);
-  background: #050505;
-}
-
-.case-gallery-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(156, 170, 105, 0.04);
 }
 
 .case-gallery-item img {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: inherit;
+  height: clamp(12rem, 20vw, 18rem);
+  overflow: hidden;
+  border: 1px solid rgba(232, 228, 214, 0.09);
+  background: #050505;
   object-fit: cover;
   filter: saturate(0.84) contrast(1.04);
   transition: transform 500ms ease, filter 500ms ease;
+  box-shadow: inset 0 0 0 1px rgba(156, 170, 105, 0.04);
 }
 
 .case-gallery-item:hover img {
@@ -2738,37 +2769,54 @@ button {
   filter: saturate(0.96) contrast(1.08);
 }
 
-.case-gallery-placeholder {
-  display: grid;
-  place-items: center;
-  border-style: dashed;
-  background:
-    linear-gradient(135deg, rgba(156, 170, 105, 0.055), transparent 42%),
-    rgba(255, 255, 255, 0.015);
+.case-gallery-caption {
+  margin: 0.6rem 0 0;
 }
 
-.case-gallery-placeholder figcaption {
-  display: grid;
-  gap: 0.55rem;
-  place-items: center;
-  color: rgba(232, 228, 214, 0.46);
-  font-family: var(--font-label);
+.case-back-link {
+  display: inline-flex;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--moss);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease);
 }
 
-.case-gallery-placeholder span {
-  color: var(--moss);
-  font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: 300;
-  letter-spacing: 0;
+.case-back-link:hover,
+.case-back-link:focus-visible {
+  color: var(--bone);
 }
 
-.case-gallery-item {
-  grid-column: span 3;
+.case-confidentiality-note {
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0 !important;
+  color: var(--meta) !important;
+  font-family: var(--font-mono);
+  font-size: var(--type-caption) !important;
+  letter-spacing: 0.02em;
+}
+
+.case-achievement-annotated {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.case-annotation-list {
+  display: grid !important;
+  gap: 0.85rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.case-annotation-list li {
+  padding-left: 0 !important;
+}
+
+.case-annotation {
+  color: var(--bone-secondary);
 }
 
 .case-pagination {
@@ -3576,13 +3624,8 @@ button {
     position: static;
   }
 
-  .work-grid {
+  .work-flagship {
     grid-template-columns: 1fr;
-  }
-
-  .work-card,
-  .work-card.featured {
-    grid-column: span 1;
   }
 
   .about-body {
@@ -3912,23 +3955,17 @@ button {
     display: block;
   }
 
-  .work-grid {
+  .work-row {
     grid-template-columns: 1fr;
+    gap: 0.65rem;
   }
 
-  .work-card,
-  .work-card.featured {
-    grid-template-columns: 1fr;
-    min-height: auto;
+  .work-row-index {
+    order: -1;
   }
 
-  .work-image {
-    grid-row: auto;
-    min-height: clamp(15rem, 58vw, 24rem);
-  }
-
-  .work-card h3 {
-    font-size: var(--type-title);
+  .work-row-status {
+    justify-self: start;
   }
 
   .case-study {

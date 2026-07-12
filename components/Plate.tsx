@@ -26,7 +26,9 @@ function captionToAlt(caption: CaptionContent): string {
     const attendance = caption.attendance ? ` — ${caption.attendance}` : "";
     return `${caption.name}, ${caption.place}${attendance} — ${caption.verb}`;
   }
-  return `${caption.what} — ${caption.purpose} — ${caption.contribution}`;
+  return [caption.what, caption.purpose, caption.contribution]
+    .filter((part): part is string => Boolean(part))
+    .join(" — ");
 }
 
 // Convention, not enforced at runtime: no more than three Plates per viewport (docs/design.md §3.2).

@@ -18,8 +18,12 @@ export type EventCaption = {
 export type ArtefactCaption = {
   kind: "artefact";
   what: string;
-  purpose: string;
-  contribution: string;
+  // purpose/contribution are optional: a gallery photo caption sometimes
+  // only has a verified "what it is" description, and the schema shouldn't
+  // force invented context to fill the other two slots (docs/implementation-
+  // roadmap.md Phase 8 — "flag uncertainty instead of inventing").
+  purpose?: string;
+  contribution?: string;
 };
 
 export type CaptionContent = EvidenceCaption | EventCaption | ArtefactCaption;
@@ -75,9 +79,9 @@ export default function Caption(props: CaptionProps) {
     );
   }
 
-  return (
-    <Tag className={classes}>
-      {content.what} · {content.purpose} · {content.contribution}
-    </Tag>
+  const artefactParts = [content.what, content.purpose, content.contribution].filter(
+    (part): part is string => Boolean(part),
   );
+
+  return <Tag className={classes}>{artefactParts.join(" · ")}</Tag>;
 }

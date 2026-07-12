@@ -18,6 +18,16 @@ export type JigsawChapter = {
   weight: number;
 };
 
+// Work index tiers — docs/implementation-roadmap.md Phase 8. Narrative
+// weight, not chronology: Flagship (proven at scale) > Current (active,
+// unproven) > Selected (documented, supporting) > Foundations (earlier work).
+// RMIT is deliberately absent from this tier system — it is About material
+// and a jigsaw piece, never a Work entry, per career-context-and-portfolio-
+// evidence.md. RISA and JAU/Mr Yao are omitted entirely: no verified
+// evidence/content exists for either yet, and the brief is explicit that
+// they should only appear once that evidence is present.
+export type WorkTier = "flagship" | "selected" | "foundations";
+
 export type WorkItem = {
   number: string;
   slug: string;
@@ -28,7 +38,7 @@ export type WorkItem = {
   roleType: string;
   imageClass: string;
   caseHeroImage: string;
-  featured: boolean;
+  tier: WorkTier;
 };
 
 export type WorkCaseStudy = {
@@ -42,11 +52,20 @@ export type WorkCaseStudy = {
     value: string;
   }>;
   intro: string;
+  // Public-safe confidentiality note, rendered near the intro — used by
+  // Current-tier case pages (Lemon Tree, Tago) where domain-level
+  // description is all that's public. Omitted where nothing needs flagging.
+  confidentialityNote?: string;
   achievements: string[];
-  achievementSections?: Array<{
-    title: string;
-    bullets: string[];
-  }>;
+  // Prose-plus-annotation achievements (docs/implementation-roadmap.md
+  // Phase 8: "achievements become prose-plus-annotation rather than a raw
+  // bullet stack"). When present, the template renders achievementsIntro as
+  // a paragraph and achievementAnnotations as Caption-driven evidence lines,
+  // instead of the plain achievements bullet list. Used by Derive only today
+  // — reuses the exact locked captions from deriveFlagship rather than
+  // inventing new copy.
+  achievementsIntro?: string;
+  achievementAnnotations?: CaptionContent[];
   galleryImages: Array<{
     src: string;
     alt: string;
@@ -126,30 +145,6 @@ export const jigsawChapters: JigsawChapter[] = [
 export const workItems: WorkItem[] = [
   {
     number: "01",
-    slug: "tago-capital",
-    title: "Tago Capital",
-    role: "BD",
-    text: "A full-stack product studio for high-agency founders.",
-    date: "Apr 2026 - Present",
-    roleType: "Part Time",
-    imageClass: "image-tago",
-    caseHeroImage: "/assets/work-cases/tago-main.png",
-    featured: true,
-  },
-  {
-    number: "02",
-    slug: "lemon-tree-tech",
-    title: "Lemon Tree Technology",
-    role: "Partnerships & Growth",
-    text: "Early-stage crypto market making fund",
-    date: "Apr 2024 - Present",
-    roleType: "Part Time",
-    imageClass: "image-lemon",
-    caseHeroImage: "/assets/work-cases/lemon-main.png",
-    featured: true,
-  },
-  {
-    number: "03",
     slug: "derive-xyz",
     title: "Derive.xyz",
     role: "Growth Marketer",
@@ -158,10 +153,10 @@ export const workItems: WorkItem[] = [
     roleType: "Full Time",
     imageClass: "image-derive",
     caseHeroImage: "/assets/work-cases/derive-main.png",
-    featured: true,
+    tier: "flagship",
   },
   {
-    number: "04",
+    number: "02",
     slug: "bruce-media",
     title: "Bruce Media",
     role: "Social Media Intern",
@@ -170,10 +165,10 @@ export const workItems: WorkItem[] = [
     roleType: "Internship",
     imageClass: "image-bruce",
     caseHeroImage: "/assets/work-cases/bruce-main.jpg",
-    featured: false,
+    tier: "selected",
   },
   {
-    number: "05",
+    number: "03",
     slug: "misura",
     title: "Misura",
     role: "Sales & Design Consultant",
@@ -182,19 +177,7 @@ export const workItems: WorkItem[] = [
     roleType: "Full Time",
     imageClass: "image-misura",
     caseHeroImage: "/assets/work-cases/misura-main.png",
-    featured: false,
-  },
-  {
-    number: "06",
-    slug: "rmit",
-    title: "RMIT University",
-    role: "Interior Design · Event Planner · Liaison",
-    text: "Interior design and campus event liaison work.",
-    date: "Feb 2018-Dec 2022",
-    roleType: "On-site",
-    imageClass: "image-rmit",
-    caseHeroImage: "/assets/work-cases/rmit-main.png",
-    featured: false,
+    tier: "foundations",
   },
 ];
 
@@ -202,42 +185,43 @@ export const workCaseStudies: WorkCaseStudy[] = [
   {
     slug: "tago-capital",
     title: "TAGO CAPITAL",
-    deck: "A full-stack product studio for high-agency founders.",
+    deck: "Early-stage BD and partnership work across robotics, AI, and emerging technology.",
     heroImage: "/assets/work-cases/tago-main.png",
     meta: [
       { label: "Role", value: "Business Development" },
       { label: "Timeline", value: "Apr 2026 - Present" },
-      { label: "Location", value: "Australia · Remote ( Commission-based )" },
+      { label: "Location", value: "Australia · Remote" },
     ],
     intro:
-      "Tago Capital operates where capital meets execution, an embedded growth partner for early-stage founders who know what they're building but need the relationships and strategic clarity to get it to market.",
+      "Tago Capital is a product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi supports early-stage business development for companies entering new markets.",
+    confidentialityNote:
+      "Public details confidential — prospects, targets, and partnership terms are described at a domain level only.",
     achievements: [
-      "Identifying and converting BD opportunities with early-stage founders across Web3 and emerging tech.",
-      "Managing end-to-end relationship pipeline from initial outreach through deal close. Bridging the gap between creative product vision and market-ready BD strategy.",
-      "Operating autonomously in a commission-based structure, owning pipeline and outcomes.",
+      "Researching prospects and markets across robotics, AI, and emerging technology, and identifying companies entering new markets.",
+      "Coordinating founder and company outreach, and connecting operators and potential partners across cross-border opportunities.",
+      "Supporting commercial positioning and partnership exploration — helping communicate complex, technical offerings to new audiences.",
     ],
     galleryImages: [],
   },
   {
     slug: "lemon-tree-tech",
     title: "LEMON TREE TECHNOLOGY",
-    deck: "Early-stage crypto market making fund",
+    deck: "An early-stage trading, liquidity, and market-structure company.",
     heroImage: "/assets/work-cases/lemon-main.png",
     meta: [
       { label: "Role", value: "Partnerships & Growth" },
       { label: "Timeline", value: "Apr 2026 - Present" },
-      { label: "Location", value: "London · Remote ( Part Time )" },
+      { label: "Location", value: "Remote" },
     ],
     intro:
-      "Early-stage crypto market making fund building protocol relationships and institutional pipeline across DeFi.",
+      "Lemon Tree operates within trading, liquidity, market structure, and digital assets. Desi supports partnerships and growth — venue and market research, outreach strategy, and commercial positioning.",
+    confidentialityNote:
+      "Public details confidential — client names, targets, and financial terms are not shared here.",
     achievements: [
-      "Sourcing and managing strategic partnerships to accelerate client acquisition across DeFi protocols, trading desks, and institutional contacts.",
-      "Building and maintaining outbound pipeline targeting exchanges and protocols including Derive.xyz, Ethereal, Thalex, and others.",
-      "Leveraging existing Web3 network to surface high-impact growth opportunities and warm introductions.",
-      "Produced pitch decks for partnership outreach and fund positioning, translating technical market making concepts into clear, compelling narratives.",
-      "Compiled and delivered monthly reports tracking partnership progress, pipeline status, and growth metrics for internal review.",
-      "Designed marketing assets to support outbound campaigns and brand presence.",
-      "Operating at the intersection of BD, growth, and communications in a lean, early-stage environment.",
+      "Supporting partnerships and business development across trading, liquidity, and market-structure relationships.",
+      "Conducting venue and market research, and target identification, to inform outreach strategy.",
+      "Producing pitch decks and marketing assets for partnership outreach and commercial positioning.",
+      "Compiling partnership and pipeline updates to support growth communication and early-stage go-to-market thinking.",
     ],
     galleryImages: [],
   },
@@ -254,12 +238,9 @@ export const workCaseStudies: WorkCaseStudy[] = [
     intro:
       "Misura has sourced the finest contemporary furniture from Italy and Spain, bringing together renowned artisan brands to create elegant, functional, and customisable pieces for modern Australian interiors.",
     achievements: [
-      "Managed the full sales cycle for premium European furniture: discovery, quote, close, and follow-up.",
-      "Consulted across 7 premium brands using 3D modelling and rendering support, converting clients through design storytelling.",
-      "Built repeat client relationships and drove referral business through relationship-led selling in a high-consideration purchase environment.",
-      "Developed a consultative selling approach combining design sensibility with sales discipline, achieving strong conversion rates by leading with aesthetic storytelling and lifestyle fit rather than product specs alone.",
-      "Converted clients through design storytelling and 3D modelling and rendering support rather than feature-based selling.",
-      "Built a strong repeat and referral client base through relationship-led selling in a high-consideration purchase environment.",
+      "Managed the full sales cycle for premium European furniture — discovery, quote, close, and follow-up.",
+      "Consulted with clients using 3D visualisation and design advice, translating taste into decisions across a high-consideration purchase.",
+      "Built long-term customer relationships through a consultative, design-led selling approach.",
     ],
     galleryImages: [
       {
@@ -304,15 +285,34 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Australia · Remote" },
     ],
     intro:
-      "A leading DeFi options and perpetuals protocol. I wore every hat on purpose: Discord community management, event production, multi-channel growth campaigns, design assets and brand narrative through a full rebrand and TGE. The role that brought the puzzle together.",
+      "A leading DeFi options and perpetuals protocol. Desi worked across Discord community management, event production, multi-channel growth campaigns, design assets, and brand narrative through a full rebrand and token launch.",
+    achievementsIntro:
+      "Derive.xyz, 2024 to February 2026. Desi worked across community growth, events, campaigns, and partnerships through a full rebrand and token launch. She grew Discord across the TGE period, produced Derive's first live event at Coinfest Bali, contributed to the Believe in SomETHing ecosystem campaign, and built the Framer landing page end to end. Product and brand communication, ecosystem development.",
+    achievementAnnotations: [
+      {
+        kind: "evidence",
+        project: "Discord",
+        figure: "15,000 → 40,000+ members through the TGE period",
+        verb: "community growth across Discord, Telegram, and X",
+      },
+      {
+        kind: "evidence",
+        project: "Believe in SomETHing",
+        figure: "ecosystem campaign, 430+ protocols",
+        verb: "contributor",
+      },
+      {
+        kind: "event",
+        name: "Traders Breakfast",
+        place: "Coinfest Bali",
+        attendance: "Derive's first live event, 100+ attendees",
+        verb: "produced",
+      },
+    ],
     achievements: [
-      "Ran community and social media operations across Twitter, Discord, and Telegram, driving retention and word-of-mouth growth through market cycles.",
-      "Grew Discord from 15,000 to 40,000+ during TGE, keeping traders, developers, and contributors engaged across time zones.",
-      "Produced Derive.xyz's first-ever Traders Breakfast at Coinfest Bali 2025 end to end, concept, campaign, venue, execution, 100+ attendees, institutional partners.",
-      "Co-led the Believe in SomETHing campaign, turning Ethereum's birthday into a CT moment. 430+ protocols joined including Ethereum Foundation, Aave, and Consensys. Produced the aftermovie end to end.",
-      "Led the Lyra Finance to Derive.xyz rebrand narrative through TGE, consistent voice and tone across every community-facing channel.",
-      "Built Derive.xyz's landing page from scratch in Framer, designed, learned, and shipped end to end.",
-      "Produced design assets and co-marketing assets, contents and merch.",
+      "Supported the Lyra Finance to Derive.xyz rebrand narrative through the token launch, keeping voice and tone consistent across every community-facing channel.",
+      "Built Derive.xyz's landing page from scratch in Framer — designed, learned, and shipped end to end.",
+      "Produced design assets and co-marketing assets, content, and merch.",
     ],
     galleryImages: [
       {
@@ -352,14 +352,12 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Australia · On-site" },
     ],
     intro:
-      "A boutique Australian sports media agency covering NFL, A-League, PGA, and a range of different industries. My first hands-on exposure to professional content strategy, multi-client account management, and real-time live coverage.",
+      "A boutique Australian sports media agency covering NFL, A-League, PGA, and a range of different industries. Desi's first hands-on exposure to professional content strategy and real-time live coverage.",
     achievements: [
-      "Designed social assets across graphics, thumbnails, story templates, and video for brands including Panerai, Beauty Block, and major sports leagues (NFL, A-League, PGA), managing the end-to-end content pipeline from ideation through scheduling and publishing.",
-      "Developed content briefs tailored to each client's brand voice, audience, and campaign objectives.",
-      "Produced short and long-form video and visual content using Adobe, CapCut, and Canva, consistently hitting engagement KPIs across client accounts.",
-      "Joined production crew on game days and live shoots: hands-on experience in real-time content capture and live sports coverage.",
-      "Built content briefs aligned with each client's brand voice and target audience.",
-      "Contributed to creative direction and visual storytelling, enhancing content quality through strong narrative, pacing, and editing techniques.",
+      "Supported social content planning and asset design — graphics, thumbnails, story templates, and video — across sports and lifestyle client accounts.",
+      "Wrote and developed content briefs tailored to each client's brand voice, audience, and campaign objectives.",
+      "Adapted content across different sporting audiences, building an understanding of sports-media tone and fan behaviour.",
+      "Joined production crew on game days and live shoots, supporting real-time content capture and digital publishing workflows.",
     ],
     galleryImages: [
       {
@@ -388,83 +386,12 @@ export const workCaseStudies: WorkCaseStudy[] = [
       },
     ],
   },
-  {
-    slug: "rmit",
-    title: "RMIT UNIVERSITY",
-    deck: "Bachelor of Interior Design with a research focus on micro-communities and spatial design.",
-    heroImage: "/assets/work-cases/rmit-main.png",
-    meta: [
-      { label: "Role", value: "Interior Design · Event Planner · Liaison" },
-      { label: "Timeline", value: "Feb 2018-Dec 2022" },
-      { label: "Location", value: "Australia · On-site" },
-    ],
-    intro:
-      "Bachelor of Interior Design with a research focus on micro-communities and spatial design. During my studies, I also took on two active roles in the RMIT Indonesian Student Association, first as Event Planner, producing large-scale cultural events, and later as Liaison Officer, serving as the bridge between the association and RMIT administration. I also worked as a freelance interior designer for clients.",
-    achievements: [],
-    achievementSections: [
-      {
-        title: "Event Planner, Societal Project · Dec 2018 – May 2019",
-        bullets: [
-          "Ran full-cycle production for cultural events before I knew what 'full-cycle' meant.",
-          "Concept to wrap-up, with zero template to follow. Produced cultural showcases, fundraisers, and networking events connecting hundreds of Indonesian students and diaspora across Melbourne.",
-          "Managed end-to-end event logistics: concept development, vendor coordination, volunteer management, and post-event reporting.",
-          "Built community programming from scratch inside a university system not designed for it.",
-        ],
-      },
-      {
-        title: "Liaison Officer, INDONATION · Aug 2019 – Oct 2019",
-        bullets: [
-          "First taste of institutional navigation, translating between a student community and a bureaucracy that didn't always speak the same language.",
-          "Served as official bridge between the Indonesian student association and RMIT administration, handling cross-departmental approvals and institutional coordination for hundreds of students.",
-          "Led on-the-ground operations for a fundraiser concert featuring Indonesian artists: artist hospitality, transport, accommodation, and full on-site logistics.",
-          "Championed student needs in a foreign environment, building trust across cultural and institutional lines.",
-        ],
-      },
-      {
-        title: "Graphic Designer, Jau Cook · Jul 2021 – Jan 2022",
-        bullets: [
-          "Where I learned that good design is really just clear communication with a visual layer.",
-          "Produced brand-consistent visual content for a food brand across digital and print formats.",
-          "Developed foundational design skills that now directly inform how community content, event materials, and campaign assets are conceived and executed.",
-        ],
-      },
-      {
-        title: "Freelance Interior Designer, Private Clients · Nov 2019 – Dec 2020",
-        bullets: [
-          "Two projects. Two completely different briefs.",
-          "Delivered a residential master bedroom remodel and a dual-purpose barbershop and cafe end-to-end: client briefs, spatial planning, material sourcing, vendor coordination.",
-          "Built core competencies in client management, creative problem-solving, and project delivery under real constraints, skills that underpin every community and events role since.",
-        ],
-      },
-    ],
-    galleryImages: [
-      {
-        src: "/assets/work-cases/rmit-gallery-01.png",
-        alt: "RMIT interior design maquette",
-      },
-      {
-        src: "/assets/work-cases/rmit-gallery-02.jpg",
-        alt: "RMIT Indonesian Student Association group photo",
-      },
-      {
-        src: "/assets/work-cases/rmit-gallery-03.png",
-        alt: "RMIT event performance on stage",
-      },
-      {
-        src: "/assets/work-cases/rmit-gallery-04.png",
-        alt: "RMIT fundraiser and community event group shot",
-      },
-      {
-        src: "/assets/work-cases/rmit-gallery-05.png",
-        alt: "RMIT interior design bedroom concept",
-      },
-      {
-        src: "/assets/work-cases/rmit-gallery-06.png",
-        alt: "RMIT architectural installation concept",
-      },
-    ],
-  },
 ];
+
+// RMIT is deliberately not a workCaseStudies entry. Per career-context-and-
+// portfolio-evidence.md: "RMIT is About material + a jigsaw piece. It is NOT
+// a Work entry." Its thesis artefact and RMIT-ISA event history belong to
+// the About page (Phase 9), not the Work index or case template.
 
 export const getWorkCaseStudy = (slug: string) =>
   workCaseStudies.find((study) => study.slug === slug);
@@ -493,6 +420,10 @@ export type NowLedgerRow = {
   direction?: string;
   status: string;
   primary?: boolean;
+  // Optional case-page link — used only by the Work index's Current-tier
+  // rows (components/WorkSection.tsx), never by the homepage NowLedger,
+  // which deliberately carries no links (see NowLedger.tsx's own comment).
+  slug?: string;
 };
 
 export const nowLedger: NowLedgerRow[] = [
@@ -515,6 +446,7 @@ export const nowLedger: NowLedgerRow[] = [
     description:
       "An early-stage trading, liquidity, and market-structure company; public details stay confidential. Desi supports partnerships and growth — venue and market research, and outreach strategy.",
     status: "ACTIVE · 2026 · BD",
+    slug: "lemon-tree-tech",
   },
   {
     id: "tago-capital",
@@ -524,6 +456,7 @@ export const nowLedger: NowLedgerRow[] = [
     description:
       "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi researches prospects and markets, and coordinates founder and partner outreach.",
     status: "ACTIVE · 2026 · BD",
+    slug: "tago-capital",
   },
 ];
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { WorkCaseStudy } from "@/components/site-data";
+import Caption from "./Caption";
 import Tagline from "./Tagline";
 
 type WorkCaseTemplateProps = {
@@ -13,21 +14,18 @@ export default function WorkCaseTemplate({
   previousHref = "/work",
   nextHref = "/work",
 }: WorkCaseTemplateProps) {
-  const achievements =
-    study.achievements.length > 0
-      ? study.achievements
-      : [
-          "Add achievement 01 in components/site-data.ts.",
-          "Add achievement 02 in components/site-data.ts.",
-          "Add achievement 03 in components/site-data.ts.",
-        ];
-
-  const gallerySlots = Array.from({ length: 6 }, (_, index) => study.galleryImages[index] ?? null);
+  const hasAnnotatedAchievements = Boolean(
+    study.achievementsIntro && study.achievementAnnotations?.length,
+  );
+  const hasPlainAchievements = study.achievements.length > 0;
   const hasGallery = study.galleryImages.length > 0;
-  const hasSections = Boolean(study.achievementSections?.length);
 
   return (
     <article className="case-study">
+      <Link href="/work" className="case-back-link">
+        ← Work
+      </Link>
+
       <header className="case-hero">
         <h1>{study.title}</h1>
         <p>{study.deck}</p>
@@ -50,56 +48,56 @@ export default function WorkCaseTemplate({
         <div>
           <Tagline text="Intro" />
           <p>{study.intro}</p>
+          {study.confidentialityNote ? (
+            <p className="case-confidentiality-note">{study.confidentialityNote}</p>
+          ) : null}
         </div>
-        <div>
-          <Tagline text="Key achievements" />
-          {hasSections ? (
-            <div className="case-achievement-sections">
-              {study.achievementSections!.map((section) => (
-                <section key={section.title} className="case-achievement-section">
-                  <h3>{section.title}</h3>
+
+        {hasAnnotatedAchievements || hasPlainAchievements ? (
+          <div>
+            <Tagline text="Key achievements" />
+            {hasAnnotatedAchievements ? (
+              <div className="case-achievement-annotated">
+                <p>{study.achievementsIntro}</p>
+                <ul className="case-annotation-list">
+                  {study.achievementAnnotations!.map((annotation, index) => (
+                    <li key={index}>
+                      <Caption {...annotation} className="case-annotation" />
+                    </li>
+                  ))}
+                </ul>
+                {hasPlainAchievements ? (
                   <ul>
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                    {study.achievements.map((achievement) => (
+                      <li key={achievement}>{achievement}</li>
                     ))}
                   </ul>
-                </section>
-              ))}
-            </div>
-          ) : (
-            <ul>
-              {achievements.map((achievement) => (
-                <li
-                  key={achievement}
-                  className={study.achievements.length > 0 ? undefined : "case-placeholder-copy"}
-                >
-                  {achievement}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                ) : null}
+              </div>
+            ) : (
+              <ul>
+                {study.achievements.map((achievement) => (
+                  <li key={achievement}>{achievement}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ) : null}
       </section>
 
       {hasGallery ? (
         <section className="case-gallery-section">
           <Tagline text="Gallery" />
           <div className="case-gallery">
-            {gallerySlots.map((image, index) => (
-              <figure
-                key={image ? `${image.src}-${index}` : `gallery-slot-${index + 1}`}
-                className={`case-gallery-item case-gallery-item-${index + 1} ${
-                  image ? "" : "case-gallery-placeholder"
-                }`}
-              >
-                {image ? (
-                  <img src={image.src} alt={image.alt} loading="lazy" />
-                ) : (
-                  <figcaption>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    Gallery image slot
-                  </figcaption>
-                )}
+            {study.galleryImages.map((image) => (
+              <figure className="case-gallery-item" key={image.src}>
+                <img src={image.src} alt={image.alt} loading="lazy" />
+                <Caption
+                  kind="artefact"
+                  what={image.alt}
+                  as="figcaption"
+                  className="case-gallery-caption"
+                />
               </figure>
             ))}
           </div>
@@ -108,6 +106,7 @@ export default function WorkCaseTemplate({
 
       <nav className="case-pagination" aria-label="Work case navigation">
         <Link href={previousHref}>Prev</Link>
+        <Link href="/work">Work</Link>
         <Link href={nextHref}>Next</Link>
       </nav>
     </article>
