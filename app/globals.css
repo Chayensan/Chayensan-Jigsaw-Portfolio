@@ -1999,9 +1999,7 @@ button {
 .site-footer {
   position: relative;
   min-height: min(65vh, 46rem);
-  max-height: 65vh;
   padding: clamp(2.8rem, 4.4vw, 3.6rem) var(--gutter) clamp(1.8rem, 2.9vw, 2.4rem);
-  overflow: hidden;
   color: #f5f3ee;
   background:
     radial-gradient(circle at 14% 18%, rgba(124, 143, 106, 0.04), transparent 16rem),
@@ -2067,13 +2065,13 @@ button {
 }
 
 .site-footer h2 {
-  max-width: 12ch;
+  max-width: 30ch;
   color: #f5f3ee;
   font-family: var(--font-display);
-  font-size: clamp(30px, 3.75vw, 56px);
+  font-size: clamp(22px, 2.6vw, 34px);
   font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .footer-cta {
@@ -2464,7 +2462,6 @@ button {
 
   .site-footer {
     min-height: auto;
-    max-height: none;
     padding-top: clamp(2rem, 8vw, 2.5rem);
     padding-bottom: clamp(1.4rem, 6vw, 1.8rem);
   }
@@ -2475,7 +2472,8 @@ button {
   }
 
   .site-footer h2 {
-    font-size: clamp(2.1rem, 11vw, 3.35rem);
+    max-width: none;
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
   }
 
   .footer-inner {

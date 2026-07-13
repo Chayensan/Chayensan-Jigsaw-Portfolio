@@ -8,9 +8,9 @@ export default function Footer() {
         <div className="footer-main">
           <div className="footer-statement">
             <h2>
-              If people are part of the product,
-              <br />
-              we should talk.
+              Currently open to early-stage work. The fastest way to reach me
+              is email. Tell me what you&apos;re building and where it&apos;s
+              stuck.
             </h2>
             <a className="footer-cta" href={socialLinks.gmail}>
               <span>Email</span>
