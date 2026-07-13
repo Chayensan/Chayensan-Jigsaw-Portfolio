@@ -66,7 +66,7 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
               href={deriveFlagship.href}
             />
             <div className="work-flagship-body">
-              <h3>Derive.xyz</h3>
+              <h2>Derive.xyz</h2>
               <p className="work-flagship-role">{deriveFlagship.role}</p>
               <Link href={deriveFlagship.href} className="work-flagship-link">
                 Read the full case

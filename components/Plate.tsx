@@ -48,7 +48,7 @@ export default function Plate({
       {href ? <a href={href} className="plate-link" aria-label={alt} /> : null}
       <span className="plate-frame" style={{ aspectRatio }}>
         {image ? (
-          <Image src={image.src} alt="" fill sizes="100vw" />
+          <Image src={image.src} alt={href ? "" : alt} fill sizes="100vw" />
         ) : children ? (
           <span className="plate-frame-content">{children}</span>
         ) : null}

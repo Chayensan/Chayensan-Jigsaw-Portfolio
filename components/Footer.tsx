@@ -1,3 +1,5 @@
+import { socialLinks } from "@/components/site-data";
+
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -10,8 +12,8 @@ export default function Footer() {
               <br />
               we should talk.
             </h2>
-            <a className="footer-cta" href="mailto:hello@desi.studio">
-              <span>Start something meaningful</span>
+            <a className="footer-cta" href={socialLinks.gmail}>
+              <span>Email</span>
               <span className="footer-cta-arrow" aria-hidden="true">
                 &rarr;
               </span>
@@ -23,7 +25,7 @@ export default function Footer() {
             <div className="footer-meta-block">
               <span className="footer-meta-rule" aria-hidden="true" />
               <p className="footer-availability">
-                Currently open to roles in Web3 &amp; AI.
+                Available now · location line pending
               </p>
             </div>
             <div className="footer-meta-block">
@@ -38,11 +40,6 @@ export default function Footer() {
         </div>
 
         <div className="footer-divider" aria-hidden="true" />
-
-        <div className="footer-anchor-wrap" aria-hidden="true">
-          <p className="footer-anchor">Systems of Belonging</p>
-          <p className="footer-anchor-reflection">Systems of Belonging</p>
-        </div>
       </div>
     </footer>
   );

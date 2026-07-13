@@ -1141,7 +1141,7 @@ button {
   gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.work-flagship-body h3 {
+.work-flagship-body h2 {
   margin: 0;
   color: var(--bone);
   font-family: var(--font-display);
@@ -1169,6 +1169,11 @@ button {
 .work-flagship-link:hover,
 .work-flagship-link:focus-visible {
   color: var(--bone);
+}
+
+.work-flagship-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
 }
 
 .work-row-list {
@@ -1245,6 +1250,11 @@ button {
 .work-row-link:hover,
 .work-row-link:focus-visible {
   color: var(--bone);
+}
+
+.work-row-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
 }
 
 .work-row-status {
@@ -1866,7 +1876,6 @@ button {
 
 .case-copy-block li::marker {
   color: rgba(218, 231, 151, 0.88);
-  text-shadow: 0 0 0.55rem rgba(218, 231, 151, 0.48);
 }
 
 .case-gallery-section {
@@ -1928,6 +1937,11 @@ button {
   color: var(--bone);
 }
 
+.case-back-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+
 .case-confidentiality-note {
   margin: clamp(1rem, 2vw, 1.5rem) 0 0 !important;
   color: var(--meta) !important;
@@ -1972,8 +1986,14 @@ button {
   text-transform: uppercase;
 }
 
-.case-pagination a:hover {
+.case-pagination a:hover,
+.case-pagination a:focus-visible {
   color: var(--text);
+}
+
+.case-pagination a:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
 }
 
 .site-footer {
@@ -2076,6 +2096,11 @@ button {
   text-decoration-color: currentColor;
 }
 
+.footer-cta:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+
 .footer-cta-arrow {
   display: inline-block;
   transform: translateX(0);
@@ -2138,43 +2163,6 @@ button {
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.footer-anchor-wrap {
-  position: relative;
-  margin-top: 0;
-  padding-top: clamp(0.6rem, 1.2vw, 1rem);
-  min-height: clamp(10rem, 18vw, 13rem);
-  overflow: hidden;
-}
-
-.footer-anchor,
-.footer-anchor-reflection {
-  margin: 0;
-  width: 100%;
-  font-family: var(--font-display);
-  font-size: clamp(5.8rem, 10.6vw, 10.8rem);
-  line-height: 0.82;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.footer-anchor {
-  color: rgba(245, 243, 238, 0.42);
-  transform: translateY(0.1em);
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.42) 80%, transparent 100%);
-}
-
-.footer-anchor-reflection {
-  position: absolute;
-  left: 0;
-  top: calc(100% - 0.15rem);
-  color: rgba(245, 243, 238, 0.04);
-  transform: scaleY(-1);
-  transform-origin: top;
-  filter: blur(0.4px);
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.32), transparent 68%);
 }
 
 @keyframes ticker {
@@ -2513,16 +2501,6 @@ button {
   .footer-copyright {
     text-align: left;
     font-size: 0.72rem;
-  }
-
-  .footer-anchor {
-    font-size: clamp(2.8rem, 13vw, 4.4rem);
-    white-space: normal;
-    transform: none;
-  }
-
-  .footer-anchor-reflection {
-    display: none;
   }
 }
 
