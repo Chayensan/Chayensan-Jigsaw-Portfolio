@@ -11,6 +11,7 @@ import DeriveFlagship from "./DeriveFlagship";
 import NowLedger from "./NowLedger";
 import Tagline from "./Tagline";
 
+const flagshipItem = workItems.find((item) => item.tier === "flagship")!;
 const selectedItems = workItems.filter((item) => item.tier === "selected");
 const foundationsItems = workItems.filter((item) => item.tier === "foundations");
 
@@ -31,6 +32,39 @@ function CompactRowList({
   );
 }
 
+function WorkRow({
+  number,
+  title,
+  role,
+  text,
+  date,
+  slug,
+}: {
+  number: string;
+  title: string;
+  role: string;
+  text: string;
+  date: string;
+  slug: string;
+}) {
+  return (
+    <li className="work-row">
+      <span className="work-row-index">{number}</span>
+      <div className="work-row-body">
+        <div className="work-row-heading">
+          <span className="work-row-name">{title}</span>
+          <span className="work-row-role">{role}</span>
+        </div>
+        <p className="work-row-description">{text}</p>
+        <Link href={`/work/${slug}`} className="work-row-link">
+          Read more
+        </Link>
+      </div>
+      <span className="work-row-status">{date}</span>
+    </li>
+  );
+}
+
 export default function WorkSection({ compact = true }: { compact?: boolean }) {
   if (compact) {
     return (
@@ -40,13 +74,63 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
         <section className="work-section" aria-labelledby="work-title">
           <aside className="work-intro">
             <Tagline text="Work" />
-            <h2 id="work-title">Work</h2>
+            <h2 id="work-title">Selected Work</h2>
             <p>
               Ordered by what each role proves — from flagship evidence to
               work still being tested.
             </p>
             <Link href="/work">View all work</Link>
           </aside>
+
+          <div className="work-index">
+            <div className="work-tier" data-tier="flagship">
+              <p className="work-tier-label">Flagship</p>
+              <div className="work-flagship">
+                <Plate
+                  className="work-flagship-plate"
+                  caption={deriveFlagship.primary.caption}
+                  image={deriveFlagship.primary.image}
+                  aspectRatio={deriveFlagship.primary.aspectRatio}
+                  href={deriveFlagship.href}
+                />
+                <div className="work-flagship-body">
+                  <h2>{flagshipItem.title}</h2>
+                  <p className="work-flagship-role">{flagshipItem.text}</p>
+                  <Link href={deriveFlagship.href} className="work-flagship-link">
+                    Read the full case
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <CompactRowList tier="selected">
+              {selectedItems.map((item) => (
+                <WorkRow
+                  key={item.slug}
+                  number={item.number}
+                  title={item.title}
+                  role={item.role}
+                  text={item.text}
+                  date={item.date}
+                  slug={item.slug}
+                />
+              ))}
+            </CompactRowList>
+
+            <CompactRowList tier="foundations">
+              {foundationsItems.map((item) => (
+                <WorkRow
+                  key={item.slug}
+                  number={item.number}
+                  title={item.title}
+                  role={item.role}
+                  text={item.text}
+                  date={item.date}
+                  slug={item.slug}
+                />
+              ))}
+            </CompactRowList>
+          </div>
         </section>
       </>
     );
@@ -98,39 +182,29 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
 
         <CompactRowList tier="selected">
           {selectedItems.map((item) => (
-            <li key={item.slug} className="work-row">
-              <span className="work-row-index">{item.number}</span>
-              <div className="work-row-body">
-                <div className="work-row-heading">
-                  <span className="work-row-name">{item.title}</span>
-                  <span className="work-row-role">{item.role}</span>
-                </div>
-                <p className="work-row-description">{item.text}</p>
-                <Link href={`/work/${item.slug}`} className="work-row-link">
-                  Read more
-                </Link>
-              </div>
-              <span className="work-row-status">{item.date}</span>
-            </li>
+            <WorkRow
+              key={item.slug}
+              number={item.number}
+              title={item.title}
+              role={item.role}
+              text={item.text}
+              date={item.date}
+              slug={item.slug}
+            />
           ))}
         </CompactRowList>
 
         <CompactRowList tier="foundations">
           {foundationsItems.map((item) => (
-            <li key={item.slug} className="work-row">
-              <span className="work-row-index">{item.number}</span>
-              <div className="work-row-body">
-                <div className="work-row-heading">
-                  <span className="work-row-name">{item.title}</span>
-                  <span className="work-row-role">{item.role}</span>
-                </div>
-                <p className="work-row-description">{item.text}</p>
-                <Link href={`/work/${item.slug}`} className="work-row-link">
-                  Read more
-                </Link>
-              </div>
-              <span className="work-row-status">{item.date}</span>
-            </li>
+            <WorkRow
+              key={item.slug}
+              number={item.number}
+              title={item.title}
+              role={item.role}
+              text={item.text}
+              date={item.date}
+              slug={item.slug}
+            />
           ))}
         </CompactRowList>
       </div>
