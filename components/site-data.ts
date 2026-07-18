@@ -292,7 +292,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
     slug: "derive-xyz",
     title: "DERIVE.XYZ",
     deck:
-      "Derive (prev. Lyra) | The Leading Onchain Options Platform w/BTC, ETH, SOL & HYPE",
+      "Onchain options protocol. Community, events, and campaigns through a full rebrand and token launch.",
     heroImage: "/assets/work-cases/derive-main.png",
     meta: [
       { label: "Role", value: "Growth Marketer" },
