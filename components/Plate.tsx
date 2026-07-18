@@ -20,15 +20,15 @@ type PlateProps = {
 
 function captionToAlt(caption: CaptionContent): string {
   if (caption.kind === "evidence") {
-    return `${caption.project} — ${caption.figure} — ${caption.verb}`;
+    return `${caption.project} · ${caption.figure} · ${caption.verb}`;
   }
   if (caption.kind === "event") {
-    const attendance = caption.attendance ? ` — ${caption.attendance}` : "";
-    return `${caption.name}, ${caption.place}${attendance} — ${caption.verb}`;
+    const attendance = caption.attendance ? ` · ${caption.attendance}` : "";
+    return `${caption.name}, ${caption.place}${attendance} · ${caption.verb}`;
   }
   return [caption.what, caption.purpose, caption.contribution]
     .filter((part): part is string => Boolean(part))
-    .join(" — ");
+    .join(" · ");
 }
 
 // Convention, not enforced at runtime: no more than three Plates per viewport (docs/design.md §3.2).
