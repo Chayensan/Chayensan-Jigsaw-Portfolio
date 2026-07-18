@@ -1131,7 +1131,11 @@ button {
   padding: var(--section-y) var(--gutter);
 }
 
+/* Full /work page — no .work-intro rail, so the two-column grid above would
+   collapse the index into the narrow first column. Single full-width column
+   instead; max-width and gutters stay inherited from .work-section. */
 .work-section-full {
+  grid-template-columns: minmax(0, 1fr);
   padding-top: clamp(3rem, 6vw, 5rem);
 }
 
