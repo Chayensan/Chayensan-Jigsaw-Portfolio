@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { EnvelopeSimple, LinkedinLogo, XLogo } from "@phosphor-icons/react";
-import { socialLinks } from "@/components/site-data";
+import {
+  EnvelopeSimple,
+  GithubLogo,
+  LinkedinLogo,
+  XLogo,
+} from "@phosphor-icons/react";
+import { isPlaceholderSocialUrl, socialLinks } from "@/components/site-data";
 
 type NavKey = "jigsaw" | "work" | "about" | "who";
 
@@ -42,11 +47,23 @@ export default function Navbar({ active }: { active: NavKey }) {
           <EnvelopeSimple size={16} weight="regular" aria-hidden="true" />
           Email
         </a>
-        <a href={socialLinks.linkedin} aria-label="LinkedIn">
-          <LinkedinLogo size={18} weight="regular" />
-        </a>
-        <a href={socialLinks.twitter} aria-label="Twitter">
-          <XLogo size={18} weight="regular" />
+        {!isPlaceholderSocialUrl(socialLinks.linkedin) && (
+          <a href={socialLinks.linkedin} aria-label="LinkedIn">
+            <LinkedinLogo size={18} weight="regular" />
+          </a>
+        )}
+        {!isPlaceholderSocialUrl(socialLinks.twitter) && (
+          <a href={socialLinks.twitter} aria-label="Twitter">
+            <XLogo size={18} weight="regular" />
+          </a>
+        )}
+        <a
+          href={socialLinks.github}
+          aria-label="GitHub"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <GithubLogo size={18} weight="regular" />
         </a>
       </div>
     </header>

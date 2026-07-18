@@ -77,7 +77,18 @@ export const socialLinks = {
   gmail: "mailto:hello@desi.studio",
   linkedin: "https://www.linkedin.com/",
   twitter: "https://twitter.com/",
+  github: "https://github.com/Chayensan",
 };
+
+// Bare-domain placeholders used before real profile URLs are set. Links
+// matching these exactly are hidden rather than rendered broken.
+const placeholderSocialUrls = new Set([
+  "https://www.linkedin.com/",
+  "https://twitter.com/",
+]);
+
+export const isPlaceholderSocialUrl = (url: string) =>
+  placeholderSocialUrls.has(url);
 
 // Seven-chapter surveyed-field model — docs/fable/04-voice-and-copy.md
 // §Approved Jigsaw labels. Replaces the retired five-category model
