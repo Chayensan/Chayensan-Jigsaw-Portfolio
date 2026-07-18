@@ -91,6 +91,9 @@ export default function NarrativeSection() {
 
   return (
     <section className="field-section" aria-labelledby="field-title">
+      <p className="section-index" aria-hidden="true">
+        03
+      </p>
       <div className="field-header">
         <Tagline text="Chapters" />
         <h2 id="field-title">Seven chapters, one field.</h2>
@@ -148,6 +151,7 @@ export default function NarrativeSection() {
             <div className="field-capsule">
               <p className="field-capsule-kicker">{openChapter.label}</p>
               <p className="field-capsule-capability">{openChapter.capability}</p>
+              <p className="field-capsule-activity">{openChapter.activity}</p>
               <p className="field-capsule-evidence">
                 {renderEvidence(openChapter.evidence)}
               </p>
@@ -172,6 +176,7 @@ export default function NarrativeSection() {
               <span className="field-band-capability">{chapter.capability}</span>
             </summary>
             <div className="field-band-body">
+              <p className="field-band-activity">{chapter.activity}</p>
               <p className="field-band-evidence">{renderEvidence(chapter.evidence)}</p>
               <Link href={chapter.href} className="field-band-link">
                 Open chapter

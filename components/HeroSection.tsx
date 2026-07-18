@@ -3,35 +3,45 @@ import { socialLinks } from "@/components/site-data";
 
 export default function HeroSection() {
   return (
-    <section className="hero-section" aria-labelledby="hero-title">
-      <p className="hero-name">Desi Kamdrawati</p>
+    <>
+      <section className="hero-section" aria-labelledby="hero-title">
+        <p className="hero-name">
+          Desi Kamdrawati · Growth, Community &amp; Partnerships
+        </p>
 
-      <div className="hero-content">
-        <h1 id="hero-title" className="hero-identity">
-          I help early-stage teams turn attention into users, members, and
-          partners.
-        </h1>
+        <div className="hero-content">
+          <h1 id="hero-title" className="hero-identity">
+            I build the{" "}
+            <span className="hero-identity-accent">
+              communities, events, and growth systems
+            </span>{" "}
+            that help early-stage products find their people.
+          </h1>
 
-        <div className="hero-rail">
-          <p className="hero-proof">
-            Grew Derive&apos;s Discord from{" "}
-            <span className="hero-proof-figure">15,000 → 40,000+</span>{" "}
-            through its token launch.
-          </p>
-          <p className="hero-availability">
-            Available now · location line pending
-          </p>
+          <div className="hero-rail">
+            <p className="hero-availability">
+              Available now · Based in Jakarta, Building globally
+            </p>
+          </div>
+
+          <div className="hero-actions">
+            <Link href="/work" className="hero-cta hero-cta-primary">
+              Work
+            </Link>
+            <a href={socialLinks.gmail} className="hero-cta hero-cta-secondary">
+              Email
+            </a>
+          </div>
         </div>
+      </section>
 
-        <div className="hero-actions">
-          <Link href="/work" className="hero-cta hero-cta-primary">
-            Work
-          </Link>
-          <a href={socialLinks.gmail} className="hero-cta hero-cta-secondary">
-            Email
-          </a>
-        </div>
+      <div className="hero-survey">
+        <p className="hero-survey-line">
+          Derive · Discord{" "}
+          <span className="hero-survey-figure">15,000 → 40,000+</span> through
+          TGE
+        </p>
       </div>
-    </section>
+    </>
   );
 }

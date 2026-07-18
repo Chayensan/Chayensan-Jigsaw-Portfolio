@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Plate from "@/components/Plate";
@@ -39,6 +40,7 @@ function WorkRow({
   text,
   date,
   slug,
+  thumbnail,
 }: {
   number: string;
   title: string;
@@ -46,6 +48,10 @@ function WorkRow({
   text: string;
   date: string;
   slug: string;
+  // Subordinate thumbnail — existing case assets only, homepage Selected
+  // Work rows only. Never passed on the full /work index (docs/implementation-
+  // roadmap.md Phase 21: thumbnails, not a /work redesign).
+  thumbnail?: string;
 }) {
   return (
     <li className="work-row">
@@ -55,7 +61,14 @@ function WorkRow({
           <span className="work-row-name">{title}</span>
           <span className="work-row-role">{role}</span>
         </div>
-        <p className="work-row-description">{text}</p>
+        <div className="work-row-content">
+          {thumbnail ? (
+            <span className="work-row-thumb" aria-hidden="true">
+              <Image src={thumbnail} alt="" fill sizes="160px" />
+            </span>
+          ) : null}
+          <p className="work-row-description">{text}</p>
+        </div>
         <Link href={`/work/${slug}`} className="work-row-link">
           Read more
         </Link>
@@ -72,11 +85,14 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
         <DeriveFlagship />
         <NowLedger />
         <section className="work-section" aria-labelledby="work-title">
+          <p className="section-index" aria-hidden="true">
+            06
+          </p>
           <aside className="work-intro">
             <Tagline text="Work" />
             <h2 id="work-title">Selected Work</h2>
             <p>
-              Ordered by what each role proves — from flagship evidence to
+              Ordered by what each role proves, from flagship evidence to
               work still being tested.
             </p>
             <Link href="/work">View all work</Link>
@@ -113,6 +129,7 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
                   text={item.text}
                   date={item.date}
                   slug={item.slug}
+                  thumbnail={item.caseHeroImage}
                 />
               ))}
             </CompactRowList>
@@ -127,6 +144,7 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
                   text={item.text}
                   date={item.date}
                   slug={item.slug}
+                  thumbnail={item.caseHeroImage}
                 />
               ))}
             </CompactRowList>

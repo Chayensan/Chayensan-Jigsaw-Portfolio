@@ -13,6 +13,7 @@ export type JigsawChapter = {
   id: JigsawChapterId;
   label: string;
   capability: string;
+  activity: string;
   evidence: string;
   href: string;
   weight: number;
@@ -88,6 +89,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "spatial-design",
     label: "Spatial Design",
     capability: "Environments that shape behaviour.",
+    activity:
+      "Trained in Interior Design at RMIT (Hons), where the whole practice started: studying how rooms, layouts, and spatial conditions change how people meet and behave. Everything since has been that idea at larger scale.",
     evidence: "RMIT Interior Design (Hons) · origin of the practice",
     href: "/about",
     weight: 13,
@@ -96,6 +99,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "events",
     label: "Events",
     capability: "From invitation to follow-through.",
+    activity:
+      "Planning and producing gatherings from RISA student events in Melbourne to Derive's first live event: the Traders Breakfast at Coinfest Bali, 100+ attendees, produced end to end.",
     evidence: "Traders Breakfast, Coinfest Bali · 100+ attendees",
     href: "/work/derive-xyz",
     weight: 16,
@@ -104,6 +109,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "community",
     label: "Community",
     capability: "Turning members into participants.",
+    activity:
+      "Ran Derive's community through its rebrand and token launch: Discord grown 15,000 → 40,000+ through the TGE period, with operations across Discord, Telegram, and X.",
     evidence: "Derive Discord · 15,000 → 40,000+",
     href: "/work/derive-xyz",
     weight: 14,
@@ -112,6 +119,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "sports-media",
     label: "Sports Media",
     capability: "Writing for fans, by code and by platform.",
+    activity:
+      "Content research, planning, and briefs at Bruce Media across NFL, A-League, and PGA properties, learning how different fan cultures read, share, and react.",
     evidence: "Bruce Media · NFL, A-League, PGA",
     href: "/work/bruce-media",
     weight: 11,
@@ -120,6 +129,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "growth",
     label: "Growth",
     capability: "Converting attention into activity.",
+    activity:
+      "Campaigns and launch communication at Derive, including contributing to Believe in SomETHing, an ecosystem campaign spanning 430+ protocols, and shipping a landing page end to end in Framer.",
     evidence: "Believe in SomETHing · 430+ protocols",
     href: "/work/derive-xyz",
     weight: 17,
@@ -128,6 +139,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "partnerships",
     label: "Partnerships",
     capability: "Finding the overlap between two roadmaps.",
+    activity:
+      "Current BD and partnerships work at Lemon Tree Technology and Tago Capital: market research, prospect development, outreach, and commercial positioning across trading and emerging technology.",
     evidence: "Current: Lemon Tree, Tago Capital",
     href: "/work",
     weight: 12,
@@ -136,6 +149,8 @@ export const jigsawChapters: JigsawChapter[] = [
     id: "product",
     label: "Product",
     capability: "Early distribution and user research.",
+    activity:
+      "Founding-stage work at HUNCHR, a social sports competition app: distribution experiments, user conversations, onboarding-friction research, and community-led acquisition. Early, active, unproven.",
     evidence: "HUNCHR · founding stage, in progress",
     href: "/work",
     weight: 17,
@@ -195,11 +210,11 @@ export const workCaseStudies: WorkCaseStudy[] = [
     intro:
       "Tago Capital is a product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi supports early-stage business development for companies entering new markets.",
     confidentialityNote:
-      "Public details confidential — prospects, targets, and partnership terms are described at a domain level only.",
+      "Public details confidential: prospects, targets, and partnership terms are described at a domain level only.",
     achievements: [
       "Researching prospects and markets across robotics, AI, and emerging technology, and identifying companies entering new markets.",
       "Coordinating founder and company outreach, and connecting operators and potential partners across cross-border opportunities.",
-      "Supporting commercial positioning and partnership exploration — helping communicate complex, technical offerings to new audiences.",
+      "Supporting commercial positioning and partnership exploration, helping communicate complex, technical offerings to new audiences.",
     ],
     galleryImages: [],
   },
@@ -214,9 +229,9 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Remote" },
     ],
     intro:
-      "Lemon Tree operates within trading, liquidity, market structure, and digital assets. Desi supports partnerships and growth — venue and market research, outreach strategy, and commercial positioning.",
+      "Lemon Tree operates within trading, liquidity, market structure, and digital assets. Desi supports partnerships and growth: venue and market research, outreach strategy, and commercial positioning.",
     confidentialityNote:
-      "Public details confidential — client names, targets, and financial terms are not shared here.",
+      "Public details confidential: client names, targets, and financial terms are not shared here.",
     achievements: [
       "Supporting partnerships and business development across trading, liquidity, and market-structure relationships.",
       "Conducting venue and market research, and target identification, to inform outreach strategy.",
@@ -238,7 +253,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
     intro:
       "Misura has sourced the finest contemporary furniture from Italy and Spain, bringing together renowned artisan brands to create elegant, functional, and customisable pieces for modern Australian interiors.",
     achievements: [
-      "Managed the full sales cycle for premium European furniture — discovery, quote, close, and follow-up.",
+      "Managed the full sales cycle for premium European furniture: discovery, quote, close, and follow-up.",
       "Consulted with clients using 3D visualisation and design advice, translating taste into decisions across a high-consideration purchase.",
       "Built long-term customer relationships through a consultative, design-led selling approach.",
     ],
@@ -311,7 +326,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
     ],
     achievements: [
       "Supported the Lyra Finance to Derive.xyz rebrand narrative through the token launch, keeping voice and tone consistent across every community-facing channel.",
-      "Built Derive.xyz's landing page from scratch in Framer — designed, learned, and shipped end to end.",
+      "Built Derive.xyz's landing page from scratch in Framer: designed, learned, and shipped end to end.",
       "Produced design assets and co-marketing assets, content, and merch.",
     ],
     galleryImages: [
@@ -354,7 +369,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
     intro:
       "A boutique Australian sports media agency covering NFL, A-League, PGA, and a range of different industries. Desi's first hands-on exposure to professional content strategy and real-time live coverage.",
     achievements: [
-      "Supported social content planning and asset design — graphics, thumbnails, story templates, and video — across sports and lifestyle client accounts.",
+      "Supported social content planning and asset design (graphics, thumbnails, story templates, and video) across sports and lifestyle client accounts.",
       "Wrote and developed content briefs tailored to each client's brand voice, audience, and campaign objectives.",
       "Adapted content across different sporting audiences, building an understanding of sports-media tone and fan behaviour.",
       "Joined production crew on game days and live shoots, supporting real-time content capture and digital publishing workflows.",
@@ -433,7 +448,7 @@ export const nowLedger: NowLedgerRow[] = [
     name: "HUNCHR",
     role: "Founding-stage BD & Growth",
     description:
-      "A free social sports competition app — private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. Desi is running early distribution experiments: warm invites, football and community outreach, and onboarding-friction research.",
+      "A free social sports competition app: private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. Desi is running early distribution experiments: warm invites, football and community outreach, and onboarding-friction research.",
     direction: "An early signal toward product-led, social-competition growth.",
     status: "ACTIVE · 2026 · EARLY",
     primary: true,
@@ -444,7 +459,7 @@ export const nowLedger: NowLedgerRow[] = [
     name: "Lemon Tree Technologies",
     role: "Partnerships & Growth",
     description:
-      "An early-stage trading, liquidity, and market-structure company; public details stay confidential. Desi supports partnerships and growth — venue and market research, and outreach strategy.",
+      "An early-stage trading, liquidity, and market-structure company; public details stay confidential. Desi supports partnerships and growth: venue and market research, and outreach strategy.",
     status: "ACTIVE · 2026 · BD",
     slug: "lemon-tree-tech",
   },
@@ -498,6 +513,7 @@ export const deriveFlagship: {
     },
     {
       id: "traders-breakfast",
+      image: { src: "/assets/work-cases/derive-traders-breakfast.png" },
       aspectRatio: "16 / 9",
       caption: {
         kind: "event",
@@ -506,7 +522,6 @@ export const deriveFlagship: {
         attendance: "Derive's first live event, 100+ attendees",
         verb: "produced",
       },
-      content: { kicker: "Event", statement: "Traders Breakfast, Coinfest Bali" },
     },
   ],
 };

@@ -4,13 +4,20 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-top-rule" aria-hidden="true" />
+      <p className="section-index" aria-hidden="true">
+        07
+      </p>
       <div className="footer-inner">
         <div className="footer-main">
           <div className="footer-statement">
+            <p className="footer-colophon">
+              Systems of Belonging · Desi Kamdrawati · 2026
+            </p>
             <h2>
-              Currently open to early-stage work. The fastest way to reach me
-              is email. Tell me what you&apos;re building and where it&apos;s
-              stuck.
+              I&apos;m open to early-stage work. If people are part of what
+              you&apos;re building, I&apos;d like to hear about it. Email
+              reaches me fastest. Tell me what you&apos;re making and who
+              it&apos;s for.
             </h2>
             <a className="footer-cta" href={socialLinks.gmail}>
               <span>Email</span>
@@ -25,16 +32,8 @@ export default function Footer() {
             <div className="footer-meta-block">
               <span className="footer-meta-rule" aria-hidden="true" />
               <p className="footer-availability">
-                Available now · location line pending
+                Available now · Based in Jakarta, Building globally
               </p>
-            </div>
-            <div className="footer-meta-block">
-              <span className="footer-meta-rule footer-meta-rule-muted" aria-hidden="true" />
-              <p className="footer-location">Based in Jakarta / Global</p>
-            </div>
-            <div className="footer-meta-block">
-              <span className="footer-meta-rule footer-meta-rule-muted" aria-hidden="true" />
-              <p className="footer-copyright">&copy; 2026 Desi Kamdrawati</p>
             </div>
           </div>
         </div>
