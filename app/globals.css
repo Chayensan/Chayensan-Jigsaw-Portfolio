@@ -204,8 +204,8 @@
   --max: 88rem;
 
   /* Legacy type scale — documented substitutes, kept at current values pending Phase 2/3.
-     --type-label (0.66rem) is below the approved 12px floor; flagged, not silently fixed here. */
-  --type-label: 0.66rem;
+     --type-label raised to 0.75rem (Task 22B) to clear the approved 12px floor. */
+  --type-label: 0.75rem;
   --type-body: 0.875rem;
   --type-title: 1.4375rem;
   --type-display: clamp(2.05rem, 3.2vw, 3rem);
@@ -486,7 +486,7 @@ button {
   gap: 0.5rem;
   padding: 0.4rem 0.1rem;
   color: rgba(232, 228, 214, 0.6);
-  font-size: 0.68rem;
+  font-size: var(--type-label);
   font-weight: 600;
   letter-spacing: 0.14em;
   white-space: nowrap;
@@ -508,7 +508,7 @@ button {
 
 .nav-item-index {
   color: rgba(232, 228, 214, 0.32);
-  font-size: 0.6rem;
+  font-size: var(--type-label);
   letter-spacing: 0.16em;
 }
 
@@ -530,7 +530,7 @@ button {
   align-items: center;
   gap: 0.4rem;
   color: var(--bone);
-  font-size: 0.68rem;
+  font-size: var(--type-label);
   font-weight: 600;
   letter-spacing: 0.14em;
 }
@@ -1146,6 +1146,7 @@ button {
 }
 
 .work-intro h2 {
+  font-family: var(--font-display);
   font-size: var(--type-display);
 }
 
@@ -1314,7 +1315,7 @@ button {
   max-width: var(--measure);
   margin: 0;
   color: var(--bone-secondary);
-  font-size: var(--type-body);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -1415,7 +1416,7 @@ button {
   max-width: var(--measure);
   margin: clamp(1.5rem, 2.5vw, 2rem) 0 0;
   color: var(--bone-secondary);
-  font-size: var(--type-body);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -1602,7 +1603,7 @@ button {
   max-width: var(--measure);
   margin: 0;
   color: var(--bone-secondary);
-  font-size: var(--type-body);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -1809,9 +1810,9 @@ button {
   max-width: var(--measure);
   display: grid;
   gap: clamp(1.45rem, 2.4vw, 2rem);
-  color: rgba(232, 228, 214, 0.82);
-  font-size: var(--type-body);
-  line-height: 1.72;
+  color: var(--bone-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .about-copy p {
@@ -1827,9 +1828,9 @@ button {
 
 .about-origin-copy {
   max-width: var(--measure);
-  color: rgba(232, 228, 214, 0.82);
-  font-size: var(--type-body);
-  line-height: 1.72;
+  color: var(--bone-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .about-origin-copy p {
@@ -1898,8 +1899,8 @@ button {
 .case-hero p {
   max-width: 52rem;
   margin: clamp(0.85rem, 1.8vw, 1.35rem) 0 0;
-  color: rgba(232, 228, 214, 0.62);
-  font-size: var(--type-body);
+  color: var(--bone-secondary);
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -1950,7 +1951,7 @@ button {
 
 .case-copy-block .tagline p,
 .case-gallery-section .tagline p {
-  font-size: 10.56px;
+  font-size: var(--type-label);
 }
 
 .case-meta dt {
@@ -1978,9 +1979,9 @@ button {
 
 .case-copy-block p,
 .case-copy-block li {
-  color: rgba(232, 228, 214, 0.72);
-  font-size: var(--type-body);
-  line-height: 1.68;
+  color: var(--bone-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .case-copy-block p {
@@ -2207,7 +2208,7 @@ button {
 
 .site-footer h2 {
   max-width: 30ch;
-  color: #f5f3ee;
+  color: var(--bone);
   font-family: var(--font-display);
   font-size: clamp(22px, 2.6vw, 34px);
   font-weight: 400;
