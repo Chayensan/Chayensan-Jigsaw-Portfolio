@@ -99,25 +99,17 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
           </aside>
 
           <div className="work-index">
-            <div className="work-tier" data-tier="flagship">
-              <p className="work-tier-label">Flagship</p>
-              <div className="work-flagship">
-                <Plate
-                  className="work-flagship-plate"
-                  caption={deriveFlagship.primary.caption}
-                  image={deriveFlagship.primary.image}
-                  aspectRatio={deriveFlagship.primary.aspectRatio}
-                  href={deriveFlagship.href}
-                />
-                <div className="work-flagship-body">
-                  <h2>{flagshipItem.title}</h2>
-                  <p className="work-flagship-role">{flagshipItem.text}</p>
-                  <Link href={deriveFlagship.href} className="work-flagship-link">
-                    Read the full case
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <CompactRowList tier="flagship">
+              <WorkRow
+                number={flagshipItem.number}
+                title={flagshipItem.title}
+                role={flagshipItem.role}
+                text={flagshipItem.text}
+                date={flagshipItem.date}
+                slug={flagshipItem.slug}
+                thumbnail={flagshipItem.caseHeroImage}
+              />
+            </CompactRowList>
 
             <CompactRowList tier="selected">
               {selectedItems.map((item) => (

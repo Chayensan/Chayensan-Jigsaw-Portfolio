@@ -208,7 +208,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Australia · Remote" },
     ],
     intro:
-      "Tago Capital is a product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi supports early-stage business development for companies entering new markets.",
+      "Tago Capital is a product studio working across robotics, AI, and cross-border opportunities in emerging technology. I support early-stage business development for companies entering new markets.",
     confidentialityNote:
       "Public details confidential: prospects, targets, and partnership terms are described at a domain level only.",
     achievements: [
@@ -229,7 +229,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Remote" },
     ],
     intro:
-      "Lemon Tree operates within trading, liquidity, market structure, and digital assets. Desi supports partnerships and growth: venue and market research, outreach strategy, and commercial positioning.",
+      "Lemon Tree operates within trading, liquidity, market structure, and digital assets. I support partnerships and growth: venue and market research, outreach strategy, and commercial positioning.",
     confidentialityNote:
       "Public details confidential: client names, targets, and financial terms are not shared here.",
     achievements: [
@@ -300,9 +300,9 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Australia · Remote" },
     ],
     intro:
-      "A leading DeFi options and perpetuals protocol. Desi worked across Discord community management, event production, multi-channel growth campaigns, design assets, and brand narrative through a full rebrand and token launch.",
+      "A leading DeFi options and perpetuals protocol. I worked across Discord community management, event production, multi-channel growth campaigns, design assets, and brand narrative through a full rebrand and token launch.",
     achievementsIntro:
-      "Derive.xyz, 2024 to February 2026. Desi worked across community growth, events, campaigns, and partnerships through a full rebrand and token launch. She grew Discord across the TGE period, produced Derive's first live event at Coinfest Bali, contributed to the Believe in SomETHing ecosystem campaign, and built the Framer landing page end to end. Product and brand communication, ecosystem development.",
+      "Derive.xyz, 2024 to February 2026. I worked across community growth, events, campaigns, and partnerships through a full rebrand and token launch. I helped grow Discord across the TGE period, produced Derive's first live event at Coinfest Bali, contributed to the Believe in SomETHing ecosystem campaign, and built the Framer landing page end to end. Product and brand communication, ecosystem development.",
     achievementAnnotations: [
       {
         kind: "evidence",
@@ -367,7 +367,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
       { label: "Location", value: "Australia · On-site" },
     ],
     intro:
-      "A boutique Australian sports media agency covering NFL, A-League, PGA, and a range of different industries. Desi's first hands-on exposure to professional content strategy and real-time live coverage.",
+      "A boutique Australian sports media agency covering NFL, A-League, PGA, and a range of different industries. My first hands-on exposure to professional content strategy and real-time live coverage.",
     achievements: [
       "Supported social content planning and asset design (graphics, thumbnails, story templates, and video) across sports and lifestyle client accounts.",
       "Wrote and developed content briefs tailored to each client's brand voice, audience, and campaign objectives.",
@@ -448,7 +448,7 @@ export const nowLedger: NowLedgerRow[] = [
     name: "HUNCHR",
     role: "Founding-stage BD & Growth",
     description:
-      "A free social sports competition app: private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. Desi is running early distribution experiments: warm invites, football and community outreach, and onboarding-friction research.",
+      "A free social sports competition app: private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. I'm running early distribution experiments: warm invites, football and community outreach, and onboarding-friction research.",
     direction: "An early signal toward product-led, social-competition growth.",
     status: "ACTIVE · 2026 · EARLY",
     primary: true,
@@ -459,7 +459,7 @@ export const nowLedger: NowLedgerRow[] = [
     name: "Lemon Tree Technologies",
     role: "Partnerships & Growth",
     description:
-      "An early-stage trading, liquidity, and market-structure company; public details stay confidential. Desi supports partnerships and growth: venue and market research, and outreach strategy.",
+      "An early-stage trading, liquidity, and market-structure company; public details stay confidential. I support partnerships and growth: venue and market research, and outreach strategy.",
     status: "ACTIVE · 2026 · BD",
     slug: "lemon-tree-tech",
   },
@@ -469,7 +469,7 @@ export const nowLedger: NowLedgerRow[] = [
     name: "Tago Capital",
     role: "Business Development",
     description:
-      "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. Desi researches prospects and markets, and coordinates founder and partner outreach.",
+      "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. I research prospects and markets, and coordinate founder and partner outreach.",
     status: "ACTIVE · 2026 · BD",
     slug: "tago-capital",
   },
@@ -486,7 +486,7 @@ export const deriveFlagship: {
   kicker: "Flagship proof",
   heading: "Derive: one role, the clearest proof.",
   role:
-    "Derive.xyz, 2024 to February 2026. Desi worked across community growth, events, campaigns, and partnerships through a full rebrand and token launch. She grew Discord across the TGE period, produced Derive's first live event at Coinfest Bali, contributed to the Believe in SomETHing ecosystem campaign, and built the Framer landing page end to end. Product and brand communication, ecosystem development.",
+    "Derive.xyz, 2024 to February 2026. I worked across community growth, events, and campaigns through a full rebrand and token launch, growing Discord from 15,000 to 40,000+ members and producing Derive's first live event at Coinfest Bali.",
   href: "/work/derive-xyz",
   primary: {
     id: "discord",

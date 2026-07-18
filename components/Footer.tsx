@@ -14,10 +14,10 @@ export default function Footer() {
               Systems of Belonging · Desi Kamdrawati · 2026
             </p>
             <h2>
-              I&apos;m open to early-stage work. If people are part of what
-              you&apos;re building, I&apos;d like to hear about it. Email
-              reaches me fastest. Tell me what you&apos;re making and who
-              it&apos;s for.
+              I&apos;m open to early-stage work, especially where people,
+              community, or growth are part of what you&apos;re building.
+              Email reaches me fastest &mdash; tell me what you&apos;re
+              making and who it&apos;s for.
             </h2>
             <a className="footer-cta" href={socialLinks.gmail}>
               <span>Email</span>
