@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Local font sources — Task 22E. Verified via fontTools before wiring (do not
+   trust filenames): ClashDisplay-Variable.woff2 has a real fvar wght axis
+   (200–700, named instances Extralight/Light/Regular/Medium/Semibold/Bold) —
+   a true variable font, declared as a range. Satoshi-Variable.woff2 has a
+   real fvar wght axis (300–900, named instances Light/Regular/Medium/Bold/
+   Black) — a true variable font, declared as a range so 400/500 body weights
+   are genuine. IBMPlexMono-Regular.woff2 (400) and IBMPlexMono-Medium.woff2
+   (500) are two distinct static instances, each declared at its own
+   verified weight. */
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============================================================================
    CSS MAP — Phase 2 audit (docs/implementation-roadmap.md, Phase 2)
    ============================================================================
@@ -247,9 +288,9 @@
   --ease: ease-out;
 
   /* Approved font system — docs/design.md §1.4 (Clash Display / Satoshi / IBM Plex Mono).
-     public/fonts does not exist and no font files are in the repo, so no self-hosting or
-     @font-face was added in this pass — family names are declared with safe non-serif
-     fallbacks so nothing falls back to the retired IvyPresto/Cormorant serif. No serif
+     Task 22E: local @font-face rules above wire these three to public/fonts. The
+     non-serif fallbacks stay in place after each family name in case a font fails to
+     load, so nothing falls back to the retired IvyPresto/Cormorant serif. No serif
      concession is included, per 03-visual-direction.md's provisional ruling. */
   --font-display: "Clash Display", "Neue Haas Grotesk Display", "Segoe UI", sans-serif;
   --font-sans: "Satoshi", "Avenir Next", "Neue Haas Grotesk Text", "Segoe UI", sans-serif;
