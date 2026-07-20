@@ -74,7 +74,7 @@ export default function AboutPage() {
             <p>
               If there&apos;s a name for what I actually do, it&apos;s something like building
               systems of belonging, though I&apos;d rather show that than say it. Mostly it comes
-              down to resonance over noise: the thing that makes someone stay is rarely the loudest
+              down to signal over noise: the thing that makes someone stay is rarely the loudest
               thing in the room.
             </p>
             <p>

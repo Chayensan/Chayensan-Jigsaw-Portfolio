@@ -2,19 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Local font sources — Task 22E. Verified via fontTools before wiring (do not
-   trust filenames): ClashDisplay-Variable.woff2 has a real fvar wght axis
-   (200–700, named instances Extralight/Light/Regular/Medium/Semibold/Bold) —
-   a true variable font, declared as a range. Satoshi-Variable.woff2 has a
-   real fvar wght axis (300–900, named instances Light/Regular/Medium/Bold/
-   Black) — a true variable font, declared as a range so 400/500 body weights
-   are genuine. IBMPlexMono-Regular.woff2 (400) and IBMPlexMono-Medium.woff2
+/* Local font sources — Task 22E, updated Task 24.2. Verified via fontTools
+   before wiring (do not trust filenames): AlteHaasGroteskRegular.woff2 and
+   AlteHaasGroteskBold.woff2 have no fvar table — two distinct static
+   instances (400 and 700), each declared at its own verified weight, same
+   pattern as IBM Plex Mono below. Satoshi-Variable.woff2 has a real fvar
+   wght axis (300–900, named instances Light/Regular/Medium/Bold/Black) — a
+   true variable font, declared as a range so 400/500 body weights are
+   genuine. IBMPlexMono-Regular.woff2 (400) and IBMPlexMono-Medium.woff2
    (500) are two distinct static instances, each declared at its own
    verified weight. */
 @font-face {
-  font-family: "Clash Display";
-  src: url("/fonts/ClashDisplay-Variable.woff2") format("woff2");
-  font-weight: 200 700;
+  font-family: "Alte Haas Grotesk";
+  src: url("/fonts/AlteHaasGroteskRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  src: url("/fonts/AlteHaasGroteskBold.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -287,12 +296,13 @@
   --dur-route: 150ms;
   --ease: ease-out;
 
-  /* Approved font system — docs/design.md §1.4 (Clash Display / Satoshi / IBM Plex Mono).
-     Task 22E: local @font-face rules above wire these three to public/fonts. The
+  /* Approved font system — docs/design.md §1.4 (Alte Haas Grotesk / Satoshi / IBM Plex Mono).
+     Task 22E: local @font-face rules above wire these three to public/fonts. Task 24.2
+     swapped the display family from Clash Display to Alte Haas Grotesk. The
      non-serif fallbacks stay in place after each family name in case a font fails to
      load, so nothing falls back to the retired IvyPresto/Cormorant serif. No serif
      concession is included, per 03-visual-direction.md's provisional ruling. */
-  --font-display: "Clash Display", "Neue Haas Grotesk Display", "Segoe UI", sans-serif;
+  --font-display: "Alte Haas Grotesk", "Neue Haas Grotesk Display", "Segoe UI", sans-serif;
   --font-sans: "Satoshi", "Avenir Next", "Neue Haas Grotesk Text", "Segoe UI", sans-serif;
   --font-label: "IBM Plex Mono", "Geist Mono", "SFMono-Regular", monospace;
   --font-mono: "IBM Plex Mono", "Geist Mono", "SFMono-Regular", monospace;
@@ -2706,6 +2716,11 @@ button {
 
   .footer-availability {
     font-size: 0.88rem;
+  }
+
+  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  .footer-cta {
+    min-height: 2.75rem;
   }
 }
 
