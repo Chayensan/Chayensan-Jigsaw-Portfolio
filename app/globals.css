@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Local font sources — Task 22E, updated Task 24.2. Verified via fontTools
+/* Local font sources (Task 22E, updated Task 24.2). Verified via fontTools
    before wiring (do not trust filenames): AlteHaasGroteskRegular.woff2 and
-   AlteHaasGroteskBold.woff2 have no fvar table — two distinct static
+   AlteHaasGroteskBold.woff2 have no fvar table: two distinct static
    instances (400 and 700), each declared at its own verified weight, same
    pattern as IBM Plex Mono below. Satoshi-Variable.woff2 has a real fvar
-   wght axis (300–900, named instances Light/Regular/Medium/Bold/Black) — a
+   wght axis (300–900, named instances Light/Regular/Medium/Bold/Black), a
    true variable font, declared as a range so 400/500 body weights are
    genuine. IBMPlexMono-Regular.woff2 (400) and IBMPlexMono-Medium.woff2
    (500) are two distinct static instances, each declared at its own
@@ -53,17 +53,17 @@
 }
 
 /* ============================================================================
-   CSS MAP — Phase 2 audit (docs/implementation-roadmap.md, Phase 2)
+   CSS MAP: Phase 2 audit (docs/implementation-roadmap.md, Phase 2)
    ============================================================================
    Read this before deleting or repurposing a selector in this file. Nothing
-   below may be removed just because it "looks legacy" — only once the phase
+   below may be removed just because it "looks legacy": only once the phase
    named as its owner has actually rebuilt the component that uses it.
 
    STATUS KEYS
      CURRENT       Matches docs/design.md. Safe to build on directly.
      LIVE/LEGACY   Still rendered by a real route today. The visual system it
                    implements (old jigsaw model, glow, etc.) is superseded by
-                   docs/design.md and will be replaced by its owning phase —
+                   docs/design.md and will be replaced by its owning phase:
                    do not delete before that phase ships.
      ORPHANED      Proven zero references across every .tsx/.ts file under
                    components/ and app/ (grepped, including dynamic
@@ -76,15 +76,15 @@
    SECTION MAP (selector prefix → owning component/route → status)
    ----------------------------------------------------------------------------
    :root tokens, resets, .film-grain      globals               CURRENT (Phase 1 reconciled)
-   .caption, .caption-figure,             Caption.tsx /         CURRENT (Phase 4) — shared evidence
+   .caption, .caption-figure,             Caption.tsx /         CURRENT (Phase 4): shared evidence
    .plate, .plate-*,                      Plate.tsx /           primitives. Not yet wired into any
    .annotation,                           Annotation.tsx /      section; consumed by Phase 5+.
    .evidence-mark, .evidence-mark-*       EvidenceMark.tsx
-   .site-nav, .nav-*, .wordmark           Navbar.tsx            LIVE/LEGACY — owned by Phase 3
-   .hero-*, .scroll-label, .ticker-*      HeroSection/Ticker    LIVE/LEGACY — owned by Phase 3
+   .site-nav, .nav-*, .wordmark           Navbar.tsx            LIVE/LEGACY: owned by Phase 3
+   .hero-*, .scroll-label, .ticker-*      HeroSection/Ticker    LIVE/LEGACY: owned by Phase 3
                                                                  (hero h1 text-shadow is DRIFT)
-   (JigsawCluster.tsx, PuzzlePiece.tsx,    RETIRED Phase 5 —     Components and CSS both deleted:
-    DetailCard.tsx — files deleted)        n/a                   JigsawCluster, PuzzlePiece, and
+   (JigsawCluster.tsx, PuzzlePiece.tsx,    RETIRED Phase 5:      Components and CSS both deleted:
+    DetailCard.tsx: files deleted)         n/a                   JigsawCluster, PuzzlePiece, and
                                                                  DetailCard were already ORPHANED
                                                                  (zero route imports) before Phase 5;
                                                                  their selectors (jigsaw-cluster,
@@ -93,7 +93,7 @@
                                                                  are removed, including the active
                                                                  glow that lived on the puzzle-piece
                                                                  hover pseudo-element.
-   (IntroSection.tsx — file deleted)      RETIRED Phase 11 —    Component and CSS both deleted:
+   (IntroSection.tsx: file deleted)       RETIRED Phase 11:     Component and CSS both deleted:
                                             n/a                   IntroSection duplicated content
                                                                  already covered by NarrativeSection's
                                                                  jigsaw chapters and carried retired
@@ -107,16 +107,16 @@
                                                                  -approach, .driver-*, .build-piece*,
                                                                  .resonance-*, .approach-*) are removed.
    .eyebrow, .tagline                     shared kicker label   CURRENT, but see "dead but not
-                                                                 removed" below — .section-kicker
+                                                                 removed" below: .section-kicker
                                                                  and .frame-label are dead classes
                                                                  mixed into these shared selectors.
-   .field-section, .field-*               NarrativeSection.tsx  CURRENT (Phase 5) — the Surveyed
+   .field-section, .field-*               NarrativeSection.tsx  CURRENT (Phase 5): the Surveyed
                                                                  Field. Seven-parcel model replacing
                                                                  the old five-category hotspot-on-
                                                                  image jigsaw (narrative-section,
                                                                  narrative prefix, jigsaw-svg, jigsaw-
                                                                  layer prefix, jigsaw-hotspot, jigsaw-
-                                                                 detail-panel, jigsaw-skill-list — all
+                                                                 detail-panel, jigsaw-skill-list: all
                                                                  removed, including the quarantined
                                                                  inert glow that lived on the
                                                                  jigsaw-hotspot before/after
@@ -124,7 +124,7 @@
                                                                  Moss is this section's one accent;
                                                                  ember appears only on evidence
                                                                  figures inside the capsule.
-   .work-section, .work-index*,           WorkSection.tsx       CURRENT (Phase 8) — Work index.
+   .work-section, .work-index*,           WorkSection.tsx       CURRENT (Phase 8): Work index.
    .work-tier*, .work-flagship*,                                Editorial archive, hairline-
    .work-row*                                                   separated tiers (Flagship/Current/
                                                                  Selected/Foundations), not a card
@@ -132,7 +132,7 @@
                                                                  (.work-grid, .work-card, .work-image,
                                                                  .work-number, .image-tago/-lemon/
                                                                  -derive/-bruce/-misura/-rmit) is
-                                                                 removed — Flagship now renders one
+                                                                 removed: Flagship now renders one
                                                                  Plate (reusing deriveFlagship data),
                                                                  Current/Selected/Foundations render
                                                                  as text rows (Current reuses nowLedger
@@ -140,7 +140,7 @@
                                                                  drifts). RMIT is absent by design
                                                                  (About material + jigsaw piece only,
                                                                  never a Work entry).
-   .derive-section, .derive-*,            DeriveFlagship.tsx /  CURRENT (Phase 6) — flagship proof
+   .derive-section, .derive-*,            DeriveFlagship.tsx /  CURRENT (Phase 6): flagship proof
    .plate-frame-content,                  WorkSection.tsx       section, ember territory. Renders
    .plate-frame-kicker,                                         inside WorkSection.tsx (homepage/
    .plate-frame-statement                                       compact only) before the work index.
@@ -149,49 +149,49 @@
                                                                  variant (Phase 4 API addition), used
                                                                  here for the Traders Breakfast plate
                                                                  since no photo asset exists.
-   .now-section, .now-*                   NowLedger.tsx /       CURRENT (Phase 7) — Now ledger, no
+   .now-section, .now-*                   NowLedger.tsx /       CURRENT (Phase 7): Now ledger, no
                                            WorkSection.tsx       accent, no Plate/Terrain. Renders
                                                                  inside WorkSection.tsx (homepage/
                                                                  compact only), directly after
                                                                  DeriveFlagship and before the work
-                                                                 index teaser. Rows carry no href —
+                                                                 index teaser. Rows carry no href:
                                                                  see NowLedger.tsx's own comment (the
                                                                  Work index's Current tier reuses the
                                                                  same nowLedger data with its own
                                                                  optional read-more link instead).
-   .work-hero*                            app/work/page.tsx     CURRENT (Phase 8) — retired "pieces
+   .work-hero*                            app/work/page.tsx     CURRENT (Phase 8): retired "pieces
                                                                  with fingerprints" headline replaced
                                                                  with plain, structural copy.
-   .about-*                               app/about/page.tsx    CURRENT (Phase 9) — the only
+   .about-*                               app/about/page.tsx    CURRENT (Phase 9): the only
                                                                  personal-first page. Rebuilt on the
                                                                  Plate/Caption/Annotation/Tagline
                                                                  primitives; no text on imagery, no
                                                                  glow pill. /who and /about-me2 now
                                                                  redirect to /about (route-level
                                                                  redirect() calls, not next.config.mjs).
-   (.who-*, .about-page-v2 — removed)     n/a                   RETIRED Phase 9: app/who/page.tsx and
+   (.who-*, .about-page-v2: removed)      n/a                   RETIRED Phase 9: app/who/page.tsx and
                                                                  app/about-me2/page.tsx are now
                                                                  redirect-only; their markup and every
                                                                  selector under .who-* (plus the unused
                                                                  .about-page-v2 hook and the
                                                                  whoTypewriter/whoCaret keyframes) is
-                                                                 deleted, not quarantined — nothing else
+                                                                 deleted, not quarantined: nothing else
                                                                  referenced them.
-   (.community-* — removed)               n/a                   RETIRED Phase 10: the evidence bar
+   (.community-*: removed)                n/a                   RETIRED Phase 10: the evidence bar
                                                                  (three documented gatherings with
-                                                                 name/date/city/role/photo) is not met
-                                                                 — see career-context-and-portfolio-
+                                                                 name/date/city/role/photo) is not met:
+                                                                 see career-context-and-portfolio-
                                                                  evidence.md. app/community/page.tsx is
                                                                  now redirect-only (to /work) and the
                                                                  nav item is removed; every selector
                                                                  under .community-* is deleted, not
-                                                                 quarantined — nothing else referenced
+                                                                 quarantined: nothing else referenced
                                                                  them.
-   .case-*                                WorkCaseTemplate.tsx  CURRENT (Phase 8) — case-study
+   .case-*                                WorkCaseTemplate.tsx  CURRENT (Phase 8): case-study
                                                                  template. Gallery renders every
                                                                  study.galleryImages entry with a
                                                                  mono Caption (no fixed slot count,
-                                                                 no placeholders — fixes the old
+                                                                 no placeholders: fixes the old
                                                                  6-slot silent image drop that lost
                                                                  Misura's/Bruce Media's 7th photo).
                                                                  .case-achievement-sections/-section
@@ -204,7 +204,7 @@
                                                                  `.case-pagination a` rule with a
                                                                  44px-target link that carries an
                                                                  optional destination-title caption.
-   .site-footer, .footer-*                Footer.tsx            CURRENT — locked footer copy, no
+   .site-footer, .footer-*                Footer.tsx            CURRENT: locked footer copy, no
                                                                  phase currently rebuilds it.
    @keyframes ...                         various                see inline notes; two dead keyframes
                                                                  (orbit-turn, hero-aura-in) removed
@@ -216,7 +216,7 @@
    DEAD CODE REMOVED IN PHASE 2 (proven zero references via grep across every
    .tsx/.ts file under components/ and app/, including dynamic className
    strings in site-data.ts; a whole-repo check confirmed these names only ever
-   matched the *legacy static* index.html/about.html/work.html/styles.css —
+   matched the *legacy static* index.html/about.html/work.html/styles.css:
    never anything the Next app renders):
      .page-intro, .intro-system, .stage-piece, .system-node, .node-foundation,
      .node-connections, .node-explorations, .node-growth, .node-center,
@@ -224,7 +224,7 @@
      .jigsaw-layer-card, .jigsaw-layer-close, @keyframes orbit-turn,
      @keyframes hero-aura-in.
 
-   DEAD BUT NOT REMOVED — same zero-reference proof as above, but the class
+   DEAD BUT NOT REMOVED: same zero-reference proof as above, but the class
    is embedded in a comma-separated selector shared with live classes
    (e.g. ".tagline, .section-kicker"). Surgical removal risks a typo
    breaking a live rule for one line of dead-selector savings; left for a
@@ -233,14 +233,14 @@
    ============================================================================ */
 
 :root {
-  /* Ground/panel — docs/design.md §1.1. --bg raised to the approved warmer near-black. */
+  /* Ground/panel (docs/design.md §1.1). --bg raised to the approved warmer near-black. */
   --bg: #0b0b09;
   --bg-2: #080806;
   --ground: #0b0b09;
   --ground-quiet: #141310;
   --panel: #11110e;
 
-  /* Text — docs/design.md §1.2. --text/--muted kept (existing call sites); --bone/--bone-secondary/--meta are the approved names, added for Phase 3+ builds. */
+  /* Text (docs/design.md §1.2). --text/--muted kept (existing call sites); --bone/--bone-secondary/--meta are the approved names, added for Phase 3+ builds. */
   --text: #e8e4d6;
   --muted: #858173;
   --bone: #e8e4d6;
@@ -250,7 +250,7 @@
   --line: rgba(232, 228, 214, 0.16);
   --line-strong: rgba(232, 228, 214, 0.28);
 
-  /* Two accents, two jobs — docs/design.md §1.3. Ember: evidence only. Moss: interaction only. */
+  /* Two accents, two jobs (docs/design.md §1.3). Ember: evidence only. Moss: interaction only. */
   --moss: #9caa69;
   --moss-deep: #4e5a44;
   --ember: #c8a95b;
@@ -258,14 +258,14 @@
   --gutter: clamp(1.5rem, 6vw, 6.5rem);
   --max: 88rem;
 
-  /* Legacy type scale — documented substitutes, kept at current values pending Phase 2/3.
+  /* Legacy type scale: documented substitutes, kept at current values pending Phase 2/3.
      --type-label raised to 0.75rem (Task 22B) to clear the approved 12px floor. */
   --type-label: 0.75rem;
   --type-body: 0.875rem;
   --type-title: 1.4375rem;
   --type-display: clamp(2.05rem, 3.2vw, 3rem);
 
-  /* Approved type scale — docs/design.md §1.5, additive for Phase 3+ builds. */
+  /* Approved type scale (docs/design.md §1.5), additive for Phase 3+ builds. */
   --type-hero: clamp(2.5rem, 6vw, 6rem);
   --type-section: clamp(2.25rem, 4vw, 3.5rem);
   --type-throughline: clamp(1.75rem, 2.4vw, 2.125rem);
@@ -278,7 +278,7 @@
   --work-content-width: min(104rem, calc(100vw - (var(--gutter) * 2)));
   --work-card-offset: calc(((var(--work-content-width) - var(--work-gap)) * 0.242424) + var(--work-gap));
 
-  /* Approved spacing/grid — docs/design.md §1.6. --col-gutter is named distinctly from the
+  /* Approved spacing/grid (docs/design.md §1.6). --col-gutter is named distinctly from the
      existing --gutter (which already serves the outer-margin role --margin-outer names below);
      reconciling that naming collision is left to Phase 2. */
   --grid-cols: 12;
@@ -289,14 +289,14 @@
   --rail-start: 10;
   --rail-end: 13;
 
-  /* Approved motion tokens — docs/design.md §1.7. */
+  /* Approved motion tokens (docs/design.md §1.7). */
   --dur-hover: 150ms;
   --dur-enter: 300ms;
   --dur-capsule: 250ms;
   --dur-route: 150ms;
   --ease: ease-out;
 
-  /* Approved font system — docs/design.md §1.4 (Alte Haas Grotesk / Satoshi / IBM Plex Mono).
+  /* Approved font system (docs/design.md §1.4: Alte Haas Grotesk / Satoshi / IBM Plex Mono).
      Task 22E: local @font-face rules above wire these three to public/fonts. Task 24.2
      swapped the display family from Clash Display to Alte Haas Grotesk. The
      non-serif fallbacks stay in place after each family name in case a font fails to
@@ -363,8 +363,8 @@ button {
   mix-blend-mode: screen;
 }
 
-/* Shared evidence primitives — Phase 4 (docs/implementation-roadmap.md).
-   Caption, Plate, Annotation, EvidenceMark. Generic and data-driven —
+/* Shared evidence primitives (Phase 4, docs/implementation-roadmap.md).
+   Caption, Plate, Annotation, EvidenceMark. Generic and data-driven:
    later phases (jigsaw, Derive, Work, About) consume these, not fork them. */
 
 .caption {
@@ -417,7 +417,7 @@ button {
   object-fit: cover;
 }
 
-/* Seam ticks — quiet corner marks on Plate, structural not decorative
+/* Seam ticks: quiet corner marks on Plate, structural not decorative
    (docs/design.md §3: "a quiet seam motif in section dividers is the
    metaphor's entire remaining footprint"). No jigsaw tabs, no glow. */
 .plate-frame::before,
@@ -584,11 +584,6 @@ button {
 .nav-email {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  color: var(--bone);
-  font-size: var(--type-label);
-  font-weight: 500;
-  letter-spacing: 0.14em;
 }
 
 .nav-center a,
@@ -634,12 +629,12 @@ button {
 
 .hero-section {
   position: relative;
-  min-height: calc(100dvh - var(--nav-height));
+  min-height: clamp(36rem, 80dvh, 44rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: clamp(2rem, 5vw, 3rem);
-  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter) clamp(2rem, 4vw, 3rem);
+  padding: clamp(2rem, 4vw, 3rem) var(--gutter);
   background: var(--ground);
   border-bottom: 1px solid var(--line);
 }
@@ -672,7 +667,7 @@ button {
   letter-spacing: -0.01em;
 }
 
-/* One deliberate serif exception — highlights the core offer inline
+/* One deliberate serif exception: highlights the core offer inline
    within the otherwise all-sans hero headline. */
 .hero-identity-accent {
   font-family: var(--font-serif-accent), Georgia, serif;
@@ -740,7 +735,7 @@ button {
   outline-offset: 3px;
 }
 
-/* Hero survey-line annotation retired per Task 21 cleanup — hidden rather
+/* Hero survey-line annotation retired per Task 21 cleanup: hidden rather
    than removed from HeroSection.tsx, since this cleanup pass is scoped to
    globals.css/NowLedger.tsx only. */
 .hero-survey {
@@ -839,14 +834,14 @@ button {
   background: rgba(232, 228, 214, 0.18);
 }
 
-/* Seam-crossing index numbers retired per Task 21 cleanup — hidden rather
+/* Seam-crossing index numbers retired per Task 21 cleanup: hidden rather
    than removed from each component's JSX, since this cleanup pass is
    scoped to globals.css/NowLedger.tsx only. */
 .section-index {
   display: none;
 }
 
-/* Throughline — Phase 12 bridge (19C). Static statement on solid ground
+/* Throughline (Phase 12 bridge, 19C). Static statement on solid ground
    between Hero and the Surveyed Field. No panel, no imagery. */
 
 .throughline-section {
@@ -869,7 +864,7 @@ button {
   line-height: 1.35;
 }
 
-/* Surveyed Field — Phase 5 (docs/implementation-roadmap.md). One continuous
+/* Surveyed Field (Phase 5, docs/implementation-roadmap.md). One continuous
    terrain photograph cut by 1px survey lines into seven irregular parcels.
    Complete from the first frame; no interlocking tabs, no missing pieces.
    Moss is this section's one accent (interaction); ember appears only on
@@ -942,7 +937,7 @@ button {
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(11, 11, 9, 0.1) 0%, rgba(11, 11, 9, 0.36) 100%),
-    url("/assets/who-field.png") center / cover no-repeat;
+    url("/assets/work-cases/seven-chapters.png") center / cover no-repeat;
   filter: grayscale(0.6) brightness(0.78) saturate(0.6);
   transition: filter var(--dur-enter) var(--ease);
   pointer-events: none;
@@ -957,7 +952,7 @@ button {
   z-index: 1;
   flex: 0 1 auto;
   height: 100%;
-  min-width: 0;
+  min-width: clamp(4.5rem, 9vw, 7rem);
   border: 0;
   border-right: 1px solid var(--line);
   padding: 0;
@@ -1187,7 +1182,7 @@ button {
   padding: var(--section-y) var(--gutter);
 }
 
-/* Full /work page — no .work-intro rail, so the two-column grid above would
+/* Full /work page: no .work-intro rail, so the two-column grid above would
    collapse the index into the narrow first column. Single full-width column
    instead; max-width and gutters stay inherited from .work-section. */
 .work-section-full {
@@ -1229,7 +1224,7 @@ button {
   text-transform: uppercase;
 }
 
-/* Work index — Phase 8 (docs/implementation-roadmap.md). Editorial archive,
+/* Work index (Phase 8, docs/implementation-roadmap.md). Editorial archive,
    not a card wall: tiers are hairline-separated rows, evidence weight drops
    from Flagship (one Plate) through Current/Selected/Foundations (text
    rows). No KPI cards, no glow, ember reserved for Flagship's evidence
@@ -1375,7 +1370,7 @@ button {
   line-height: 1.6;
 }
 
-/* Subordinate thumbnail — homepage Selected Work only, existing case
+/* Subordinate thumbnail: homepage Selected Work only, existing case
    assets only. Desaturated at rest, full colour on row hover/focus; row
    meta (name/role/description) is the caption, so none is rendered here. */
 .work-row-thumb {
@@ -1433,7 +1428,7 @@ button {
   justify-self: end;
 }
 
-/* Derive flagship — Phase 6 (docs/implementation-roadmap.md). Ember territory:
+/* Derive flagship (Phase 6, docs/implementation-roadmap.md). Ember territory:
    evidence numerals only (via Caption's renderFigure), no moss decoration.
    Consumes Plate/Caption from Phase 4; renders inside WorkSection.tsx, homepage
    (compact) only, between the jigsaw/narrative section and the work grid. */
@@ -1552,7 +1547,7 @@ button {
   outline-offset: 3px;
 }
 
-/* Now ledger — Phase 7 (docs/implementation-roadmap.md). Deliberately no
+/* Now ledger (Phase 7, docs/implementation-roadmap.md). Deliberately no
    Plate/Terrain and no accent: this section carries no ember-worthy verified
    numbers, and moss is reserved for interaction states elsewhere. Quiet
    alternating zone per docs/design.md §1.1 (--ground-quiet). Renders inside
@@ -2073,7 +2068,7 @@ button {
   margin: clamp(4rem, 8vw, 7rem) 0 0;
 }
 
-/* Renders every image in study.galleryImages — no fixed slot count, no
+/* Renders every image in study.galleryImages: no fixed slot count, no
    placeholders (Phase 8 fix: the old 6-slot grid silently dropped any
    image past the 6th; Misura and Bruce Media both have 7). */
 .case-gallery {
@@ -2272,7 +2267,7 @@ button {
 .footer-main {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
-  align-items: start;
+  align-items: end;
   gap: clamp(2.2rem, 5vw, 5.5rem);
 }
 
@@ -2406,7 +2401,7 @@ button {
   }
 }
 
-/* Glow quarantined per docs/design.md §0.4 — --layer-glow drop-shadows removed. */
+/* Glow quarantined per docs/design.md §0.4: --layer-glow drop-shadows removed. */
 @keyframes layer-hover-breathe {
   0%,
   100% {
@@ -2561,7 +2556,7 @@ button {
     row-gap: 0.6rem;
   }
 
-  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only, invisible padding. */
+  /* 44px minimum touch target (docs/design.md §12/§13), mobile only, invisible padding. */
   .nav-center a {
     min-height: 2.75rem;
   }
@@ -2579,7 +2574,7 @@ button {
     min-height: 2.75rem;
   }
 
-  .nav-socials a:not(.nav-email) {
+  .nav-socials a {
     justify-content: center;
     min-width: 2.75rem;
   }
@@ -2600,7 +2595,7 @@ button {
     gap: 1.1rem;
   }
 
-  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  /* 44px minimum touch target (docs/design.md §12/§13), mobile only. */
   .hero-cta-secondary {
     display: inline-flex;
     align-items: center;
@@ -2645,7 +2640,7 @@ button {
     width: 120px;
   }
 
-  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  /* 44px minimum touch target (docs/design.md §12/§13), mobile only. */
   .work-row-link,
   .work-flagship-link,
   .derive-case-link {
@@ -2659,7 +2654,7 @@ button {
     padding-top: clamp(7.5rem, 24vw, 9rem);
   }
 
-  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  /* 44px minimum touch target (docs/design.md §12/§13), mobile only. */
   .case-back-link {
     align-items: center;
     min-height: 2.75rem;
@@ -2718,7 +2713,7 @@ button {
     font-size: 0.88rem;
   }
 
-  /* 44px minimum touch target (docs/design.md §12/§13) — mobile only. */
+  /* 44px minimum touch target (docs/design.md §12/§13), mobile only. */
   .footer-cta {
     min-height: 2.75rem;
   }
@@ -2733,7 +2728,7 @@ button {
     animation-iteration-count: 1 !important;
   }
 
-  /* Field parcels render fully defined regardless of scroll position — no
+  /* Field parcels render fully defined regardless of scroll position: no
      scroll-linked definition effect for reduced-motion users (docs/design.md §14). */
   .field-terrain {
     filter: grayscale(0.1) brightness(0.9) saturate(0.9) !important;
