@@ -14,7 +14,7 @@ type PlateProps = {
   className?: string;
   // Text-only plate content, used when no photographic artefact exists to
   // pair with a caption (docs/implementation-roadmap.md Phase 6: "no
-  // suitable assets — create text/evidence plates without images").
+  // suitable assets: create text/evidence plates without images").
   children?: ReactNode;
 };
 

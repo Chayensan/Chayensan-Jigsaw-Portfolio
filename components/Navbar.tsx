@@ -43,17 +43,26 @@ export default function Navbar({ active }: { active: NavKey }) {
       </nav>
 
       <div className="nav-socials" aria-label="Contact and social links">
-        <a href={socialLinks.gmail} className="nav-email">
-          <EnvelopeSimple size={16} weight="regular" aria-hidden="true" />
-          Email
+        <a href={socialLinks.gmail} className="nav-email" aria-label="Email">
+          <EnvelopeSimple size={18} weight="regular" />
         </a>
         {!isPlaceholderSocialUrl(socialLinks.linkedin) && (
-          <a href={socialLinks.linkedin} aria-label="LinkedIn">
+          <a
+            href={socialLinks.linkedin}
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noreferrer"
+          >
             <LinkedinLogo size={18} weight="regular" />
           </a>
         )}
         {!isPlaceholderSocialUrl(socialLinks.twitter) && (
-          <a href={socialLinks.twitter} aria-label="Twitter">
+          <a
+            href={socialLinks.twitter}
+            aria-label="Twitter"
+            target="_blank"
+            rel="noreferrer"
+          >
             <XLogo size={18} weight="regular" />
           </a>
         )}

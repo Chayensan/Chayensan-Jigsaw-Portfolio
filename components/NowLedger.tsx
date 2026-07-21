@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { nowLedger } from "@/components/site-data";
 
-// Now ledger — docs/implementation-roadmap.md Phase 7. Deliberately no
+// Now ledger (docs/implementation-roadmap.md Phase 7). Deliberately no
 // Plate/Terrain, no images, no metrics: the visual restraint is the honesty
-// (docs/design.md §8). Each row carries one quiet mono "→ WORK" link —
+// (docs/design.md §8). Each row carries one quiet mono "→ WORK" link:
 // to its own cleaned case page where one exists and is public-safe
 // (Lemon Tree, Tago), otherwise to /work (HUNCHR has no case page yet).
 export default function NowLedger() {

@@ -16,8 +16,6 @@ export default function Footer() {
             <h2>
               I&apos;m open to early-stage work, especially where people,
               community, or growth are part of what you&apos;re building.
-              Email reaches me fastest &mdash; tell me what you&apos;re
-              making and who it&apos;s for.
             </h2>
             <a className="footer-cta" href={socialLinks.gmail}>
               <span>Email</span>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "node scripts/check-em-dash.js && next lint",
+    "check:em-dash": "node scripts/check-em-dash.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

@@ -48,7 +48,7 @@ function WorkRow({
   text: string;
   date: string;
   slug: string;
-  // Subordinate thumbnail — existing case assets only, homepage Selected
+  // Subordinate thumbnail: existing case assets only, homepage Selected
   // Work rows only. Never passed on the full /work index (docs/implementation-
   // roadmap.md Phase 21: thumbnails, not a /work redesign).
   thumbnail?: string;

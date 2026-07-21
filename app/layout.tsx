@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
-// Hero accent serif — the one deliberate exception to the site's all-sans
+// Hero accent serif: the one deliberate exception to the site's all-sans
 // system (see globals.css §font system comment). Self-hosted via next/font,
 // scoped to .hero-identity-accent only.
 const cormorant = Cormorant_Garamond({

@@ -19,10 +19,10 @@ export type JigsawChapter = {
   weight: number;
 };
 
-// Work index tiers — docs/implementation-roadmap.md Phase 8. Narrative
+// Work index tiers (docs/implementation-roadmap.md Phase 8). Narrative
 // weight, not chronology: Flagship (proven at scale) > Current (active,
 // unproven) > Selected (documented, supporting) > Foundations (earlier work).
-// RMIT is deliberately absent from this tier system — it is About material
+// RMIT is deliberately absent from this tier system: it is About material
 // and a jigsaw piece, never a Work entry, per career-context-and-portfolio-
 // evidence.md. RISA and JAU/Mr Yao are omitted entirely: no verified
 // evidence/content exists for either yet, and the brief is explicit that
@@ -53,7 +53,7 @@ export type WorkCaseStudy = {
     value: string;
   }>;
   intro: string;
-  // Public-safe confidentiality note, rendered near the intro — used by
+  // Public-safe confidentiality note, rendered near the intro, used by
   // Current-tier case pages (Lemon Tree, Tago) where domain-level
   // description is all that's public. Omitted where nothing needs flagging.
   confidentialityNote?: string;
@@ -62,8 +62,8 @@ export type WorkCaseStudy = {
   // Phase 8: "achievements become prose-plus-annotation rather than a raw
   // bullet stack"). When present, the template renders achievementsIntro as
   // a paragraph and achievementAnnotations as Caption-driven evidence lines,
-  // instead of the plain achievements bullet list. Used by Derive only today
-  // — reuses the exact locked captions from deriveFlagship rather than
+  // instead of the plain achievements bullet list. Used by Derive only today:
+  // reuses the exact locked captions from deriveFlagship rather than
   // inventing new copy.
   achievementsIntro?: string;
   achievementAnnotations?: CaptionContent[];
@@ -74,9 +74,9 @@ export type WorkCaseStudy = {
 };
 
 export const socialLinks = {
-  gmail: "mailto:hello@desi.studio",
-  linkedin: "https://www.linkedin.com/",
-  twitter: "https://twitter.com/",
+  gmail: "mailto:chayensan3@gmail.com",
+  linkedin: "https://www.linkedin.com/in/desi-kamdrawati/",
+  twitter: "https://x.com/chayensan",
   github: "https://github.com/Chayensan",
 };
 
@@ -90,8 +90,8 @@ const placeholderSocialUrls = new Set([
 export const isPlaceholderSocialUrl = (url: string) =>
   placeholderSocialUrls.has(url);
 
-// Seven-chapter surveyed-field model — docs/fable/04-voice-and-copy.md
-// §Approved Jigsaw labels. Replaces the retired five-category model
+// Seven-chapter surveyed-field model (docs/fable/04-voice-and-copy.md,
+// §Approved Jigsaw labels). Replaces the retired five-category model
 // (events/community/web3/growth/exploration) per Phase 5 of
 // docs/implementation-roadmap.md. Labels, capability lines, and evidence
 // lines are used verbatim; do not paraphrase.
@@ -144,7 +144,7 @@ export const jigsawChapters: JigsawChapter[] = [
       "Campaigns and launch communication at Derive, including contributing to Believe in SomETHing, an ecosystem campaign spanning 430+ protocols, and shipping a landing page end to end in Framer.",
     evidence: "Believe in SomETHing · 430+ protocols",
     href: "/work/derive-xyz",
-    weight: 17,
+    weight: 12,
   },
   {
     id: "partnerships",
@@ -154,7 +154,7 @@ export const jigsawChapters: JigsawChapter[] = [
       "Current BD and partnerships work at Lemon Tree Technology and Tago Capital: market research, prospect development, outreach, and commercial positioning across trading and emerging technology.",
     evidence: "Current: Lemon Tree, Tago Capital",
     href: "/work",
-    weight: 12,
+    weight: 17,
   },
   {
     id: "product",
@@ -422,7 +422,7 @@ export const workCaseStudies: WorkCaseStudy[] = [
 export const getWorkCaseStudy = (slug: string) =>
   workCaseStudies.find((study) => study.slug === slug);
 
-// Derive flagship homepage section — docs/implementation-roadmap.md Phase 6.
+// Derive flagship homepage section (docs/implementation-roadmap.md Phase 6).
 // Captions are locked verbatim in docs/fable/04-voice-and-copy.md
 // §Approved Derive captions. Do not paraphrase or round the figures.
 export type DeriveEvidencePlate = {
@@ -433,9 +433,9 @@ export type DeriveEvidencePlate = {
   content?: { kicker: string; statement: string };
 };
 
-// Now ledger — docs/implementation-roadmap.md Phase 7. Current direction,
+// Now ledger (docs/implementation-roadmap.md Phase 7). Current direction,
 // not flagship proof: HUNCHR, Lemon Tree Technologies, Tago Capital.
-// Testing verbs only, no metrics, no invented outcomes — every line traces
+// Testing verbs only, no metrics, no invented outcomes: every line traces
 // back to docs/fable/career-context-and-portfolio-evidence.md.
 export type NowLedgerRow = {
   id: string;
@@ -446,7 +446,7 @@ export type NowLedgerRow = {
   direction?: string;
   status: string;
   primary?: boolean;
-  // Optional case-page link — used only by the Work index's Current-tier
+  // Optional case-page link, used only by the Work index's Current-tier
   // rows (components/WorkSection.tsx), never by the homepage NowLedger,
   // which deliberately carries no links (see NowLedger.tsx's own comment).
   slug?: string;

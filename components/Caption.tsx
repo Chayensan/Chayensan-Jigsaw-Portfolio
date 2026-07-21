@@ -21,7 +21,7 @@ export type ArtefactCaption = {
   // purpose/contribution are optional: a gallery photo caption sometimes
   // only has a verified "what it is" description, and the schema shouldn't
   // force invented context to fill the other two slots (docs/implementation-
-  // roadmap.md Phase 8 — "flag uncertainty instead of inventing").
+  // roadmap.md Phase 8: "flag uncertainty instead of inventing").
   purpose?: string;
   contribution?: string;
 };
@@ -35,7 +35,7 @@ export type CaptionProps = CaptionContent & {
 
 // Matches the verified numeral inside a figure string (e.g. "15,000 → 40,000+"
 // or "430+") so ember highlights only the number, per docs/design.md §1.3
-// ("ember on the verified number only") — same pattern as NarrativeSection's
+// ("ember on the verified number only"), same pattern as NarrativeSection's
 // evidence-line rendering.
 const FIGURE_PATTERN = /[\d][\d,]*(?:\s*→\s*[\d,]+)?\+?/g;
 

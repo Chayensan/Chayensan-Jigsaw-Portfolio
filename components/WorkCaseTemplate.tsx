@@ -10,7 +10,7 @@ type WorkCaseTemplateProps = {
 };
 
 // Destination title for the pagination caption, resolved from a same-origin
-// /work href against site-data — never invented, and omitted (returns null)
+// /work href against site-data, never invented, and omitted (returns null)
 // for anything that isn't a known work slug (e.g. the "/work" index itself).
 function resolveCaseTitle(href: string): string | null {
   if (!href.startsWith("/work/")) return null;
