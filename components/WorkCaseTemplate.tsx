@@ -18,7 +18,9 @@ function resolveCaseTitle(href: string): string | null {
   const item = workItems.find((entry) => entry.slug === slug);
   if (item) return item.title;
   const caseStudy = getWorkCaseStudy(slug);
-  return caseStudy ? caseStudy.title : null;
+  // Natural-case companyName over study.title: title is styled ALL CAPS for
+  // the case-page header, which reads wrong in the pagination caption.
+  return caseStudy ? (caseStudy.companyName ?? caseStudy.title) : null;
 }
 
 export default function WorkCaseTemplate({
@@ -26,10 +28,7 @@ export default function WorkCaseTemplate({
   previousHref = "/work",
   nextHref = "/work",
 }: WorkCaseTemplateProps) {
-  const hasAnnotatedAchievements = Boolean(
-    study.achievementsIntro && study.achievementAnnotations?.length,
-  );
-  const hasPlainAchievements = study.achievements.length > 0;
+  const hasAchievements = study.achievements.length > 0;
   const hasGallery = study.galleryImages.length > 0;
   const previousTitle = resolveCaseTitle(previousHref);
   const nextTitle = resolveCaseTitle(nextHref);
@@ -65,36 +64,26 @@ export default function WorkCaseTemplate({
           {study.confidentialityNote ? (
             <p className="case-confidentiality-note">{study.confidentialityNote}</p>
           ) : null}
+          {study.companyUrl ? (
+            <a
+              href={study.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="case-visit-link"
+            >
+              Visit {study.companyName ?? study.title} ↗
+            </a>
+          ) : null}
         </div>
 
-        {hasAnnotatedAchievements || hasPlainAchievements ? (
+        {hasAchievements ? (
           <div>
             <Tagline text="Key achievements" />
-            {hasAnnotatedAchievements ? (
-              <div className="case-achievement-annotated">
-                <p>{study.achievementsIntro}</p>
-                <ul className="case-annotation-list">
-                  {study.achievementAnnotations!.map((annotation, index) => (
-                    <li key={index}>
-                      <Caption {...annotation} className="case-annotation" />
-                    </li>
-                  ))}
-                </ul>
-                {hasPlainAchievements ? (
-                  <ul>
-                    {study.achievements.map((achievement) => (
-                      <li key={achievement}>{achievement}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            ) : (
-              <ul>
-                {study.achievements.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
-                ))}
-              </ul>
-            )}
+            <ul>
+              {study.achievements.map((achievement) => (
+                <li key={achievement}>{achievement}</li>
+              ))}
+            </ul>
           </div>
         ) : null}
       </section>
@@ -104,7 +93,7 @@ export default function WorkCaseTemplate({
           <Tagline text="Gallery" />
           <div className="case-gallery">
             {study.galleryImages.map((image) => (
-              <figure className="case-gallery-item" key={image.src}>
+              <figure className="case-gallery-item" key={image.src} tabIndex={0}>
                 <img src={image.src} alt={image.alt} loading="lazy" />
                 <Caption
                   kind="artefact"
@@ -112,6 +101,13 @@ export default function WorkCaseTemplate({
                   as="figcaption"
                   className="case-gallery-caption"
                 />
+                {/* Hover/focus-only full-image preview: thumbnails crop via
+                    object-fit:cover, so this shows the uncropped photo plus
+                    its caption instead of a click-to-open lightbox. */}
+                <div className="case-gallery-preview" aria-hidden="true">
+                  <img src={image.src} alt="" />
+                  <p className="case-gallery-preview-caption">{image.alt}</p>
+                </div>
               </figure>
             ))}
           </div>

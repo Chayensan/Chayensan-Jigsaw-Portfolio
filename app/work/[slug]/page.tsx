@@ -5,6 +5,7 @@ import {
   getWorkCaseStudy,
   workCaseStudies,
   workItems,
+  workPageSlugOrder,
   type WorkCaseStudy,
 } from "@/components/site-data";
 import { notFound } from "next/navigation";
@@ -54,9 +55,13 @@ function getTemplateStudy(slug: string): WorkCaseStudy {
 
 export default function WorkDetailPage({ params }: WorkDetailPageProps) {
   const study = getTemplateStudy(params.slug);
-  const currentIndex = workItems.findIndex((item) => item.slug === params.slug);
-  const previousItem = workItems[(currentIndex - 1 + workItems.length) % workItems.length];
-  const nextItem = workItems[(currentIndex + 1) % workItems.length];
+  // Cycles through every /work case page (Flagship, Current, Selected,
+  // Foundations), not just the three in workItems: workPageSlugOrder is
+  // the single source of truth for this order (components/site-data.ts).
+  const currentIndex = workPageSlugOrder.indexOf(params.slug);
+  const previousSlug =
+    workPageSlugOrder[(currentIndex - 1 + workPageSlugOrder.length) % workPageSlugOrder.length];
+  const nextSlug = workPageSlugOrder[(currentIndex + 1) % workPageSlugOrder.length];
 
   return (
     <>
@@ -64,8 +69,8 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
       <main>
         <WorkCaseTemplate
           study={study}
-          previousHref={`/work/${previousItem.slug}`}
-          nextHref={`/work/${nextItem.slug}`}
+          previousHref={`/work/${previousSlug}`}
+          nextHref={`/work/${nextSlug}`}
         />
       </main>
       <Footer />
