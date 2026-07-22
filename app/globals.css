@@ -270,6 +270,13 @@
   --moss-deep: #4e5a44;
   --ember: #c8a95b;
 
+  /* Survey orange: a single burnt accent, used sparingly on the About field-
+     survey system only (the Aphantasia panel, date stamp, and crosshair marks).
+     Deliberately not part of the two-accent site system: kept off the rest of
+     the site so orange never becomes noise. */
+  --survey-orange: #c0552a;
+  --survey-orange-panel: #bd4f22;
+
   --gutter: clamp(1.5rem, 6vw, 6.5rem);
   --max: 88rem;
 
@@ -1912,27 +1919,48 @@ button {
   filter: saturate(0.2) contrast(1.26) brightness(0.8);
 }
 
+/* ================================================================
+   About: field-survey system (Phase: About redesign)
+   Dark editorial "surveyed ground": a survey-chrome hero followed by
+   a stack of evidence blocks, each keyed by a small moss-green mono
+   label. The only prominent numerals live in the seven-parcel field
+   diagram; orange (--survey-orange) is confined to the Aphantasia
+   panel, the date stamp, and a few crosshair marks.
+   ================================================================ */
+
 .about-page {
   min-height: 100dvh;
   padding: clamp(0.85rem, 2vw, 1.7rem) var(--gutter) clamp(5rem, 10vw, 8rem);
 }
 
-.about-top {
+/* --- Hero ------------------------------------------------------- */
+
+.about-hero {
   width: min(74rem, 100%);
   margin: 0 auto;
-  padding-bottom: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4.5rem);
   border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.about-hero-head {
+  display: grid;
+  gap: clamp(1.25rem, 2.4vw, 1.85rem);
+  justify-items: start;
 }
 
 .about-heading {
-  max-width: 18ch;
-  margin: clamp(1.25rem, 3vw, 2rem) 0 clamp(2rem, 4vw, 3rem);
+  max-width: 15ch;
+  margin: 0;
   color: var(--text);
   font-family: var(--font-display);
-  font-size: var(--type-section);
+  font-size: var(--type-hero);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: 0;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
 }
 
 .about-rail {
@@ -1948,47 +1976,419 @@ button {
   color: var(--bone-secondary);
 }
 
-.about-essay {
+.about-hero-date {
+  margin: 0;
+  color: var(--survey-orange);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.about-hero-media {
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.about-hero-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.about-hero-frame img {
+  object-fit: cover;
+  filter: saturate(0.72) contrast(1.05) brightness(0.92);
+}
+
+.about-hero-coords {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.06em;
+}
+
+.about-hero-tag {
+  color: var(--moss);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.about-hero-latlong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Crosshair marks (survey chrome) --------------------------- */
+
+.survey-cross {
+  position: absolute;
+  z-index: 3;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+.survey-cross::before,
+.survey-cross::after {
+  content: "";
+  position: absolute;
+  background: var(--survey-orange);
+}
+
+.survey-cross::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.survey-cross::after {
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.survey-cross--tl {
+  top: 10px;
+  left: 10px;
+}
+
+.survey-cross--br {
+  bottom: 10px;
+  right: 10px;
+}
+
+/* --- Survey stack ---------------------------------------------- */
+
+.about-survey {
   width: min(74rem, 100%);
   margin: 0 auto;
-  padding-top: clamp(3rem, 6vw, 5.25rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
   display: grid;
-  gap: clamp(3rem, 6vw, 5rem);
+  gap: clamp(4rem, 8vw, 7rem);
 }
 
-.about-copy {
-  max-width: var(--measure);
+.survey-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 clamp(1.1rem, 2vw, 1.6rem);
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.survey-label-mark {
+  color: var(--survey-orange);
+  font-weight: 500;
+}
+
+.survey-copy {
+  max-width: 60ch;
   display: grid;
-  gap: clamp(1.45rem, 2.4vw, 2rem);
+  gap: clamp(1.25rem, 2vw, 1.75rem);
   color: var(--bone-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.62;
 }
 
-.about-copy p {
+.survey-copy p {
   margin: 0;
 }
 
-.about-origin {
+.survey-copy--lead {
+  color: var(--bone);
+}
+
+/* Split blocks: copy beside a media/diagram column */
+
+.survey-block--split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 22rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
 
-.about-origin-copy {
-  max-width: var(--measure);
-  color: var(--bone-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
+.survey-block--reverse .survey-column {
+  order: 2;
 }
 
-.about-origin-copy p {
-  margin: 0;
+.survey-column {
+  min-width: 0;
 }
 
-.about-plate {
+.survey-plate {
   width: 100%;
+}
+
+/* About plates sit in the muted survey palette, matching the field-survey
+   mood: a light desaturation unifies the room-study artefacts without
+   touching the full-colour Plate treatment used on Work/case pages. */
+.survey-plate .plate-frame img {
+  filter: saturate(0.82) contrast(1.03) brightness(0.94);
+}
+
+/* --- Aphantasia panel ------------------------------------------ */
+
+.survey-aphantasia {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.25rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3.5rem);
+  background:
+    radial-gradient(circle at 82% 120%, rgba(0, 0, 0, 0.28), transparent 60%),
+    linear-gradient(135deg, var(--survey-orange-panel), #a63d18);
+  border: 1px solid rgba(0, 0, 0, 0.32);
+}
+
+.survey-aphantasia::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mix-blend-mode: multiply;
+}
+
+.survey-aphantasia-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 54ch;
+}
+
+.survey-label--dark {
+  color: #1a0d05;
+}
+
+.survey-label--dark .survey-label-mark {
+  color: #1a0d05;
+}
+
+.survey-aphantasia .survey-copy {
+  color: #1c120b;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.survey-edge {
+  position: absolute;
+  top: 50%;
+  right: clamp(0.75rem, 1.5vw, 1.4rem);
+  z-index: 1;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  color: rgba(26, 13, 5, 0.72);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.survey-cross--panel {
+  top: 18px;
+  right: 18px;
+}
+
+.survey-cross--panel::before,
+.survey-cross--panel::after {
+  background: rgba(26, 13, 5, 0.75);
+}
+
+/* --- Method: cube + signal list -------------------------------- */
+
+.method-figure {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding-top: 0.25rem;
+  border-left: 1px solid var(--line);
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.method-cube {
+  width: clamp(8rem, 12vw, 11rem);
+  height: auto;
+}
+
+.method-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.method-list li {
+  padding-left: 1.1rem;
+  position: relative;
+  color: var(--bone-secondary);
+}
+
+.method-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  background: var(--moss);
+}
+
+/* --- Assembled Parts: terrain scans ---------------------------- */
+
+.scan-stack {
+  position: relative;
+  min-height: clamp(14rem, 24vw, 20rem);
+}
+
+.scan-plate {
+  position: relative;
+  display: block;
+  width: 78%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.scan-plate img {
+  object-fit: cover;
+  filter: saturate(0.35) contrast(1.15) brightness(0.78);
+}
+
+.scan-plate--sm {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  aspect-ratio: 1 / 1;
+  border-color: var(--line-strong);
+  box-shadow: -0.75rem -0.75rem 1.5rem rgba(0, 0, 0, 0.45);
+}
+
+.scan-tag {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.4rem;
+  z-index: 1;
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* --- Surveyed Ground: seven parcels ---------------------------- */
+
+.survey-ground-head {
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.parcel-field {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+}
+
+.parcel-field-terrain {
+  object-fit: cover;
+  filter: saturate(0.5) contrast(1.08) brightness(0.6);
+}
+
+.parcel-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 8, 4, 0.35), rgba(6, 8, 4, 0.62));
+}
+
+.parcel-field-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.parcel-field-lines path {
+  fill: none;
+  stroke: rgba(156, 170, 105, 0.55);
+  stroke-width: 0.35;
+  stroke-dasharray: 1.4 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.parcel {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 0.15rem;
+  transform: translate(-2px, -2px);
+}
+
+.parcel-n {
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.parcel-label {
+  color: var(--moss);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.survey-cross--field {
+  top: 46%;
+  left: 49%;
+  z-index: 3;
+}
+
+/* --- Systems of Belonging: closing ----------------------------- */
+
+.survey-systems-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.survey-systems-grid .survey-copy {
+  max-width: 46ch;
 }
 
 .case-study {
@@ -2583,7 +2983,33 @@ button {
     max-width: 26ch;
   }
 
-  .about-origin {
+  .about-hero {
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 5vw, 2.75rem);
+  }
+
+  .survey-block--split {
+    grid-template-columns: 1fr;
+  }
+
+  .survey-block--reverse .survey-column {
+    order: 0;
+  }
+
+  .survey-plate {
+    max-width: 26rem;
+  }
+
+  .method-figure {
+    border-left: 0;
+    padding-left: 0;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .survey-systems-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2677,12 +3103,33 @@ button {
 
   .about-heading {
     max-width: none;
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: clamp(2.1rem, 10vw, 3rem);
   }
 
-  .about-copy,
-  .about-origin-copy {
+  .survey-copy {
     max-width: none;
+    font-size: 1rem;
+  }
+
+  .survey-systems-grid .survey-copy {
+    max-width: none;
+  }
+
+  .parcel-field {
+    aspect-ratio: 4 / 5;
+  }
+
+  .parcel-label {
+    font-size: 0.5625rem;
+  }
+
+  .method-figure {
+    grid-auto-flow: row;
+    align-items: start;
+  }
+
+  .scan-stack {
+    min-height: clamp(12rem, 60vw, 17rem);
   }
 
   .site-nav {
