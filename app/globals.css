@@ -124,22 +124,37 @@
                                                                  Moss is this section's one accent;
                                                                  ember appears only on evidence
                                                                  figures inside the capsule.
-   .work-section, .work-index*,           WorkSection.tsx       CURRENT (Phase 8): Work index.
-   .work-tier*, .work-flagship*,                                Editorial archive, hairline-
-   .work-row*                                                   separated tiers (Flagship/Current/
-                                                                 Selected/Foundations), not a card
-                                                                 wall. Old five/six-item card grid
-                                                                 (.work-grid, .work-card, .work-image,
-                                                                 .work-number, .image-tago/-lemon/
-                                                                 -derive/-bruce/-misura/-rmit) is
-                                                                 removed: Flagship now renders one
-                                                                 Plate (reusing deriveFlagship data),
-                                                                 Current/Selected/Foundations render
-                                                                 as text rows (Current reuses nowLedger
-                                                                 data directly, so Work/Now copy never
-                                                                 drifts). RMIT is absent by design
-                                                                 (About material + jigsaw piece only,
-                                                                 never a Work entry).
+   .work-section, .work-index*,           WorkSection.tsx       CURRENT (Phase 8, updated 25B/25B-2):
+   .work-tier*, .work-card*,                                    Work index. Old five/six-item card
+   .work-row*                                                   grid (.work-grid, prior .work-card,
+                                                                 .work-image, .work-number, .image-
+                                                                 tago/-lemon/-derive/-bruce/-misura/
+                                                                 -rmit) is removed and unrelated to
+                                                                 today's .work-card, a new class.
+                                                                 Homepage compact Selected Work still
+                                                                 renders hairline WorkRow text rows
+                                                                 (thumbnail/role/blurb/Read more) via
+                                                                 .work-row*, kept deliberately lighter
+                                                                 than the full page. The full /work
+                                                                 page (25B-2) instead renders every
+                                                                 tier -- Flagship/Current/Selected/
+                                                                 Foundations -- as a WorkCard: one big
+                                                                 Plate thumbnail (caption hidden via
+                                                                 .work-card-plate .plate-caption, so
+                                                                 the evidence figure isn't shown twice)
+                                                                 plus a blurb/proof/role/timeline/Read-
+                                                                 more body, so no tier looks
+                                                                 structurally different from Derive.
+                                                                 Hierarchy survives through type scale
+                                                                 only (.work-card[data-tier="flagship"]
+                                                                 titles render larger), not structure.
+                                                                 Thumbnails fall back to Plate's text-
+                                                                 plate kicker/statement when no asset
+                                                                 is verified (e.g. HUNCHR). Current
+                                                                 reuses nowLedger data directly, so
+                                                                 Work/Now copy never drifts. RMIT is
+                                                                 absent by design (About material +
+                                                                 jigsaw piece only, never a Work entry).
    .derive-section, .derive-*,            DeriveFlagship.tsx /  CURRENT (Phase 6): flagship proof
    .plate-frame-content,                  WorkSection.tsx       section, ember territory. Renders
    .plate-frame-kicker,                                         inside WorkSection.tsx (homepage/
@@ -1252,39 +1267,101 @@ button {
   text-transform: uppercase;
 }
 
-.work-flagship {
+/* Full /work page card (25B follow-up): every tier (Flagship/Current/
+   Selected/Foundations) renders the same big-thumbnail Plate + body
+   structure, so individual items read like Derive's flagship treatment
+   instead of the old thumbnail-less/small-thumb rows. Hierarchy is kept
+   through type scale only (.work-card[data-tier="flagship"] below), not
+   structure. Plate's own caption is hidden here (.work-card-plate .plate-
+   caption): the visible summary lives in work-card-blurb/-proof so the
+   evidence figure isn't shown twice under the image. */
+.work-card-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.work-card {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--col-gutter);
   align-items: start;
+  padding: clamp(2rem, 3.5vw, 3rem) 0;
+  border-bottom: 1px solid var(--line);
 }
 
-.work-flagship-plate {
+.work-card-plate {
   width: 100%;
 }
 
-.work-flagship-body {
-  display: grid;
-  align-content: start;
-  gap: clamp(1rem, 2vw, 1.5rem);
+.work-card-plate .plate-caption {
+  display: none;
 }
 
-.work-flagship-body h2 {
+.work-card-body {
+  display: grid;
+  align-content: start;
+  gap: clamp(0.85rem, 1.6vw, 1.25rem);
+}
+
+.work-card-index {
+  margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+}
+
+.work-card-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+}
+
+.work-card-heading h3 {
   margin: 0;
   color: var(--bone);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
   font-weight: 500;
 }
 
-.work-flagship-role {
+.work-card[data-tier="flagship"] .work-card-heading h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+}
+
+.work-card-role,
+.work-card-timeline {
   margin: 0;
+  color: var(--meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.work-card-blurb {
+  margin: 0;
+  max-width: var(--measure);
   color: var(--bone-secondary);
+  font-family: var(--font-sans);
   font-size: var(--type-body);
   line-height: 1.6;
 }
 
-.work-flagship-link {
+.work-card-proof {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-card-link {
+  width: fit-content;
   color: var(--moss);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -1294,12 +1371,12 @@ button {
   transition: color var(--dur-hover) var(--ease);
 }
 
-.work-flagship-link:hover,
-.work-flagship-link:focus-visible {
+.work-card-link:hover,
+.work-card-link:focus-visible {
   color: var(--bone);
 }
 
-.work-flagship-link:focus-visible {
+.work-card-link:focus-visible {
   outline: 2px solid var(--moss);
   outline-offset: 3px;
 }
@@ -1370,9 +1447,10 @@ button {
   line-height: 1.6;
 }
 
-/* Subordinate thumbnail: homepage Selected Work only, existing case
-   assets only. Desaturated at rest, full colour on row hover/focus; row
-   meta (name/role/description) is the caption, so none is rendered here. */
+/* Subordinate thumbnail: existing case assets only, rendered on both the
+   homepage compact rows and the full /work index rows. Desaturated at
+   rest, full colour on row hover/focus; row meta (name/role/description)
+   is the caption, so none is rendered here. */
 .work-row-thumb {
   position: relative;
   display: block;
@@ -1395,6 +1473,27 @@ button {
 .work-row:hover .work-row-thumb img,
 .work-row:focus-within .work-row-thumb img {
   filter: none;
+}
+
+/* Text-plate placeholder variant: rows with no verified thumbnail asset
+   (e.g. HUNCHR) reuse Plate's kicker/statement text-plate language
+   (.plate-frame-kicker/-statement) instead of a fake image. */
+.work-row-thumb-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.9rem;
+  background: var(--panel);
+}
+
+.work-row-thumb-placeholder .plate-frame-kicker {
+  font-size: 0.65rem;
+}
+
+.work-row-thumb-placeholder .plate-frame-statement {
+  font-size: 0.85rem;
+  line-height: 1.3;
 }
 
 .work-row-link {
@@ -2104,6 +2203,56 @@ button {
   margin: 0.6rem 0 0;
 }
 
+/* Hover/focus-only full-image preview (no click-to-open state, matching the
+   rest of the site's hover-only overlay convention): thumbnails crop via
+   object-fit:cover above, so this shows the photo uncropped (object-fit:
+   contain) plus its caption. Opaque backdrop, not glassmorphism. */
+.case-gallery-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: clamp(2rem, 6vw, 4rem);
+  background: rgba(5, 5, 4, 0.94);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.case-gallery-item:hover .case-gallery-preview,
+.case-gallery-item:focus-visible .case-gallery-preview,
+.case-gallery-item:focus-within .case-gallery-preview {
+  opacity: 1;
+  visibility: visible;
+}
+
+.case-gallery-preview img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(88vw, 62rem);
+  max-height: 78vh;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  background: #050505;
+  filter: none;
+}
+
+.case-gallery-preview-caption {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--bone-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  text-align: center;
+  line-height: 1.5;
+}
+
 .case-back-link {
   display: inline-flex;
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
@@ -2134,25 +2283,32 @@ button {
   letter-spacing: 0.02em;
 }
 
-.case-achievement-annotated {
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2rem);
+.case-visit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--line-strong);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
 }
 
-.case-annotation-list {
-  display: grid !important;
-  gap: 0.85rem;
-  margin: 0 !important;
-  padding: 0 !important;
-  list-style: none !important;
+.case-visit-link:hover,
+.case-visit-link:focus-visible {
+  border-color: var(--moss);
+  color: var(--moss);
 }
 
-.case-annotation-list li {
-  padding-left: 0 !important;
-}
-
-.case-annotation {
-  color: var(--bone-secondary);
+.case-visit-link:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
 }
 
 .case-pagination {
@@ -2463,7 +2619,7 @@ button {
     position: static;
   }
 
-  .work-flagship {
+  .work-card {
     grid-template-columns: 1fr;
   }
 
@@ -2642,8 +2798,9 @@ button {
 
   /* 44px minimum touch target (docs/design.md §12/§13), mobile only. */
   .work-row-link,
-  .work-flagship-link,
-  .derive-case-link {
+  .work-card-link,
+  .derive-case-link,
+  .case-visit-link {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
