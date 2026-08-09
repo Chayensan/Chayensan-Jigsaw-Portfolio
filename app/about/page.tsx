@@ -1,12 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 const COORDS = "S 06 12' 26.5\"  /  E 106 48' 37.0\"";
+const PLACE_ROOM_COPY =
+  "Australia, Malaysia, Indonesia, growing up between all three. I used to think that just meant I packed a lot of suitcases as a kid. Took me way longer than it should have to realise it actually rewired something, how I read people, how fast I clock what a room needs before anyone says it out loud.";
+const SHARED_SPACE_COPY =
+  "I studied interior design at RMIT. Wrote my thesis on how a space turns strangers into regulars, which sounds academic but really I was just trying to figure out why some rooms make people stay and some don't. Same question now, just different furniture. A Discord server. A campaign. A group chat that somehow becomes a whole friendship.";
+const APHANTASIA_COPY =
+  'Found out recently I have aphantasia, no mental images, ever. Turns out most people have been watching an actual movie in their head this whole time and I thought "picture it" was just a saying. Wild discovery. Honestly one of my favourite ones. It\'s become this great icebreaker too, people get so curious and start asking questions, and every question teaches me something new about how my own brain\'s been running the whole time.';
+const METHOD_COPY =
+  "Whatever it is, it's not visual. It's more like I feel when something's off before I can say why. A room that's too cold. A campaign with no pulse. A community that has people but no glue holding them there yet. I can't picture the fix. I just know when I've found it.";
+const SURVEYED_GROUND_COPY =
+  "I don't think I'm unfinished, even on the days it feels that way. Just one whole thing, seen from a lot of angles I haven't all stood in yet. The field on the homepage works the same way: not missing pieces, one ground, cut into seven ways of looking at it, spatial design, events, community, sports media, growth, partnerships, product.";
+const SYSTEMS_BELONGING_COPY =
+  "If you want a name for it, maybe systems of belonging. What I've noticed, over and over, is the thing that makes someone stay is almost never the loudest thing happening. It's smaller than that. Quieter.";
+const OFF_CLOCK_COPY =
+  "Raves. Knitting. Weightlifting. Wandering a museum with zero plan. Whatever weird object has taken over my brain this week. I like watching people come alive, doesn't matter where, a dance floor, in front of a painting, under a bar that's a bit too heavy. And incense, aloeswood specifically, in a way I probably don't need to explain but will anyway if you ask.";
 
 const PARCELS = [
   { n: "01", label: "Spatial Design", x: 7, y: 15 },
@@ -123,10 +137,338 @@ function SurveyLabel({ children, id }: { children: ReactNode; id?: string }) {
 export default function AboutPage() {
   const [activeCommunityCard, setActiveCommunityCard] = useState<number | null>(null);
   const [activeCommunityImage, setActiveCommunityImage] = useState(0);
+  const [placeRoomVisible, setPlaceRoomVisible] = useState(false);
+  const [sharedSpaceVisible, setSharedSpaceVisible] = useState(false);
+  const [aphantasiaVisible, setAphantasiaVisible] = useState(false);
+  const [methodVisible, setMethodVisible] = useState(false);
+  const [groundVisible, setGroundVisible] = useState(false);
+  const [systemsVisible, setSystemsVisible] = useState(false);
+  const [offClockVisible, setOffClockVisible] = useState(false);
   const communityDialogRef = useRef<HTMLDivElement>(null);
   const communityCloseRef = useRef<HTMLButtonElement>(null);
   const communityOpenerRef = useRef<HTMLElement | null>(null);
+  const placeRoomRef = useRef<HTMLElement>(null);
+  const sharedSpaceRef = useRef<HTMLElement>(null);
+  const aphantasiaRef = useRef<HTMLElement>(null);
+  const methodRef = useRef<HTMLElement>(null);
+  const groundRef = useRef<HTMLElement>(null);
+  const systemsRef = useRef<HTMLElement>(null);
+  const offClockRef = useRef<HTMLElement>(null);
   const communityModalOpen = activeCommunityCard !== null;
+
+  useEffect(() => {
+    const placeRoom = placeRoomRef.current;
+    if (!placeRoom) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setPlaceRoomVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setPlaceRoomVisible(entry.isIntersecting && entry.intersectionRatio >= 0.3);
+      },
+      {
+        rootMargin: "-8% 0px -8% 0px",
+        threshold: [0, 0.15, 0.3, 0.5, 0.75],
+      },
+    );
+
+    observer.observe(placeRoom);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const placeRoom = placeRoomRef.current;
+    if (!placeRoom) return;
+
+    let frame = 0;
+
+    const updateMapScale = () => {
+      frame = 0;
+      const rect = placeRoom.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const distance = Math.min(
+        1,
+        Math.abs(sectionCenter - viewportCenter) / (window.innerHeight * 0.9),
+      );
+      const scale = 1.025 - distance * 0.055;
+
+      placeRoom.style.setProperty("--place-room-map-scale", scale.toFixed(4));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateMapScale);
+    };
+
+    updateMapScale();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    const sharedSpace = sharedSpaceRef.current;
+    if (!sharedSpace) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setSharedSpaceVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSharedSpaceVisible(entry.isIntersecting && entry.intersectionRatio >= 0.3);
+      },
+      {
+        rootMargin: "-8% 0px -8% 0px",
+        threshold: [0, 0.15, 0.3, 0.5, 0.75],
+      },
+    );
+
+    observer.observe(sharedSpace);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const sharedSpace = sharedSpaceRef.current;
+    if (!sharedSpace) return;
+
+    let frame = 0;
+
+    const updateImageScale = () => {
+      frame = 0;
+      const rect = sharedSpace.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const distance = Math.min(
+        1,
+        Math.abs(sectionCenter - viewportCenter) / (window.innerHeight * 0.9),
+      );
+      const scale = 1.025 - distance * 0.055;
+
+      sharedSpace.style.setProperty("--shared-space-image-scale", scale.toFixed(4));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateImageScale);
+    };
+
+    updateImageScale();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    const aphantasia = aphantasiaRef.current;
+    if (!aphantasia) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setAphantasiaVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAphantasiaVisible(entry.isIntersecting && entry.intersectionRatio >= 0.3);
+      },
+      {
+        rootMargin: "-8% 0px -8% 0px",
+        threshold: [0, 0.15, 0.3, 0.5, 0.75],
+      },
+    );
+
+    observer.observe(aphantasia);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const aphantasia = aphantasiaRef.current;
+    if (!aphantasia) return;
+
+    let frame = 0;
+
+    const updateVisualScale = () => {
+      frame = 0;
+      const rect = aphantasia.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const distance = Math.min(
+        1,
+        Math.abs(sectionCenter - viewportCenter) / (window.innerHeight * 0.9),
+      );
+      const scale = 1.025 - distance * 0.055;
+
+      aphantasia.style.setProperty("--aphantasia-visual-scale", scale.toFixed(4));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateVisualScale);
+    };
+
+    updateVisualScale();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    const method = methodRef.current;
+    if (!method) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setMethodVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setMethodVisible(entry.isIntersecting && entry.intersectionRatio >= 0.3);
+      },
+      {
+        rootMargin: "-8% 0px -8% 0px",
+        threshold: [0, 0.15, 0.3, 0.5, 0.75],
+      },
+    );
+
+    observer.observe(method);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const method = methodRef.current;
+    if (!method) return;
+
+    let frame = 0;
+
+    const updateVisualScale = () => {
+      frame = 0;
+      const rect = method.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const sectionCenter = rect.top + rect.height / 2;
+      const distance = Math.min(
+        1,
+        Math.abs(sectionCenter - viewportCenter) / (window.innerHeight * 0.9),
+      );
+      const scale = 1.025 - distance * 0.055;
+
+      method.style.setProperty("--method-visual-scale", scale.toFixed(4));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateVisualScale);
+    };
+
+    updateVisualScale();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    const scenes = [
+      { element: groundRef.current, setVisible: setGroundVisible },
+      { element: systemsRef.current, setVisible: setSystemsVisible },
+      { element: offClockRef.current, setVisible: setOffClockVisible },
+    ];
+
+    if (!("IntersectionObserver" in window)) {
+      scenes.forEach(({ setVisible }) => setVisible(true));
+      return;
+    }
+
+    const sceneByElement = new Map<HTMLElement, typeof setGroundVisible>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          sceneByElement.get(entry.target as HTMLElement)?.(
+            entry.isIntersecting && entry.intersectionRatio >= 0.3,
+          );
+        });
+      },
+      {
+        rootMargin: "-8% 0px -8% 0px",
+        threshold: [0, 0.15, 0.3, 0.5, 0.75],
+      },
+    );
+
+    scenes.forEach(({ element, setVisible }) => {
+      if (!element) return;
+      sceneByElement.set(element, setVisible);
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const scenes = [groundRef.current, systemsRef.current, offClockRef.current]
+      .filter((scene): scene is HTMLElement => Boolean(scene));
+    let frame = 0;
+
+    const updateVisualScales = () => {
+      frame = 0;
+      const viewportCenter = window.innerHeight / 2;
+
+      scenes.forEach((scene) => {
+        const rect = scene.getBoundingClientRect();
+        const sectionCenter = rect.top + rect.height / 2;
+        const distance = Math.min(
+          1,
+          Math.abs(sectionCenter - viewportCenter) / (window.innerHeight * 0.9),
+        );
+        const scale = 1.025 - distance * 0.055;
+
+        scene.style.setProperty("--scene-visual-scale", scale.toFixed(4));
+      });
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateVisualScales);
+    };
+
+    updateVisualScales();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     if (!communityModalOpen) return;
@@ -215,7 +557,9 @@ export default function AboutPage() {
               +
             </span>
             <h1 id="about-title" className="about-editorial-heading">
-              Where this practice comes from.
+              <span>Where this</span>
+              <span>practice</span>
+              <span>comes from.</span>
             </h1>
             <ul
               className="about-editorial-meta"
@@ -240,10 +584,10 @@ export default function AboutPage() {
           <figure className="about-editorial-hero-figure">
             <div className="about-editorial-hero-terrain">
               <Image
-                src="/assets/about/about-terrain-hero.png"
-                alt="Atmospheric misty hillside terrain artwork"
+                src="/assets/about/hero-bg.png"
+                alt="Abstract topographic field in moss green and ember orange"
                 fill
-                sizes="(max-width: 760px) 100vw, 52vw"
+                sizes="100vw"
                 priority
                 unoptimized
               />
@@ -261,74 +605,141 @@ export default function AboutPage() {
         </section>
 
         <div className="about-editorial-story">
-          <section className="about-editorial-origin" aria-label="Place and shared space">
-            <div className="about-editorial-copy about-editorial-copy--place">
-              <SurveyLabel>Place / Room</SurveyLabel>
-              <p>
-                I grew up between Australia, Malaysia, and Indonesia, which is a very efficient
-                way to learn that people don&apos;t behave the same way in every room. Not because
-                they become different people, but because every room asks something different
-                of them.
+          <section
+            className={`about-editorial-place-room${
+              placeRoomVisible ? " about-editorial-place-room--visible" : ""
+            }`}
+            ref={placeRoomRef}
+            aria-labelledby="place-room-title"
+          >
+            <div className="about-editorial-place-room-copy">
+              <h2 id="place-room-title">
+                Place<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={PLACE_ROOM_COPY}>
+                {PLACE_ROOM_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-place-room-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
               </p>
             </div>
 
-            <figure className="about-editorial-rmit about-editorial-rmit--study">
-              <div className="about-editorial-rmit-frame">
+            <figure className="about-editorial-place-room-map">
+              <div className="about-editorial-place-room-map-stage">
                 <Image
-                  src="/assets/about/my-world-map.png"
-                  alt="RMIT interior design thesis room model"
+                  src="/assets/about/map.png"
+                  alt="Map tracing Australia, Malaysia, and Indonesia"
                   fill
-                  sizes="(max-width: 760px) 84vw, 34vw"
+                  sizes="(max-width: 760px) 94vw, 48vw"
+                  priority
                 />
+                <svg
+                  className="about-editorial-place-room-route"
+                  viewBox="0 0 1254 1254"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                >
+                  <path
+                    className="about-editorial-place-room-route-line"
+                    d="M299 501 C367 506 437 571 475 652 C613 653 779 737 853 876"
+                    pathLength="100"
+                  />
+                  <g className="about-editorial-place-room-point about-editorial-place-room-point--malaysia">
+                    <circle className="about-editorial-place-room-point-halo" cx="299" cy="501" r="18" />
+                    <circle className="about-editorial-place-room-point-ring" cx="299" cy="501" r="9" />
+                    <circle cx="299" cy="501" r="3.5" />
+                  </g>
+                  <g className="about-editorial-place-room-point about-editorial-place-room-point--indonesia">
+                    <circle className="about-editorial-place-room-point-halo" cx="475" cy="652" r="18" />
+                    <circle className="about-editorial-place-room-point-ring" cx="475" cy="652" r="9" />
+                    <circle cx="475" cy="652" r="3.5" />
+                  </g>
+                  <g className="about-editorial-place-room-point about-editorial-place-room-point--australia">
+                    <circle className="about-editorial-place-room-point-halo" cx="853" cy="876" r="18" />
+                    <circle className="about-editorial-place-room-point-ring" cx="853" cy="876" r="9" />
+                    <circle cx="853" cy="876" r="3.5" />
+                  </g>
+                </svg>
               </div>
-              <figcaption aria-hidden="true">Room study / 01</figcaption>
             </figure>
+          </section>
 
-            <span className="about-editorial-origin-side" aria-hidden="true">
-              RMIT / THESIS
-            </span>
-
-            <div className="about-editorial-copy about-editorial-copy--shared">
-              <SurveyLabel>Shared Space</SurveyLabel>
-              <p>
-                That noticing followed me to RMIT, where I studied interior design and wrote my
-                thesis on how micro-communities form around shared space: how a room, arranged
-                with intention, can turn strangers into regulars. I still use that model for
-                almost everything I build. A Discord server is a room. A campaign is a room. A
-                dinner table is a room. The furniture just keeps changing.
+          <section
+            className={`about-editorial-shared-space${
+              sharedSpaceVisible ? " about-editorial-shared-space--visible" : ""
+            }`}
+            ref={sharedSpaceRef}
+            aria-labelledby="shared-space-title"
+          >
+            <div className="about-editorial-shared-space-copy">
+              <h2 id="shared-space-title">
+                Shared Space<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={SHARED_SPACE_COPY}>
+                {SHARED_SPACE_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-shared-space-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
               </p>
             </div>
 
-            <figure
-              className="about-editorial-rmit about-editorial-rmit--evidence"
-              tabIndex={0}
-              aria-label="Interior design thesis model, RMIT (Hons). Hover or focus to view the full image."
-            >
-              <div className="about-editorial-rmit-frame">
+            <figure className="about-editorial-shared-space-image">
+              <div className="about-editorial-shared-space-image-stage">
                 <Image
                   src="/assets/work-cases/rmit-gallery-01.png"
-                  alt="RMIT interior design thesis model showing a shared room"
+                  alt="Architectural model of a shared interior space"
                   fill
                   sizes="(max-width: 760px) 92vw, 38vw"
                 />
                 <span className="about-editorial-cross about-editorial-cross--plate" aria-hidden="true" />
               </div>
-              <figcaption>
-                Interior design thesis model, RMIT (Hons). Shared-space micro-communities study.
-                Designed and built.
-              </figcaption>
             </figure>
           </section>
 
-          <section className="about-editorial-aphantasia" aria-labelledby="aphantasia-label">
+          <section
+            className={`about-editorial-aphantasia${
+              aphantasiaVisible ? " about-editorial-aphantasia--visible" : ""
+            }`}
+            ref={aphantasiaRef}
+            aria-labelledby="aphantasia-title"
+          >
             <div className="about-editorial-aphantasia-inner">
-              <SurveyLabel id="aphantasia-label">Aphantasia</SurveyLabel>
-              <p>
-                I also recently found out I have aphantasia, which means my imagination does not
-                render as an internal movie. Apparently, when people said they could
-                &ldquo;picture it,&rdquo; many of them meant that literally. Rude discovery,
-                honestly.
+              <h2 id="aphantasia-title">
+                Aphantasia<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={APHANTASIA_COPY}>
+                {APHANTASIA_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-aphantasia-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
               </p>
+            </div>
+            <div className="about-editorial-aphantasia-visual">
+              <Image
+                src="/assets/about/aphantasia.png"
+                alt="Visual comparison between picturing an apple and experiencing aphantasia"
+                fill
+                sizes="(max-width: 760px) 92vw, 44vw"
+                unoptimized
+              />
             </div>
             <span className="about-editorial-aphantasia-side" aria-hidden="true">
               Not a movie
@@ -336,15 +747,28 @@ export default function AboutPage() {
             <span className="about-editorial-cross about-editorial-cross--ember" aria-hidden="true" />
           </section>
 
-          <section className="about-editorial-method" aria-labelledby="method-label">
-            <div className="about-editorial-copy">
-              <SurveyLabel id="method-label">Method</SurveyLabel>
-              <p>
-                But it also explained something about how I work. I don&apos;t build from mental
-                screenshots. I build from pattern, emotion, rhythm, language, body feeling,
-                atmosphere, and recognition. I know when a space feels too cold, when a campaign
-                has no pulse, when a community has energy but no container, when a brand is
-                saying the right thing in the wrong room.
+          <section
+            className={`about-editorial-method${
+              methodVisible ? " about-editorial-method--visible" : ""
+            }`}
+            ref={methodRef}
+            aria-labelledby="method-title"
+          >
+            <div className="about-editorial-method-copy">
+              <h2 id="method-title">
+                Method<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={METHOD_COPY}>
+                {METHOD_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-method-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
               </p>
             </div>
 
@@ -354,9 +778,12 @@ export default function AboutPage() {
                 <path d="m28 76 38-32h84l-38 32" />
                 <path d="m112 76 38-32v84l-38 32" />
                 <path className="about-editorial-method-faint" d="M66 44v84l-38 32m38-32h84" />
-                <circle cx="28" cy="160" r="2.5" />
-                <circle cx="112" cy="160" r="2.5" />
-                <circle cx="150" cy="44" r="2.5" />
+                <circle className="about-editorial-method-ring about-editorial-method-ring--one" cx="28" cy="160" r="10" />
+                <circle className="about-editorial-method-ring about-editorial-method-ring--two" cx="112" cy="160" r="10" />
+                <circle className="about-editorial-method-ring about-editorial-method-ring--three" cx="150" cy="44" r="10" />
+                <circle className="about-editorial-method-point about-editorial-method-point--one" cx="28" cy="160" r="4.75" />
+                <circle className="about-editorial-method-point about-editorial-method-point--two" cx="112" cy="160" r="4.75" />
+                <circle className="about-editorial-method-point about-editorial-method-point--three" cx="150" cy="44" r="4.75" />
               </svg>
               <ul aria-label="What I build from">
                 {METHOD_SIGNALS.map((signal) => (
@@ -366,9 +793,33 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section className="about-editorial-ground" aria-labelledby="ground-label">
+          <section
+            className={`about-editorial-ground about-editorial-scroll-scene${
+              groundVisible ? " about-editorial-scroll-scene--visible" : ""
+            }`}
+            ref={groundRef}
+            aria-labelledby="ground-title"
+          >
+            <div className="about-editorial-scene-copy about-editorial-ground-copy">
+              <h2 id="ground-title">
+                One Complete Picture<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={SURVEYED_GROUND_COPY}>
+                {SURVEYED_GROUND_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-scene-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
+              </p>
+            </div>
+
             <div
-              className="about-editorial-parcels"
+              className="about-editorial-parcels about-editorial-scene-visual"
               role="img"
               aria-label="Seven surveyed parcels: spatial design, events, community, sports media, growth, partnerships, and product"
             >
@@ -412,71 +863,73 @@ export default function AboutPage() {
                 One field / seven cuts
               </span>
             </div>
-
-            <div className="about-editorial-copy about-editorial-ground-copy">
-              <SurveyLabel id="ground-label">Surveyed Ground</SurveyLabel>
-              <p>
-                That&apos;s also why this site is built the way it is. The field on the
-                homepage isn&apos;t a puzzle with missing pieces. It&apos;s one surveyed ground,
-                already whole, cut by survey lines into seven parcels: spatial design, events,
-                community, sports media, growth, partnerships, and product. Different angles on
-                the same terrain, not fragments waiting to click together.
-              </p>
-            </div>
           </section>
 
-          <section className="about-editorial-systems" aria-labelledby="systems-label">
-            <div className="about-editorial-systems-copy">
-              <div className="about-editorial-copy">
-                <SurveyLabel id="systems-label">Finding the Pattern</SurveyLabel>
-                <p>
-                  That question has followed me through RMIT&apos;s student community, retail
-                  design consulting, Web3 at Derive.xyz, live events, Discord ecosystems,
-                  campaigns, partnerships, and early-stage product work. Different rooms, same
-                  question: what makes someone stay, participate, and bring somebody else along?
-                </p>
-              </div>
-
-              <div className="about-editorial-copy about-editorial-copy--closing">
-                <SurveyLabel>Systems of Belonging</SurveyLabel>
-                <p>
-                  If there&apos;s a name for what I do, it&apos;s something like building systems
-                  of belonging, though I&apos;d rather show that than say it. Mostly, I care
-                  about signal over noise. The thing that makes someone stay is rarely the
-                  loudest thing in the room.
-                </p>
-              </div>
+          <section
+            className={`about-editorial-systems about-editorial-scroll-scene${
+              systemsVisible ? " about-editorial-scroll-scene--visible" : ""
+            }`}
+            ref={systemsRef}
+            aria-labelledby="systems-title"
+          >
+            <div className="about-editorial-scene-copy about-editorial-systems-copy">
+              <h2 id="systems-title">
+                Systems of Belonging<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={SYSTEMS_BELONGING_COPY}>
+                {SYSTEMS_BELONGING_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-scene-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
+              </p>
             </div>
 
-            <figure className="about-editorial-archive" aria-label="Field and spatial-study archive plate">
-              <div className="about-editorial-archive-field">
-                <Image
-                  src="/assets/about/interior-mapping.png"
-                  alt="Interior mapping study"
-                  fill
-                  sizes="(max-width: 760px) 92vw, 40vw"
-                  unoptimized
-                />
-              </div>
-              <div
-                className="about-editorial-archive-plan"
-                tabIndex={0}
-                aria-label="View RMIT gallery image full size"
-              >
-                <Image
-                  src="/assets/about/rmit-galere.png"
-                  alt="RMIT gallery architectural study"
-                  fill
-                  sizes="(max-width: 760px) 58vw, 22vw"
-                />
-              </div>
-              <figcaption>{COORDS}</figcaption>
-              <span className="about-editorial-cross about-editorial-cross--archive" aria-hidden="true" />
+            <figure
+              className="about-editorial-systems-plate about-editorial-scene-visual"
+              aria-label="Three hands reaching toward a shared point of light"
+            >
+              <Image
+                src="/assets/about/systems.png"
+                alt="Three painted hands reaching toward a shared point of light"
+                fill
+                sizes="(max-width: 760px) 92vw, 44vw"
+                unoptimized
+              />
             </figure>
           </section>
 
-          <section className="about-editorial-offclock" aria-labelledby="off-clock-label">
-            <figure className="about-editorial-hobby-plate">
+          <section
+            className={`about-editorial-offclock about-editorial-scroll-scene${
+              offClockVisible ? " about-editorial-scroll-scene--visible" : ""
+            }`}
+            ref={offClockRef}
+            aria-labelledby="off-clock-title"
+          >
+            <div className="about-editorial-scene-copy about-editorial-offclock-copy">
+              <h2 id="off-clock-title">
+                Off the Clock<span aria-hidden="true">+</span>
+              </h2>
+              <p aria-label={OFF_CLOCK_COPY}>
+                {OFF_CLOCK_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-scene-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+            <figure className="about-editorial-hobby-plate about-editorial-scene-visual">
               <Image
                 src="/assets/about/my-hobby.jpg"
                 alt="Personal hobby archive"
@@ -484,18 +937,6 @@ export default function AboutPage() {
                 sizes="(max-width: 760px) 92vw, 38vw"
               />
             </figure>
-
-            <div className="about-editorial-copy about-editorial-offclock-copy">
-              <SurveyLabel id="off-clock-label">Off The Clock</SurveyLabel>
-              <p>
-                Outside of work, I like things with rhythm, texture, and a little chaos: raves,
-                knitting, weightlifting, museums, and whatever strange object catches my eye that
-                week. I&apos;m drawn to spaces where people let themselves become more alive,
-                whether that&apos;s on a dance floor, in front of an artwork, under a heavy
-                barbell, or halfway through making something with my hands. I also really,
-                really love incense (especially Aloeswood). This feels important to disclose.
-              </p>
-            </div>
           </section>
 
           <section className="about-editorial-community-board" aria-label="Community Building">
