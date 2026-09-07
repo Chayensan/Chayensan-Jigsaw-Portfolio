@@ -30,7 +30,7 @@ export default function Footer() {
             <div className="footer-meta-block">
               <span className="footer-meta-rule" aria-hidden="true" />
               <p className="footer-availability">
-                Available now · Based in Jakarta, Building globally
+                Available now · Building globally
               </p>
             </div>
           </div>

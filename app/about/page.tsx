@@ -42,7 +42,27 @@ const METHOD_SIGNALS = [
   "Recognition",
 ];
 
-const COMMUNITY_BOARD_CARDS = [
+type CommunityGalleryEntry =
+  | string
+  | {
+      src: string;
+      fit?: "contain" | "cover";
+      position?: string;
+    };
+
+type CommunityBoardCard = {
+  src: string | null;
+  gallery: CommunityGalleryEntry[];
+  alt: string;
+  caption: string;
+  title: string;
+  location: string;
+  date: string;
+  description: string;
+  closing?: string;
+};
+
+const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
   {
     src: "/assets/about/fitlife1.PNG",
     gallery: [
@@ -53,7 +73,7 @@ const COMMUNITY_BOARD_CARDS = [
       "/assets/about/fitlife5.JPG",
     ],
     alt: "Fitlife community and local fitness brand moment",
-    caption: "Shoots, training, small gatherings",
+    caption: "FITLIFE",
     title: "Fitlife",
     location: "Jakarta, Indonesia",
     date: "2020-2021",
@@ -70,7 +90,7 @@ const COMMUNITY_BOARD_CARDS = [
       { src: "/assets/about/ravebendoors5-hd.jpg", fit: "contain" },
     ],
     alt: "Community group gathered at an outdoor music event",
-    caption: "Field trip energy, unmatched",
+    caption: "RAVEBENDOORS",
     title: "Ravebendoors",
     location: "Melbourne, Australia",
     date: "2023-2026",
@@ -87,7 +107,7 @@ const COMMUNITY_BOARD_CARDS = [
       "/assets/about/community-ppia5.PNG",
     ],
     alt: "Performers sharing a stage at a community event",
-    caption: "Ideas on stage, minds wide open",
+    caption: "PPIA",
     title: "PPIA",
     location: "Melbourne, Australia",
     date: "2019-2021",
@@ -98,7 +118,7 @@ const COMMUNITY_BOARD_CARDS = [
     src: "/assets/about/community-traders-breakfast1.png",
     gallery: ["/assets/about/community-traders-breakfast1.png"],
     alt: "People gathering around shared tables",
-    caption: "Good food, better company",
+    caption: "TRADERS BREAKFAST",
     title: "Traders Breakfast",
     location: "Bali, Indonesia",
     date: "2025",
@@ -116,12 +136,24 @@ const COMMUNITY_BOARD_CARDS = [
       "/assets/about/mahindharama6.JPG",
     ],
     alt: "Community members making a shared light painting",
-    caption: "Different roles, same vision",
+    caption: "MAHINDHARAMA",
     title: "Mahindharama",
     location: "Penang, Malaysia",
     date: "2011-2013",
     description:
       "The origin piece. Before the portfolio, before growth, before events became work, there was Mahindharama: a youth community built around learning, service, and showing up. Through educational camps, volunteering, and fundraiser causes, it became one of the first places I understood how much care goes into building a room where young people feel useful, connected, and part of something bigger than themselves.",
+  },
+  {
+    src: null,
+    gallery: [],
+    alt: "The Fold Community image archive pending",
+    caption: "THE FOLD COMMUNITY",
+    title: "The Fold Community",
+    location: "Jakarta, Indonesia",
+    date: "Present",
+    description:
+      "The Fold is a private social circle built around trust, curiosity, and genuine friendship. Everyone here is invited through someone who already knows and trusts them, so the space can stay warm, safe, and intentional. This is not a networking group, a pitch room, or a place to collect contacts. It is a place to meet like-minded people you actually want around: to talk, laugh, share things, make plans, and slowly become familiar.",
+    closing: "The Fold grows through trust, one invitation at a time.",
   },
 ];
 
@@ -563,9 +595,8 @@ export default function AboutPage() {
             </h1>
             <ul
               className="about-editorial-meta"
-              aria-label="Location, languages, and availability"
+              aria-label="Languages and availability"
             >
-              <li>Based in Jakarta</li>
               <li>Five languages</li>
               <li>Open to remote roles</li>
             </ul>
@@ -734,12 +765,30 @@ export default function AboutPage() {
             </div>
             <div className="about-editorial-aphantasia-visual">
               <Image
-                src="/assets/about/aphantasia.png"
+                src="/assets/about/aph-diagram-reference-apple.png"
                 alt="Visual comparison between picturing an apple and experiencing aphantasia"
                 fill
                 sizes="(max-width: 760px) 92vw, 44vw"
                 unoptimized
               />
+              <div className="about-editorial-aphantasia-labels">
+                <p className="about-editorial-aphantasia-prompt">Picture an apple when you close your eyes.</p>
+                <div className="about-editorial-aphantasia-label about-editorial-aphantasia-label--visual">
+                  <strong>Visual imagery</strong>
+                  <span>An image appears.</span>
+                </div>
+                <div className="about-editorial-aphantasia-label about-editorial-aphantasia-label--concept">
+                  <strong>Aphantasia</strong>
+                  <span>The concept is present. No image appears.</span>
+                </div>
+                <span className="about-editorial-aphantasia-trait about-editorial-aphantasia-trait--red">Red</span>
+                <span className="about-editorial-aphantasia-trait about-editorial-aphantasia-trait--crisp">Crisp</span>
+                <span className="about-editorial-aphantasia-trait about-editorial-aphantasia-trait--round">Round</span>
+                <span className="about-editorial-aphantasia-trait about-editorial-aphantasia-trait--sweet">Sweet</span>
+                <p className="about-editorial-aphantasia-caption">
+                  Different internal experience. Same capacity to think, feel, imagine, and create.
+                </p>
+              </div>
             </div>
             <span className="about-editorial-aphantasia-side" aria-hidden="true">
               Not a movie
@@ -874,7 +923,10 @@ export default function AboutPage() {
           >
             <div className="about-editorial-scene-copy about-editorial-systems-copy">
               <h2 id="systems-title">
-                Systems of Belonging<span aria-hidden="true">+</span>
+                <span className="about-editorial-title-line">Systems of</span>
+                <span className="about-editorial-title-line">
+                  Belongings<span aria-hidden="true">+</span>
+                </span>
               </h2>
               <p aria-label={SYSTEMS_BELONGING_COPY}>
                 {SYSTEMS_BELONGING_COPY.split(" ").map((word, index) => (
@@ -931,10 +983,11 @@ export default function AboutPage() {
 
             <figure className="about-editorial-hobby-plate about-editorial-scene-visual">
               <Image
-                src="/assets/about/my-hobby.jpg"
+                src="/assets/about/ravebendoors1-hd.jpg"
                 alt="Personal hobby archive"
                 fill
                 sizes="(max-width: 760px) 92vw, 38vw"
+                quality={92}
               />
             </figure>
           </section>
@@ -964,20 +1017,31 @@ export default function AboutPage() {
                       <button
                         type="button"
                         className={`community-board-card community-board-card--${index + 1}`}
-                        key={card.src}
+                        key={card.title}
                         onClick={() => openCommunityCard(index)}
                         aria-haspopup="dialog"
                         aria-label={`Open details for ${card.title}`}
                       >
                         <span className="community-board-tape" aria-hidden="true" />
-                        <div className="community-board-photo">
-                          <Image
-                            src={card.src}
-                            alt={card.alt}
-                            fill
-                            sizes="(max-width: 760px) 18vw, 16vw"
-                            quality={90}
-                          />
+                        <div
+                          className={`community-board-photo${
+                            card.src ? "" : " community-board-photo--placeholder"
+                          }`}
+                        >
+                          {card.src ? (
+                            <Image
+                              src={card.src}
+                              alt={card.alt}
+                              fill
+                              sizes="(max-width: 760px) 16vw, 14vw"
+                              quality={90}
+                            />
+                          ) : (
+                            <span className="community-board-photo-placeholder" aria-hidden="true">
+                              <small>Archive pending</small>
+                              <strong>The Fold</strong>
+                            </span>
+                          )}
                         </div>
                         <p>{card.caption}</p>
                         <small aria-hidden="true">CB-{String(index + 1).padStart(2, "0")}</small>
@@ -1025,29 +1089,36 @@ export default function AboutPage() {
                 <div className="community-event-dialog-grid">
                   <div className="community-event-media">
                     <div className="community-event-main-photo">
-                      <Image
-                        src={
-                          typeof activeCommunityImageEntry === "string"
-                            ? activeCommunityImageEntry
-                            : activeCommunityImageEntry?.src ?? ""
-                        }
-                        alt={`${activeCommunityEvent.title} archive photo ${activeCommunityImage + 1}`}
-                        fill
-                        sizes="(max-width: 760px) 92vw, 44rem"
-                        quality={92}
-                        unoptimized
-                        style={
-                          typeof activeCommunityImageEntry === "string"
-                            ? undefined
-                            : {
-                                objectFit:
-                                  activeCommunityImageEntry?.fit === "contain"
-                                    ? "contain"
-                                    : "cover",
-                                objectPosition: activeCommunityImageEntry?.position ?? "center",
-                              }
-                        }
-                      />
+                      {activeCommunityImageEntry ? (
+                        <Image
+                          src={
+                            typeof activeCommunityImageEntry === "string"
+                              ? activeCommunityImageEntry
+                              : activeCommunityImageEntry.src
+                          }
+                          alt={`${activeCommunityEvent.title} archive photo ${activeCommunityImage + 1}`}
+                          fill
+                          sizes="(max-width: 760px) 92vw, 44rem"
+                          quality={92}
+                          unoptimized
+                          style={
+                            typeof activeCommunityImageEntry === "string"
+                              ? undefined
+                              : {
+                                  objectFit:
+                                    activeCommunityImageEntry.fit === "contain"
+                                      ? "contain"
+                                      : "cover",
+                                  objectPosition: activeCommunityImageEntry.position ?? "center",
+                                }
+                          }
+                        />
+                      ) : (
+                        <div className="community-event-photo-placeholder">
+                          <span>Image archive</span>
+                          <strong>To be added</strong>
+                        </div>
+                      )}
                       {activeCommunityEvent.gallery.length > 1 && (
                         <div className="community-event-carousel-controls">
                           <button
@@ -1078,7 +1149,8 @@ export default function AboutPage() {
                     <h3
                       id="community-event-title"
                       className={
-                        activeCommunityEvent.title === "Traders Breakfast"
+                        activeCommunityEvent.title === "Traders Breakfast" ||
+                        activeCommunityEvent.title === "The Fold Community"
                           ? "community-event-title--stacked"
                           : undefined
                       }
@@ -1106,12 +1178,18 @@ export default function AboutPage() {
                     <p id="community-event-description" className="community-event-description">
                       {activeCommunityEvent.description}
                     </p>
+                    {activeCommunityEvent.closing && (
+                      <p className="community-event-closing">{activeCommunityEvent.closing}</p>
+                    )}
                   </div>
 
                 </div>
 
                 <footer className="community-event-dialog-footer">
-                  <span>Archive / {activeCommunityEntryNumber}.05</span>
+                  <span>
+                    Archive / {activeCommunityEntryNumber}.
+                    {String(COMMUNITY_BOARD_CARDS.length).padStart(2, "0")}
+                  </span>
                   <div>
                     <button
                       type="button"

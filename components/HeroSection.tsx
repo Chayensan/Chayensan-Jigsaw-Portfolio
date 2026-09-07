@@ -10,7 +10,7 @@ export default function HeroSection() {
             Desi Kamdrawati &middot; Growth, Community &amp; Partnerships
           </p>
           <p className="hero-availability">
-            Available now &middot; Based in Jakarta, Building globally
+            Available now &middot; Building globally
           </p>
         </div>
 
