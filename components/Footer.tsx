@@ -1,3 +1,4 @@
+import { ContactTrigger } from "@/components/ContactModal";
 import { socialLinks } from "@/components/site-data";
 
 export default function Footer() {
@@ -14,15 +15,15 @@ export default function Footer() {
               Systems of Belonging · Desi Kamdrawati · 2026
             </p>
             <h2>
-              I&apos;m open to early-stage work, especially where people,
-              community, or growth are part of what you&apos;re building.
+              I&apos;m open work, especially where people, community, or growth are part of what
+              you&apos;re building.
             </h2>
-            <a className="footer-cta" href={socialLinks.gmail}>
+            <ContactTrigger className="footer-cta" ariaLabel="Open email form">
               <span>Email</span>
               <span className="footer-cta-arrow" aria-hidden="true">
                 &rarr;
               </span>
-            </a>
+            </ContactTrigger>
             <span className="footer-cta-rule" aria-hidden="true" />
           </div>
 

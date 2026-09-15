@@ -16,20 +16,19 @@ const APHANTASIA_COPY =
 const METHOD_COPY =
   "Whatever it is, it's not visual. It's more like I feel when something's off before I can say why. A room that's too cold. A campaign with no pulse. A community that has people but no glue holding them there yet. I can't picture the fix. I just know when I've found it.";
 const SURVEYED_GROUND_COPY =
-  "I don't think I'm unfinished, even on the days it feels that way. Just one whole thing, seen from a lot of angles I haven't all stood in yet. The field on the homepage works the same way: not missing pieces, one ground, cut into seven ways of looking at it, spatial design, events, community, sports media, growth, partnerships, product.";
+  "I don't think I'm unfinished, even on the days it feels that way. Just one whole thing, seen from a lot of angles I haven't all stood in yet. The field on the homepage works the same way: not missing pieces, one ground, cut into six ways of looking at it, spatial design, event production, community building, growth, partnerships, creative production.";
 const SYSTEMS_BELONGING_COPY =
   "If you want a name for it, maybe systems of belonging. What I've noticed, over and over, is the thing that makes someone stay is almost never the loudest thing happening. It's smaller than that. Quieter.";
 const OFF_CLOCK_COPY =
   "Raves. Knitting. Weightlifting. Wandering a museum with zero plan. Whatever weird object has taken over my brain this week. I like watching people come alive, doesn't matter where, a dance floor, in front of a painting, under a bar that's a bit too heavy. And incense, aloeswood specifically, in a way I probably don't need to explain but will anyway if you ask.";
 
 const PARCELS = [
-  { n: "01", label: "Spatial Design", x: 7, y: 15 },
-  { n: "02", label: "Events", x: 35, y: 13 },
-  { n: "03", label: "Community", x: 60, y: 16 },
-  { n: "04", label: "Sports Media", x: 84, y: 20 },
-  { n: "05", label: "Growth", x: 16, y: 66 },
-  { n: "06", label: "Partnerships", x: 43, y: 69 },
-  { n: "07", label: "Product", x: 69, y: 72 },
+  { n: "01", label: "Spatial Design", x: 8, y: 15 },
+  { n: "02", label: "Event Production", x: 39, y: 14 },
+  { n: "03", label: "Community Building", x: 70, y: 16 },
+  { n: "04", label: "Growth", x: 9, y: 65 },
+  { n: "05", label: "Partnerships", x: 40, y: 67 },
+  { n: "06", label: "Creative Production", x: 71, y: 65 },
 ];
 
 const METHOD_SIGNALS = [
@@ -60,17 +59,28 @@ type CommunityBoardCard = {
   date: string;
   description: string;
   closing?: string;
+  status?: string;
 };
+
+const COMMUNITY_IMAGE_VERSION = "community-popups-20260912c";
+
+const communityImage = (
+  src: string,
+  options: Omit<Extract<CommunityGalleryEntry, object>, "src"> = {}
+): Extract<CommunityGalleryEntry, object> => ({
+  src: `${src}?v=${COMMUNITY_IMAGE_VERSION}`,
+  ...options,
+});
 
 const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
   {
-    src: "/assets/about/fitlife1.PNG",
+    src: `/assets/about/FL1.PNG?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
-      "/assets/about/fitlife1.PNG",
-      "/assets/about/fitlife2.PNG",
-      "/assets/about/fitlife3.JPG",
-      "/assets/about/fitlife4.jpg",
-      "/assets/about/fitlife5.JPG",
+      communityImage("/assets/about/FL1.PNG"),
+      communityImage("/assets/about/FL2.PNG"),
+      communityImage("/assets/about/FL3.JPG"),
+      communityImage("/assets/about/FL4.jpg"),
+      communityImage("/assets/about/FL5.JPG"),
     ],
     alt: "Fitlife community and local fitness brand moment",
     caption: "FITLIFE",
@@ -81,13 +91,13 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       "During Covid in Jakarta, the gym became one of my first local communities. What started as training led to a Fitlife ambassador role, a connection with Neveres, a local gym apparel brand, and friendships with gym regulars, models, and brand owners. I began turning brand promos into community moments: shoots, outdoor activities, and small gatherings that brought people together while helping the brands feel more lived-in and real.",
   },
   {
-    src: "/assets/about/community-ravebendoors1.png",
+    src: `/assets/about/rave1.jpg?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
-      { src: "/assets/about/ravebendoors1-hd.jpg" },
-      { src: "/assets/about/ravebendoors2-hd.jpg", position: "center 62%" },
-      { src: "/assets/about/ravebendoors3-hd.jpg" },
-      { src: "/assets/about/ravebendoors4-hd.jpg" },
-      { src: "/assets/about/ravebendoors5-hd.jpg", fit: "contain" },
+      communityImage("/assets/about/rave1.jpg"),
+      communityImage("/assets/about/rave2.jpg"),
+      communityImage("/assets/about/rave3.jpg"),
+      communityImage("/assets/about/rave4.jpg"),
+      communityImage("/assets/about/rav5.jpg"),
     ],
     alt: "Community group gathered at an outdoor music event",
     caption: "RAVEBENDOORS",
@@ -98,13 +108,13 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       "Built from a small group of friends into an 80+ person rave community that kept finding reasons to show up for each other beyond the dance floor. What started around music became dinners, Christmas parties, outdoor days, pre-rave rituals, post-rave recovery, and a shared rhythm of gathering. Most meetups brought 20+ people together, not because they had to, but because the room had become part of their lives.",
   },
   {
-    src: "/assets/about/community-ppia1.png",
+    src: `/assets/about/ppia1.png?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
-      "/assets/about/community-ppia1.png",
-      "/assets/about/community-ppia2.JPG",
-      "/assets/about/community-ppia3.png",
-      "/assets/about/community-ppia4.PNG",
-      "/assets/about/community-ppia5.PNG",
+      communityImage("/assets/about/ppia1.png"),
+      communityImage("/assets/about/ppia2.JPG"),
+      communityImage("/assets/about/ppia3.png"),
+      communityImage("/assets/about/ppia4.png"),
+      communityImage("/assets/about/ppia5.png"),
     ],
     alt: "Performers sharing a stage at a community event",
     caption: "PPIA",
@@ -115,8 +125,14 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       "Supported events production and student liaison for RMIT's Indonesian student association, helping bridge the gap between arriving in a new country and feeling held by something familiar. The work was about more than logistics: it was creating small points of comfort, connection, and recognition for Indonesian students finding their place in Australia.",
   },
   {
-    src: "/assets/about/community-traders-breakfast1.png",
-    gallery: ["/assets/about/community-traders-breakfast1.png"],
+    src: `/assets/about/traders-breakfast1.png?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/traders-breakfast1.png"),
+      communityImage("/assets/about/traders-breakfast2.jpg"),
+      communityImage("/assets/about/traders-breakfast3.jpg"),
+      communityImage("/assets/about/traders-breakfast4.jpg"),
+      communityImage("/assets/about/traders-breakfast5.jpg"),
+    ],
     alt: "People gathering around shared tables",
     caption: "TRADERS BREAKFAST",
     title: "Traders Breakfast",
@@ -126,14 +142,13 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       "Produced Derive.xyz's first-ever live event at Coinfest Bali 2025 after four years of being fully digital: a morning breakfast gathering for institutional traders during Coinfest Bali. Across the morning, 100+ traders moved through the space over food, coffee, conversation, and merch. It became a physical meeting point for the options community.",
   },
   {
-    src: "/assets/about/mahindharama1.JPG",
+    src: `/assets/about/mahindharama1.JPG?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
-      "/assets/about/mahindharama1.JPG",
-      "/assets/about/mahindharama2.JPG",
-      "/assets/about/mahindharama3.JPG",
-      "/assets/about/mahindharama4.JPG",
-      "/assets/about/mahindharama5.JPG",
-      "/assets/about/mahindharama6.JPG",
+      communityImage("/assets/about/mahindharama1.JPG"),
+      communityImage("/assets/about/mahindharama2.JPG"),
+      communityImage("/assets/about/mahindharama3.JPG"),
+      communityImage("/assets/about/mahindharama4.JPG"),
+      communityImage("/assets/about/mahindharama5.JPG"),
     ],
     alt: "Community members making a shared light painting",
     caption: "MAHINDHARAMA",
@@ -144,16 +159,20 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       "The origin piece. Before the portfolio, before growth, before events became work, there was Mahindharama: a youth community built around learning, service, and showing up. Through educational camps, volunteering, and fundraiser causes, it became one of the first places I understood how much care goes into building a room where young people feel useful, connected, and part of something bigger than themselves.",
   },
   {
-    src: null,
-    gallery: [],
-    alt: "The Fold Community image archive pending",
-    caption: "THE FOLD COMMUNITY",
-    title: "The Fold Community",
+    src: `/assets/about/FFcover.png?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/FF1.png", { position: "center top" }),
+      communityImage("/assets/about/FF2.png", { position: "center top" }),
+      communityImage("/assets/about/FF3.png", { position: "center top" }),
+    ],
+    alt: "Friends of Friends gathering cover",
+    caption: "F*F",
+    title: "F*F",
     location: "Jakarta, Indonesia",
-    date: "Present",
+    date: "2026",
+    status: "Currently building",
     description:
-      "The Fold is a private social circle built around trust, curiosity, and genuine friendship. Everyone here is invited through someone who already knows and trusts them, so the space can stay warm, safe, and intentional. This is not a networking group, a pitch room, or a place to collect contacts. It is a place to meet like-minded people you actually want around: to talk, laugh, share things, make plans, and slowly become familiar.",
-    closing: "The Fold grows through trust, one invitation at a time.",
+      "Friends of Friends: A friend of a friend is someone you don’t know yet, but already trust. F*F is a private social circle built on the simple truth that the best relationships don't come from algorithms, cold networking, or pitch decks, they come from shared trust, genuine connection, and mutual care.",
   },
 ];
 
@@ -187,6 +206,33 @@ export default function AboutPage() {
   const systemsRef = useRef<HTMLElement>(null);
   const offClockRef = useRef<HTMLElement>(null);
   const communityModalOpen = activeCommunityCard !== null;
+
+  useEffect(() => {
+    let firstFrame = 0;
+    let secondFrame = 0;
+
+    const alignCommunityMat = () => {
+      if (window.location.hash !== "#community-mat") return;
+
+      firstFrame = window.requestAnimationFrame(() => {
+        secondFrame = window.requestAnimationFrame(() => {
+          document.getElementById("community-mat")?.scrollIntoView({
+            behavior: "auto",
+            block: "start",
+          });
+        });
+      });
+    };
+
+    alignCommunityMat();
+    window.addEventListener("hashchange", alignCommunityMat);
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      window.removeEventListener("hashchange", alignCommunityMat);
+    };
+  }, []);
 
   useEffect(() => {
     const placeRoom = placeRoomRef.current;
@@ -565,6 +611,18 @@ export default function AboutPage() {
     activeCommunityCard === null ? "00" : String(activeCommunityCard + 1).padStart(2, "0");
   const activeCommunityImageEntry =
     activeCommunityEvent?.gallery[activeCommunityImage] ?? null;
+  const activeCommunityImageSrc =
+    typeof activeCommunityImageEntry === "string"
+      ? activeCommunityImageEntry
+      : activeCommunityImageEntry?.src ?? null;
+  const activeCommunityImageFit =
+    typeof activeCommunityImageEntry === "string"
+      ? "cover"
+      : activeCommunityImageEntry?.fit ?? "cover";
+  const activeCommunityImagePosition =
+    typeof activeCommunityImageEntry === "string"
+      ? "center"
+      : activeCommunityImageEntry?.position ?? "center";
 
   const stepCommunityImage = (direction: -1 | 1) => {
     if (!activeCommunityEvent) return;
@@ -588,18 +646,21 @@ export default function AboutPage() {
             <span className="about-editorial-registration" aria-hidden="true">
               +
             </span>
-            <h1 id="about-title" className="about-editorial-heading">
-              <span>Where this</span>
-              <span>practice</span>
-              <span>comes from.</span>
-            </h1>
-            <ul
-              className="about-editorial-meta"
-              aria-label="Languages and availability"
+            <h1
+              id="about-title"
+              className="about-editorial-heading"
+              aria-label="Where this practice comes from"
             >
-              <li>Five languages</li>
-              <li>Open to remote roles</li>
-            </ul>
+              <span className="about-editorial-heading-line" aria-hidden="true">
+                Where this
+              </span>
+              <span className="about-editorial-heading-line" aria-hidden="true">
+                practice
+              </span>
+              <span className="about-editorial-heading-line" aria-hidden="true">
+                comes from
+              </span>
+            </h1>
 
             <div className="about-editorial-hero-ledger" aria-hidden="true">
               <span className="about-editorial-mini-map">
@@ -627,10 +688,9 @@ export default function AboutPage() {
             </div>
             <figcaption className="about-editorial-hero-caption">
               <span>{COORDS}</span>
-              <span>Terrain study / 09</span>
             </figcaption>
             <span className="about-editorial-hero-side-note" aria-hidden="true">
-              Field survey / 09
+              About Me
             </span>
           </figure>
         </section>
@@ -870,7 +930,7 @@ export default function AboutPage() {
             <div
               className="about-editorial-parcels about-editorial-scene-visual"
               role="img"
-              aria-label="Seven surveyed parcels: spatial design, events, community, sports media, growth, partnerships, and product"
+              aria-label="Six surveyed parcels: spatial design, event production, community building, growth, partnerships, and creative production"
             >
               <Image
                 src="/assets/about/about-terrain-parcels.png"
@@ -881,21 +941,17 @@ export default function AboutPage() {
               />
               <svg viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true">
                 <g className="about-editorial-parcel-cells">
-                  <path d="M0 0H29L24 31L0 35Z" />
-                  <path d="M29 0H54L48 33L36 32L24 31Z" />
-                  <path d="M54 0H78L70 31L62 32L48 33Z" />
-                  <path d="M78 0H100V35L70 31Z" />
-                  <path d="M0 35L24 31L36 32L29 56H0Z" />
-                  <path d="M36 32L62 32L58 56H29Z" />
-                  <path d="M62 32L70 31L100 35V56H58Z" />
+                  <path d="M0 0H34L31 29L0 32Z" />
+                  <path d="M34 0H67L65 30L31 29Z" />
+                  <path d="M67 0H100V31L65 30Z" />
+                  <path d="M0 32L31 29L34 56H0Z" />
+                  <path d="M31 29L65 30L67 56H34Z" />
+                  <path d="M65 30L100 31V56H67Z" />
                 </g>
                 <g className="about-editorial-parcel-lines">
-                  <path d="M0 35L24 31L36 32L48 33L62 32L70 31L100 35" />
-                  <path d="M29 0L24 31" />
-                  <path d="M54 0L48 33" />
-                  <path d="M78 0L70 31" />
-                  <path d="M29 56L36 32" />
-                  <path d="M58 56L62 32" />
+                  <path d="M0 32L31 29L65 30L100 31" />
+                  <path d="M34 0L31 29L34 56" />
+                  <path d="M67 0L65 30L67 56" />
                 </g>
               </svg>
               {PARCELS.map((parcel) => (
@@ -909,7 +965,7 @@ export default function AboutPage() {
                 </span>
               ))}
               <span className="about-editorial-ground-side" aria-hidden="true">
-                One field / seven cuts
+                One field / six cuts
               </span>
             </div>
           </section>
@@ -992,7 +1048,11 @@ export default function AboutPage() {
             </figure>
           </section>
 
-          <section className="about-editorial-community-board" aria-label="Community Building">
+          <section
+            id="community-mat"
+            className="about-editorial-community-board"
+            aria-label="Community Building"
+          >
             <figure className="about-editorial-community-board-figure">
               <div
                 className="community-board-canvas"
@@ -1089,29 +1149,19 @@ export default function AboutPage() {
                 <div className="community-event-dialog-grid">
                   <div className="community-event-media">
                     <div className="community-event-main-photo">
-                      {activeCommunityImageEntry ? (
+                      {activeCommunityImageSrc ? (
                         <Image
-                          src={
-                            typeof activeCommunityImageEntry === "string"
-                              ? activeCommunityImageEntry
-                              : activeCommunityImageEntry.src
-                          }
+                          key={activeCommunityImageSrc}
+                          src={activeCommunityImageSrc}
                           alt={`${activeCommunityEvent.title} archive photo ${activeCommunityImage + 1}`}
                           fill
                           sizes="(max-width: 760px) 92vw, 44rem"
                           quality={92}
                           unoptimized
-                          style={
-                            typeof activeCommunityImageEntry === "string"
-                              ? undefined
-                              : {
-                                  objectFit:
-                                    activeCommunityImageEntry.fit === "contain"
-                                      ? "contain"
-                                      : "cover",
-                                  objectPosition: activeCommunityImageEntry.position ?? "center",
-                                }
-                          }
+                          style={{
+                            objectFit: activeCommunityImageFit,
+                            objectPosition: activeCommunityImagePosition,
+                          }}
                         />
                       ) : (
                         <div className="community-event-photo-placeholder">
@@ -1145,12 +1195,19 @@ export default function AboutPage() {
                   </div>
 
                   <div className="community-event-details">
-                    <p className="community-event-kicker">Field note</p>
+                    <p className="community-event-kicker">
+                      <span>Field note</span>
+                      {activeCommunityEvent.status && (
+                        <>
+                          <span aria-hidden="true">/</span>
+                          <span>{activeCommunityEvent.status}</span>
+                        </>
+                      )}
+                    </p>
                     <h3
                       id="community-event-title"
                       className={
-                        activeCommunityEvent.title === "Traders Breakfast" ||
-                        activeCommunityEvent.title === "The Fold Community"
+                        activeCommunityEvent.title === "Traders Breakfast"
                           ? "community-event-title--stacked"
                           : undefined
                       }

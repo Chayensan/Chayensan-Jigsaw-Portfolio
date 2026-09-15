@@ -4,10 +4,9 @@ export type JigsawChapterId =
   | "spatial-design"
   | "events"
   | "community"
-  | "sports-media"
   | "growth"
   | "partnerships"
-  | "product";
+  | "creative";
 
 export type JigsawChapter = {
   id: JigsawChapterId;
@@ -90,6 +89,7 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/desi-kamdrawati/",
   twitter: "https://x.com/chayensan",
   github: "https://github.com/Chayensan",
+  resume: "/assets/Desi-Kamdrawati-Resume-2026.pdf",
 };
 
 // Bare-domain placeholders used before real profile URLs are set. Links
@@ -102,81 +102,70 @@ const placeholderSocialUrls = new Set([
 export const isPlaceholderSocialUrl = (url: string) =>
   placeholderSocialUrls.has(url);
 
-// Seven-chapter surveyed-field model (docs/fable/04-voice-and-copy.md,
-// §Approved Jigsaw labels). Replaces the retired five-category model
-// (events/community/web3/growth/exploration) per Phase 5 of
-// docs/implementation-roadmap.md. Labels, capability lines, and evidence
-// lines are used verbatim; do not paraphrase.
+// Six-capability homepage field. Web3 and AI are industries that cross the
+// capabilities, not standalone chapters.
 export const jigsawChapters: JigsawChapter[] = [
   {
     id: "spatial-design",
     label: "Spatial Design",
-    capability: "Environments that shape behaviour.",
+    capability: "Before I built communities, I studied rooms.",
     activity:
-      "Trained in Interior Design at RMIT (Hons), where the whole practice started: studying how rooms, layouts, and spatial conditions change how people meet and behave. Everything since has been that idea at larger scale.",
-    evidence: "RMIT Interior Design (Hons) · origin of the practice",
+      "Interior Design at RMIT taught me to read space as a behavioural system: where people pause, who they meet, and whether they stay. My honours research into micro-communities became the foundation for how I approach events, digital communities, and growth.",
+    evidence: "RMIT Interior Design (Hons) · thesis on micro-communities",
     href: "/about",
-    weight: 13,
+    weight: 15,
   },
   {
     id: "events",
-    label: "Events",
-    capability: "From invitation to follow-through.",
+    label: "Event Production",
+    capability: "Getting people off the timeline and into the room.",
     activity:
-      "Planning and producing gatherings from RISA student events in Melbourne to Derive's first live event: the Traders Breakfast at Coinfest Bali, 100+ attendees, produced end to end.",
-    evidence: "Traders Breakfast, Coinfest Bali · 100+ attendees",
+      "I produce the full path from invitation to follow-through: concept, outreach, guest experience, and on-site delivery. That spans student programmes, recurring community gatherings, and Derive’s Traders Breakfast at Coinfest Bali.",
+    evidence:
+      "Traders Breakfast · 100+ attendees\nRavebendoors · 20+ per gathering\nPPIA RMIT · 60+ per gathering",
     href: "/work/derive-xyz",
-    weight: 16,
+    weight: 15,
   },
   {
     id: "community",
-    label: "Community",
-    capability: "Turning members into participants.",
+    label: "Community Building",
+    capability: "Giving people a reason to participate and return.",
     activity:
-      "Ran Derive's community through its rebrand and token launch: Discord grown 15,000 → 40,000+ through the TGE period, with operations across Discord, Telegram, and X.",
-    evidence: "Derive Discord · 15,000 → 40,000+",
+      "At Derive, I helped carry Discord through a rebrand and token launch. Outside work, I built Ravebendoors from a few friends into a recurring social circle of more than 80 members.",
+    evidence:
+      "Derive Discord · 15,000 → 40,000+\nRavebendoors · 0 → 80+\nMahindharama · 54 → 374+\nF*F · 30+ (currently building)",
     href: "/work/derive-xyz",
-    weight: 14,
-  },
-  {
-    id: "sports-media",
-    label: "Sports Media",
-    capability: "Writing for fans, by code and by platform.",
-    activity:
-      "Content research, planning, and briefs at Bruce Media across NFL, A-League, and PGA properties, learning how different fan cultures read, share, and react.",
-    evidence: "Bruce Media · NFL, A-League, PGA",
-    href: "/work/bruce-media",
-    weight: 11,
+    weight: 17,
   },
   {
     id: "growth",
-    label: "Growth",
-    capability: "Converting attention into activity.",
+    label: "Growth & Campaigns",
+    capability: "Turning attention into action.",
     activity:
-      "Campaigns and launch communication at Derive, including contributing to Believe in SomETHing, an ecosystem campaign spanning 430+ protocols, and shipping a landing page end to end in Framer.",
+      "I work across launch communications, campaigns, and the systems that move people to participate. At Derive, I co-ran Believe in SomETHing for Ethereum’s tenth anniversary, coordinating an ecosystem-wide moment across hundreds of teams.",
     evidence: "Believe in SomETHing · 430+ protocols",
     href: "/work/derive-xyz",
-    weight: 12,
+    weight: 15,
   },
   {
     id: "partnerships",
-    label: "Partnerships",
-    capability: "Finding the overlap between two roadmaps.",
+    label: "Partnerships & BD",
+    capability: "Finding the useful overlap.",
     activity:
-      "Current BD and partnerships work at Lemon Tree Technology and Tago Capital: market research, prospect development, outreach, and commercial positioning across trading and emerging technology.",
-    evidence: "Current: Lemon Tree, Tago Capital",
+      "I research the market, identify the right conversations, and translate complex work into a clear reason to collaborate. Today, that spans DEX venues at Lemon Tree Technology. I also work seasonally across emerging AI and technology at Tago Capital.",
+    evidence: "Current · Lemon Tree Technology + Tago Capital (seasonal)",
     href: "/work",
     weight: 17,
   },
   {
-    id: "product",
-    label: "Product",
-    capability: "Early distribution and user research.",
+    id: "creative",
+    label: "Creative Production",
+    capability: "Making the idea tangible.",
     activity:
-      "Founding-stage work at HUNCHR, a social sports competition app: distribution experiments, user conversations, onboarding-friction research, and community-led acquisition. Early, active, unproven.",
-    evidence: "HUNCHR · founding stage, in progress",
-    href: "/work",
-    weight: 17,
+      "When the work needs a page, campaign identity, piece of merchandise, event asset, or film, I can make it. My output has ranged from Derive’s Framer landing page and launch materials to partner decks and the Believe in SomETHing aftermovie.",
+    evidence: "Derive · Framer site, launch assets, merchandise + aftermovie",
+    href: "/work/derive-xyz",
+    weight: 16,
   },
 ];
 
@@ -275,8 +264,8 @@ export const workCaseStudies: WorkCaseStudy[] = [
   },
   {
     slug: "lemon-tree-tech",
-    title: "LEMON TREE TECHNOLOGIES",
-    companyName: "Lemon Tree Technologies",
+    title: "LEMON TREE TECHNOLOGY",
+    companyName: "Lemon Tree Technology",
     companyUrl: "https://lemontree.technology/",
     deck: "An early-stage trading, liquidity, and market-structure company.",
     heroImage: "/assets/work-cases/lemon-main.png",
@@ -490,7 +479,7 @@ export type DeriveEvidencePlate = {
 };
 
 // Now ledger (docs/implementation-roadmap.md Phase 7). Current direction,
-// not flagship proof: HUNCHR, Lemon Tree Technologies, Tago Capital.
+// not flagship proof: HUNCHR, Lemon Tree Technology, Tago Capital.
 // Testing verbs only, no metrics, no invented outcomes: every line traces
 // back to docs/fable/career-context-and-portfolio-evidence.md.
 export type NowLedgerRow = {
@@ -532,7 +521,7 @@ export const nowLedger: NowLedgerRow[] = [
   {
     id: "lemon-tree",
     index: "02",
-    name: "Lemon Tree Technologies",
+    name: "Lemon Tree Technology",
     role: "Partnerships & Growth",
     description:
       "An early-stage trading, liquidity, and market-structure company; public details stay confidential. I support partnerships and growth: venue and market research, and outreach strategy.",
@@ -546,8 +535,8 @@ export const nowLedger: NowLedgerRow[] = [
     name: "Tago Capital",
     role: "Business Development",
     description:
-      "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. I research prospects and markets, and coordinate founder and partner outreach.",
-    status: "ACTIVE · 2026 · BD",
+      "A product studio working across robotics, AI, and cross-border opportunities in emerging technology. I work with the team seasonally, researching prospects and markets and coordinating founder and partner outreach.",
+    status: "SEASONAL · 2026 · BD",
     slug: "tago-capital",
     thumbnail: "/assets/work-cases/tago-main.png",
   },
@@ -615,6 +604,3 @@ export const deriveFlagship: {
     },
   ],
 };
-
-
-

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond } from "next/font/google";
+import ContactModal from "@/components/ContactModal";
 import "./globals.css";
 
 // Hero accent serif: the one deliberate exception to the site's all-sans
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body>
         <div className="film-grain" aria-hidden="true" />
         {children}
+        <ContactModal />
       </body>
     </html>
   );

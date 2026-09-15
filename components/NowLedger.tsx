@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { nowLedger } from "@/components/site-data";
 
+const visibleNowRows = nowLedger.filter((row) => row.id !== "hunchr");
+
 // Now ledger (docs/implementation-roadmap.md Phase 7). Deliberately no
 // Plate/Terrain, no images, no metrics: the visual restraint is the honesty
 // (docs/design.md §8). Each row carries one quiet mono "→ WORK" link:
 // to its own cleaned case page where one exists and is public-safe
-// (Lemon Tree, Tago), otherwise to /work (HUNCHR has no case page yet).
+// (Lemon Tree, Tago).
 export default function NowLedger() {
   return (
     <section className="now-section" aria-labelledby="now-title">
@@ -16,13 +18,13 @@ export default function NowLedger() {
         <p className="now-kicker">Now</p>
         <h2 id="now-title">A ledger of what&rsquo;s active now.</h2>
         <p className="now-intro">
-          Three current files, not case studies: early, still being tested.
+          Two current files, not case studies: early, still being tested.
           Verified outcomes, once they exist, belong in Work.
         </p>
       </div>
 
       <ul className="now-ledger" role="list">
-        {nowLedger.map((row) => (
+        {visibleNowRows.map((row) => (
           <li
             key={row.id}
             className={`now-row${row.primary ? " now-row-primary" : ""}`}

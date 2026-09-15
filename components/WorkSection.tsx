@@ -14,6 +14,7 @@ import NowLedger from "./NowLedger";
 import Tagline from "./Tagline";
 
 const flagshipItem = workItems.find((item) => item.tier === "flagship")!;
+const currentItems = nowLedger.filter((item) => item.id !== "hunchr");
 const selectedItems = workItems.filter((item) => item.tier === "selected");
 const foundationsItems = workItems.filter((item) => item.tier === "foundations");
 
@@ -202,7 +203,9 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
               Ordered by what each role proves, from flagship evidence to
               work still being tested.
             </p>
-            <Link href="/work">View all work</Link>
+            <Link href="/work">
+              View all work<span aria-hidden="true">↗</span>
+            </Link>
           </aside>
 
           <div className="work-index">
@@ -271,7 +274,7 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
         </CompactRowList>
 
         <CompactRowList tier="current" listClassName="work-card-list">
-          {nowLedger.map((row) => (
+          {currentItems.map((row) => (
             <WorkCard
               key={row.id}
               tier="current"

@@ -43,7 +43,7 @@ export default function DeriveFlagship() {
       </div>
 
       <Link href={href} className="derive-case-link">
-        Read the full case
+        Read the full case<span aria-hidden="true">↗</span>
       </Link>
     </section>
   );

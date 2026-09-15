@@ -3,10 +3,12 @@
 import Link from "next/link";
 import {
   EnvelopeSimple,
+  FilePdf,
   GithubLogo,
   LinkedinLogo,
   XLogo,
 } from "@phosphor-icons/react";
+import { ContactTrigger } from "@/components/ContactModal";
 import { isPlaceholderSocialUrl, socialLinks } from "@/components/site-data";
 
 type NavKey = "jigsaw" | "work" | "about" | "who";
@@ -43,9 +45,9 @@ export default function Navbar({ active }: { active: NavKey }) {
       </nav>
 
       <div className="nav-socials" aria-label="Contact and social links">
-        <a href={socialLinks.gmail} className="nav-email" aria-label="Email">
-          <EnvelopeSimple size={18} weight="regular" />
-        </a>
+        <ContactTrigger className="nav-email" ariaLabel="Open email form">
+          <EnvelopeSimple size={20} weight="regular" />
+        </ContactTrigger>
         {!isPlaceholderSocialUrl(socialLinks.linkedin) && (
           <a
             href={socialLinks.linkedin}
@@ -73,6 +75,13 @@ export default function Navbar({ active }: { active: NavKey }) {
           rel="noreferrer"
         >
           <GithubLogo size={18} weight="regular" />
+        </a>
+        <a
+          href={socialLinks.resume}
+          aria-label="Download resume PDF"
+          download
+        >
+          <FilePdf size={18} weight="regular" />
         </a>
       </div>
     </header>

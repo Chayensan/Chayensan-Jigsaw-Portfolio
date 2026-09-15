@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   useEffect,
   useMemo,
@@ -13,6 +12,7 @@ import Tagline from "./Tagline";
 import { jigsawChapters, type JigsawChapterId } from "./site-data";
 
 const FIGURE_PATTERN = /[\d][\d,]*(?:\s*→\s*[\d,]+)?\+?/g;
+const homeChapters = jigsawChapters;
 
 function renderEvidence(evidence: string): ReactNode[] {
   const figures = evidence.match(FIGURE_PATTERN) ?? [];
@@ -69,7 +69,7 @@ export default function NarrativeSection() {
   const activeId = openId ?? focusedId;
 
   const openChapter = useMemo(
-    () => jigsawChapters.find((chapter) => chapter.id === openId) ?? null,
+    () => homeChapters.find((chapter) => chapter.id === openId) ?? null,
     [openId],
   );
 
@@ -77,7 +77,7 @@ export default function NarrativeSection() {
     () =>
       openChapter
         ? null
-        : jigsawChapters.find((chapter) => chapter.id === focusedId) ?? null,
+        : homeChapters.find((chapter) => chapter.id === focusedId) ?? null,
     [openChapter, focusedId],
   );
 
@@ -85,7 +85,7 @@ export default function NarrativeSection() {
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
     event.preventDefault();
     const direction = event.key === "ArrowRight" ? 1 : -1;
-    const nextIndex = (index + direction + jigsawChapters.length) % jigsawChapters.length;
+    const nextIndex = (index + direction + homeChapters.length) % homeChapters.length;
     parcelRefs.current[nextIndex]?.focus();
   };
 
@@ -96,9 +96,12 @@ export default function NarrativeSection() {
       </p>
       <div className="field-header">
         <Tagline text="Chapters" />
-        <h2 id="field-title">Seven chapters, one field.</h2>
+        <h2 id="field-title">Six chapters, one field.</h2>
         <p className="field-instruction">
-          Focus, hover, or tap a parcel to open its chapter.
+          Hover or tap to open a chapter.
+        </p>
+        <p className="field-industries">
+          Working across Web3 &middot; AI &middot; Emerging Tech &middot; Culture
         </p>
       </div>
 
@@ -110,7 +113,7 @@ export default function NarrativeSection() {
           aria-label="Career chapters, surveyed field"
         >
           <div className="field-terrain" aria-hidden="true" />
-          {jigsawChapters.map((chapter, index) => {
+          {homeChapters.map((chapter, index) => {
             const isActive = activeId === chapter.id;
             const isDimmed = Boolean(activeId) && !isActive;
 
@@ -155,9 +158,6 @@ export default function NarrativeSection() {
               <p className="field-capsule-evidence">
                 {renderEvidence(openChapter.evidence)}
               </p>
-              <Link href={openChapter.href} className="field-capsule-link">
-                Open chapter
-              </Link>
             </div>
           ) : previewChapter ? (
             <div className="field-capsule field-capsule-preview">
@@ -169,7 +169,7 @@ export default function NarrativeSection() {
       </div>
 
       <div className="field-bands" aria-label="Career chapters">
-        {jigsawChapters.map((chapter) => (
+        {homeChapters.map((chapter) => (
           <details key={chapter.id} className="field-band">
             <summary className="field-band-summary">
               <span className="field-band-label">{chapter.label}</span>
@@ -178,9 +178,6 @@ export default function NarrativeSection() {
             <div className="field-band-body">
               <p className="field-band-activity">{chapter.activity}</p>
               <p className="field-band-evidence">{renderEvidence(chapter.evidence)}</p>
-              <Link href={chapter.href} className="field-band-link">
-                Open chapter
-              </Link>
             </div>
           </details>
         ))}
