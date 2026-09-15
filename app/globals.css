@@ -4411,14 +4411,18 @@ body::after {
 .community-index-header h2 {
   grid-column: 1;
   grid-row: 2;
-  max-width: 12ch;
+  width: max-content;
+  max-width: none;
+  max-inline-size: 100%;
   margin: 0;
+  overflow: visible;
   color: var(--bone);
   font-family: var(--font-display);
-  font-size: var(--type-section);
-  line-height: 0.98;
+  font-size: clamp(2.15rem, 4vw, 3.5rem);
+  line-height: 1.08;
   letter-spacing: -0.035em;
-  text-wrap: balance;
+  white-space: nowrap;
+  text-wrap: nowrap;
 }
 
 .community-index-header > p:last-child {
@@ -4570,7 +4574,12 @@ body::after {
     grid-column: 1 / -1;
   }
 
+  .community-index-header h2 {
+    font-size: clamp(1.45rem, 5.65vw, 3.55rem);
+  }
+
   .community-index-header > p:last-child {
+    grid-row: 3;
     margin-top: 1.5rem;
   }
 

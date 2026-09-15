@@ -9,12 +9,22 @@ import NarrativeSection from "@/components/NarrativeSection";
 import ThroughlineSection from "@/components/ThroughlineSection";
 import WorkSection from "@/components/WorkSection";
 
-export default function Home() {
+type HomeProps = {
+  searchParams?: {
+    [key: string]: string | string[] | undefined;
+  };
+};
+
+export default function Home({ searchParams }: HomeProps) {
+  const entranceQa = searchParams?.["entrance-qa"];
+  const forceEntrancePreview = Array.isArray(entranceQa)
+    ? entranceQa.length > 0
+    : entranceQa !== undefined;
   const shouldPlayEntrance =
     cookies().get("desi_home_preloader_seen")?.value !== "1";
 
   return (
-    <HomePreloader shouldPlay={shouldPlayEntrance}>
+    <HomePreloader shouldPlay={shouldPlayEntrance} forcePlay={forceEntrancePreview}>
       <Navbar active="jigsaw" />
       <main>
         <HeroSection />

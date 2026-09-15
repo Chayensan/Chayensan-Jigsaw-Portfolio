@@ -11,6 +11,7 @@ const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 type HomePreloaderProps = {
   children: ReactNode;
   shouldPlay: boolean;
+  forcePlay?: boolean;
 };
 
 function rememberEntranceSeen() {
@@ -23,45 +24,51 @@ function rememberEntranceSeen() {
   document.cookie = `${HOME_PRELOADER_COOKIE}=1; Max-Age=${ONE_YEAR_IN_SECONDS}; Path=/; SameSite=Lax`;
 }
 
-export default function HomePreloader({ children, shouldPlay }: HomePreloaderProps) {
+export default function HomePreloader({
+  children,
+  shouldPlay,
+  forcePlay = false,
+}: HomePreloaderProps) {
   const [phase, setPhase] = useState<"preloading" | "revealing" | "complete">(
-    shouldPlay ? "preloading" : "complete"
+    shouldPlay || forcePlay ? "preloading" : "complete"
   );
 
   useEffect(() => {
-    if (!shouldPlay) {
+    if (!shouldPlay && !forcePlay) {
       setPhase("complete");
       rememberEntranceSeen();
       return;
     }
 
-    try {
-      if (window.localStorage.getItem(HOME_PRELOADER_STORAGE_KEY) === "1") {
-        setPhase("complete");
-        rememberEntranceSeen();
-        return;
+    if (!forcePlay) {
+      try {
+        if (window.localStorage.getItem(HOME_PRELOADER_STORAGE_KEY) === "1") {
+          setPhase("complete");
+          rememberEntranceSeen();
+          return;
+        }
+      } catch {
+        // Continue with the entrance if local storage is unavailable.
       }
-    } catch {
-      // Continue with the entrance if local storage is unavailable.
     }
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPhase("complete");
-      rememberEntranceSeen();
+      if (!forcePlay) rememberEntranceSeen();
       return;
     }
 
     const revealTimer = window.setTimeout(() => setPhase("revealing"), REVEAL_DELAY);
     const completeTimer = window.setTimeout(() => {
       setPhase("complete");
-      rememberEntranceSeen();
+      if (!forcePlay) rememberEntranceSeen();
     }, COMPLETE_DELAY);
 
     return () => {
       window.clearTimeout(revealTimer);
       window.clearTimeout(completeTimer);
     };
-  }, [shouldPlay]);
+  }, [forcePlay, shouldPlay]);
 
   useEffect(() => {
     if (phase === "complete") return;
