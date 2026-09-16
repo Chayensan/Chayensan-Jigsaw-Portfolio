@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 
-const CONTACT_EMAIL = "chayensan3@gmail.com";
 const OPEN_CONTACT_EVENT = "portfolio:open-contact-modal";
 const MODAL_EXIT_DURATION = 220;
 
@@ -25,6 +24,7 @@ type ContactFormState = {
   email: string;
   subject: string;
   message: string;
+  company: string;
 };
 
 const initialFormState: ContactFormState = {
@@ -32,6 +32,7 @@ const initialFormState: ContactFormState = {
   email: "",
   subject: "",
   message: "",
+  company: "",
 };
 
 export function ContactTrigger({
@@ -55,6 +56,8 @@ export default function ContactModal() {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [form, setForm] = useState<ContactFormState>(initialFormState);
+  const [submitState, setSubmitState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
   const nameInputRef = useRef<HTMLInputElement>(null);
   const closeTimerRef = useRef<number | null>(null);
 
@@ -64,6 +67,8 @@ export default function ContactModal() {
       closeTimerRef.current = null;
     }
 
+    setSubmitState("idle");
+    setSubmitMessage("");
     setIsMounted(true);
     window.requestAnimationFrame(() => setIsVisible(true));
   }, []);
@@ -116,22 +121,37 @@ export default function ContactModal() {
       }));
     };
 
-  const submitForm = (event: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitState("sending");
+    setSubmitMessage("Sending your message...");
 
-    const subject = form.subject.trim() || `Portfolio enquiry from ${form.name.trim() || "website"}`;
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `Email: ${form.email.trim()}`,
-      "",
-      "Message:",
-      form.message.trim(),
-    ].join("\n");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    closeModal();
+      const result = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        throw new Error(result.error || "The message could not be sent right now.");
+      }
+
+      setForm(initialFormState);
+      setSubmitState("sent");
+      setSubmitMessage("Sent — thank you. I’ll get back to you soon.");
+    } catch (error) {
+      setSubmitState("error");
+      setSubmitMessage(
+        error instanceof Error
+          ? error.message
+          : "The message could not be sent right now."
+      );
+    }
   };
 
   if (!isMounted) return null;
@@ -164,6 +184,18 @@ export default function ContactModal() {
         <h2 id="contact-modal-title">Send Desi a message!</h2>
 
         <form className="contact-modal-form" onSubmit={submitForm}>
+          <label className="contact-modal-honeypot" aria-hidden="true">
+            <span>Company:</span>
+            <input
+              name="company"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.company}
+              onChange={updateField("company")}
+            />
+          </label>
+
           <label>
             <span>Name:</span>
             <input
@@ -173,6 +205,7 @@ export default function ContactModal() {
               autoComplete="name"
               value={form.name}
               onChange={updateField("name")}
+              disabled={submitState === "sending"}
               required
             />
           </label>
@@ -185,6 +218,7 @@ export default function ContactModal() {
               autoComplete="email"
               value={form.email}
               onChange={updateField("email")}
+              disabled={submitState === "sending"}
               required
             />
           </label>
@@ -196,6 +230,7 @@ export default function ContactModal() {
               type="text"
               value={form.subject}
               onChange={updateField("subject")}
+              disabled={submitState === "sending"}
               required
             />
           </label>
@@ -207,12 +242,21 @@ export default function ContactModal() {
               rows={5}
               value={form.message}
               onChange={updateField("message")}
+              disabled={submitState === "sending"}
               required
             />
           </label>
 
-          <button type="submit" className="contact-modal-submit">
-            Send
+          <p className={`contact-modal-status contact-modal-status--${submitState}`} aria-live="polite">
+            {submitMessage}
+          </p>
+
+          <button
+            type="submit"
+            className="contact-modal-submit"
+            disabled={submitState === "sending"}
+          >
+            {submitState === "sending" ? "Sending..." : "Send"}
           </button>
         </form>
       </div>
