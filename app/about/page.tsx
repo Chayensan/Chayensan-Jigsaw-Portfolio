@@ -164,6 +164,7 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
       communityImage("/assets/about/FF1.png", { position: "center top" }),
       communityImage("/assets/about/FF2.png", { position: "center top" }),
       communityImage("/assets/about/FF3.png", { position: "center top" }),
+      communityImage("/assets/about/FF3.JPG", { position: "center top" }),
     ],
     alt: "Friends of Friends gathering cover",
     caption: "F*F",
@@ -195,6 +196,7 @@ export default function AboutPage() {
   const [groundVisible, setGroundVisible] = useState(false);
   const [systemsVisible, setSystemsVisible] = useState(false);
   const [offClockVisible, setOffClockVisible] = useState(false);
+  const [communityBoardVisible, setCommunityBoardVisible] = useState(false);
   const communityDialogRef = useRef<HTMLDivElement>(null);
   const communityCloseRef = useRef<HTMLButtonElement>(null);
   const communityOpenerRef = useRef<HTMLElement | null>(null);
@@ -205,6 +207,7 @@ export default function AboutPage() {
   const groundRef = useRef<HTMLElement>(null);
   const systemsRef = useRef<HTMLElement>(null);
   const offClockRef = useRef<HTMLElement>(null);
+  const communityBoardRef = useRef<HTMLElement>(null);
   const communityModalOpen = activeCommunityCard !== null;
 
   useEffect(() => {
@@ -479,6 +482,7 @@ export default function AboutPage() {
       { element: groundRef.current, setVisible: setGroundVisible },
       { element: systemsRef.current, setVisible: setSystemsVisible },
       { element: offClockRef.current, setVisible: setOffClockVisible },
+      { element: communityBoardRef.current, setVisible: setCommunityBoardVisible },
     ];
 
     if (!("IntersectionObserver" in window)) {
@@ -1050,7 +1054,10 @@ export default function AboutPage() {
 
           <section
             id="community-mat"
-            className="about-editorial-community-board"
+            ref={communityBoardRef}
+            className={`about-editorial-community-board${
+              communityBoardVisible ? " is-visible" : ""
+            }`}
             aria-label="Community Building"
           >
             <figure className="about-editorial-community-board-figure">
@@ -1064,11 +1071,7 @@ export default function AboutPage() {
                     S 06 12&apos; 26.5&quot;&nbsp;&nbsp; E 106 48&apos; 37.0&quot;
                   </span>
                   <div className="community-board-title">
-                    <h2>
-                      Community
-                      <br />
-                      Building
-                    </h2>
+                    <h2>Community Building</h2>
                     <p>Collaborate. Share. Learn. Grow.</p>
                   </div>
 
@@ -1082,7 +1085,6 @@ export default function AboutPage() {
                         aria-haspopup="dialog"
                         aria-label={`Open details for ${card.title}`}
                       >
-                        <span className="community-board-tape" aria-hidden="true" />
                         <div
                           className={`community-board-photo${
                             card.src ? "" : " community-board-photo--placeholder"
@@ -1093,7 +1095,7 @@ export default function AboutPage() {
                               src={card.src}
                               alt={card.alt}
                               fill
-                              sizes="(max-width: 760px) 16vw, 14vw"
+                              sizes="(max-width: 760px) 76vw, 22vw"
                               quality={90}
                             />
                           ) : (
@@ -1104,7 +1106,6 @@ export default function AboutPage() {
                           )}
                         </div>
                         <p>{card.caption}</p>
-                        <small aria-hidden="true">CB-{String(index + 1).padStart(2, "0")}</small>
                       </button>
                     ))}
                   </div>

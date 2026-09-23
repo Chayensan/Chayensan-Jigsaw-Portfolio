@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   EnvelopeSimple,
@@ -25,6 +26,27 @@ const navItems: Array<{
 ];
 
 export default function Navbar({ active }: { active: NavKey }) {
+  const [socialsOpen, setSocialsOpen] = useState(false);
+  const socialsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!socialsOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!socialsRef.current?.contains(event.target as Node)) setSocialsOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSocialsOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [socialsOpen]);
+
   return (
     <header id="top" className="site-nav">
       <Link href="/" className="wordmark" aria-label="DK homepage">
@@ -37,11 +59,57 @@ export default function Navbar({ active }: { active: NavKey }) {
             key={item.key}
             href={item.href}
             aria-current={active === item.key ? "page" : undefined}
+            onClick={() => setSocialsOpen(false)}
           >
             <span className="nav-item-index">{item.index}</span>
             <span className="nav-item-label">{item.label}</span>
           </Link>
         ))}
+        <div className="nav-social-menu" ref={socialsRef}>
+          <button
+            type="button"
+            className="nav-social-toggle"
+            aria-expanded={socialsOpen}
+            aria-controls="nav-social-options"
+            onClick={() => setSocialsOpen((open) => !open)}
+          >
+            <span className="nav-item-index">04</span>
+            <span className="nav-item-label">Socials</span>
+          </button>
+          {socialsOpen && (
+            <div
+              id="nav-social-options"
+              className="nav-social-dropdown"
+              aria-label="Contact and social links"
+              onClick={() => setSocialsOpen(false)}
+            >
+              <ContactTrigger className="nav-social-option" ariaLabel="Open email form">
+                <EnvelopeSimple size={19} weight="regular" aria-hidden="true" />
+                <span>Email</span>
+              </ContactTrigger>
+              {!isPlaceholderSocialUrl(socialLinks.linkedin) && (
+                <a className="nav-social-option" href={socialLinks.linkedin} target="_blank" rel="noreferrer">
+                  <LinkedinLogo size={19} weight="regular" aria-hidden="true" />
+                  <span>LinkedIn</span>
+                </a>
+              )}
+              {!isPlaceholderSocialUrl(socialLinks.twitter) && (
+                <a className="nav-social-option" href={socialLinks.twitter} target="_blank" rel="noreferrer">
+                  <XLogo size={19} weight="regular" aria-hidden="true" />
+                  <span>X / Twitter</span>
+                </a>
+              )}
+              <a className="nav-social-option" href={socialLinks.github} target="_blank" rel="noreferrer">
+                <GithubLogo size={19} weight="regular" aria-hidden="true" />
+                <span>GitHub</span>
+              </a>
+              <a className="nav-social-option" href={socialLinks.resume} download>
+                <FilePdf size={19} weight="regular" aria-hidden="true" />
+                <span>Resume PDF</span>
+              </a>
+            </div>
+          )}
+        </div>
       </nav>
 
       <div className="nav-socials" aria-label="Contact and social links">
