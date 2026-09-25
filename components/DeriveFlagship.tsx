@@ -7,13 +7,13 @@ export default function DeriveFlagship() {
 
   return (
     <section className="derive-section" aria-labelledby="derive-title">
-      <div className="derive-header">
+      <div className="derive-header" data-scroll-reveal="copy">
         <p className="derive-kicker">{kicker}</p>
         <h2 id="derive-title">{heading}</h2>
         <p className="derive-role">{role}</p>
       </div>
 
-      <div className="derive-grid">
+      <div className="derive-grid" data-scroll-reveal="visual">
         <Plate
           className="derive-plate-primary"
           caption={primary.caption}
@@ -42,7 +42,7 @@ export default function DeriveFlagship() {
         </div>
       </div>
 
-      <Link href={href} className="derive-case-link">
+      <Link href={href} className="derive-case-link" data-scroll-reveal="copy">
         Read the full case<span aria-hidden="true">↗</span>
       </Link>
     </section>

@@ -46,7 +46,7 @@ export default function HomeAboutSection() {
   return (
     <section className="home-about-section" aria-labelledby="home-about-title">
       <div className="home-about-shell">
-        <header className="home-about-intro">
+        <header className="home-about-intro" data-scroll-reveal="copy">
           <p className="home-about-kicker">About / Field notes</p>
           <h2 id="home-about-title">A few pieces behind the work.</h2>
           <p>
@@ -60,6 +60,7 @@ export default function HomeAboutSection() {
 
         <div
           className="home-about-profile"
+          data-scroll-reveal="visual"
           style={{ "--marker-position": `${12.5 + activeRow * 25}%` } as CSSProperties}
         >
           <div className="home-about-marker-grid" aria-hidden="true">

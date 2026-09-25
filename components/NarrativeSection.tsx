@@ -94,7 +94,7 @@ export default function NarrativeSection() {
       <p className="section-index" aria-hidden="true">
         03
       </p>
-      <div className="field-header">
+      <div className="field-header" data-scroll-reveal="copy">
         <Tagline text="Chapters" />
         <h2 id="field-title">Six chapters, one field.</h2>
         <p className="field-instruction">
@@ -105,7 +105,7 @@ export default function NarrativeSection() {
         </p>
       </div>
 
-      <div className="field-layout">
+      <div className="field-layout" data-scroll-reveal="visual">
         <div
           ref={fieldRef}
           className={`field${isDefined ? " is-defined" : ""}`}
@@ -168,7 +168,7 @@ export default function NarrativeSection() {
         </aside>
       </div>
 
-      <div className="field-bands" aria-label="Career chapters">
+      <div className="field-bands" aria-label="Career chapters" data-scroll-reveal="copy">
         {homeChapters.map((chapter) => (
           <details key={chapter.id} className="field-band">
             <summary className="field-band-summary">

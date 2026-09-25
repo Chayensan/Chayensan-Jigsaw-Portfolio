@@ -6,6 +6,7 @@ import HomeAboutSection from "@/components/HomeAboutSection";
 import HomePreloader from "@/components/HomePreloader";
 import Navbar from "@/components/Navbar";
 import NarrativeSection from "@/components/NarrativeSection";
+import ScrollReveals from "@/components/ScrollReveals";
 import ThroughlineSection from "@/components/ThroughlineSection";
 import WorkSection from "@/components/WorkSection";
 
@@ -27,6 +28,7 @@ export default function Home({ searchParams }: HomeProps) {
     <HomePreloader shouldPlay={shouldPlayEntrance} forcePlay={forceEntrancePreview}>
       <Navbar active="jigsaw" />
       <main>
+        <ScrollReveals />
         <HeroSection />
         <ThroughlineSection />
         <NarrativeSection />

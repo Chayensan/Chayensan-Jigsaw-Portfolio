@@ -35,22 +35,22 @@ export default function WorkCaseTemplate({
 
   return (
     <article className="case-study">
-      <Link href="/work" className="case-back-link">
+      <Link href="/work" className="case-back-link" data-scroll-reveal="copy">
         ← Work
       </Link>
 
-      <header className="case-hero">
+      <header className="case-hero" data-scroll-reveal="copy">
         <h1>{study.title}</h1>
         <p>{study.deck}</p>
       </header>
 
-      <figure className="case-main-image">
+      <figure className="case-main-image" data-scroll-reveal="visual">
         <img src={study.heroImage} alt={`${study.title} main project visual`} />
       </figure>
 
       <dl className="case-meta">
         {study.meta.map((item) => (
-          <div key={item.label}>
+          <div key={item.label} data-scroll-reveal="copy">
             <dt>{item.label}</dt>
             <dd>{item.value}</dd>
           </div>
@@ -58,7 +58,7 @@ export default function WorkCaseTemplate({
       </dl>
 
       <section className="case-copy-block">
-        <div>
+        <div data-scroll-reveal="copy">
           <Tagline text="Intro" />
           <p>{study.intro}</p>
           {study.confidentialityNote ? (
@@ -77,7 +77,7 @@ export default function WorkCaseTemplate({
         </div>
 
         {hasAchievements ? (
-          <div>
+          <div data-scroll-reveal="copy">
             <Tagline text="Key achievements" />
             <ul>
               {study.achievements.map((achievement) => (
@@ -90,10 +90,17 @@ export default function WorkCaseTemplate({
 
       {hasGallery ? (
         <section className="case-gallery-section">
-          <Tagline text="Gallery" />
+          <div data-scroll-reveal="copy">
+            <Tagline text="Gallery" />
+          </div>
           <div className="case-gallery">
             {study.galleryImages.map((image) => (
-              <figure className="case-gallery-item" key={image.src} tabIndex={0}>
+              <figure
+                className="case-gallery-item"
+                key={image.src}
+                tabIndex={0}
+                data-scroll-reveal="fade"
+              >
                 <img src={image.src} alt={image.alt} loading="lazy" />
                 <Caption
                   kind="artefact"
@@ -114,7 +121,7 @@ export default function WorkCaseTemplate({
         </section>
       ) : null}
 
-      <nav className="case-pagination" aria-label="Work case navigation">
+      <nav className="case-pagination" aria-label="Work case navigation" data-scroll-reveal="copy">
         <Link href={previousHref} className="case-pagination-link case-pagination-prev">
           <span className="case-pagination-label">Prev</span>
           {previousTitle ? (

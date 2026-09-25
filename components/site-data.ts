@@ -216,28 +216,6 @@ export const workItems: WorkItem[] = [
 
 export const workCaseStudies: WorkCaseStudy[] = [
   {
-    slug: "hunchr",
-    title: "HUNCHR",
-    companyName: "HUNCHR",
-    companyUrl: "https://www.hunchr.app/r/desi",
-    deck: "A free social sports competition app: private leagues, predictions, and leaderboards.",
-    heroImage: "/assets/work-cases/hunchr.png",
-    meta: [
-      { label: "Role", value: "Early-Stage BD" },
-      { label: "Timeline", value: "2026 - Present" },
-      { label: "Location", value: "Remote" },
-    ],
-    intro:
-      "HUNCHR is a free social sports competition app: private leagues, predictions, virtual bankrolls, and leaderboards, with no real-money betting. I'm running early distribution experiments and go-to-market research at the founding stage.",
-    achievements: [
-      "Tested early distribution routes across football, sports, private groups, referrals, and warm community invitations.",
-      "Gathered user feedback on signup friction, onboarding, social competition, and product positioning.",
-      "Explored club, community, and event-led partnerships to support HUNCHR's early growth experiments.",
-      "Helped position HUNCHR as social sports competition, separating the product from real-money betting language.",
-    ],
-    galleryImages: [],
-  },
-  {
     slug: "tago-capital",
     title: "TAGO CAPITAL",
     companyName: "Tago Capital",
@@ -255,7 +233,6 @@ export const workCaseStudies: WorkCaseStudy[] = [
       "Public details confidential: prospects, targets, and partnership terms are described at a domain level only.",
     achievements: [
       "Researched robotics, AI, and emerging-technology companies expanding into new markets and cross-border opportunities.",
-      "Mapped founder, investor, and operator landscapes to identify stronger commercial entry points.",
       "Reframed technical offerings into clearer language for prospective partners, buyers, and non-technical audiences.",
       "Prepared outreach materials, talking points, and prospect notes ahead of business development conversations.",
       "Connected founders and operators around market-entry, product, partnership, and commercial opportunities.",
@@ -515,7 +492,6 @@ export const nowLedger: NowLedgerRow[] = [
     direction: "An early signal toward product-led, social-competition growth.",
     status: "ACTIVE · 2026 · EARLY",
     primary: true,
-    slug: "hunchr",
     thumbnail: "/assets/work-cases/hunchr.png",
   },
   {

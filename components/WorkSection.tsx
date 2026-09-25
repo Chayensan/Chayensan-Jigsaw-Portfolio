@@ -29,7 +29,7 @@ function CompactRowList({
 }) {
   return (
     <div className="work-tier" data-tier={tier}>
-      <p className="work-tier-label">{tier}</p>
+      <p className="work-tier-label" data-scroll-reveal="copy">{tier}</p>
       <ul className={listClassName} role="list">
         {children}
       </ul>
@@ -72,7 +72,7 @@ function WorkCard({
   const caption: CaptionContent = plateCaption ?? { kind: "artefact", what: title };
 
   return (
-    <li className="work-card" data-tier={tier}>
+    <li className="work-card" data-tier={tier} data-scroll-reveal="visual">
       <Plate
         className="work-card-plate"
         caption={caption}
@@ -164,7 +164,7 @@ function WorkRow({
   thumbnailPlaceholder?: { kicker: string; statement: string };
 }) {
   return (
-    <li className="work-row">
+    <li className="work-row" data-scroll-reveal="copy">
       <span className="work-row-index">{number}</span>
       <div className="work-row-body">
         <div className="work-row-heading">
@@ -196,7 +196,7 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
           <p className="section-index" aria-hidden="true">
             06
           </p>
-          <aside className="work-intro">
+          <aside className="work-intro" data-scroll-reveal="copy">
             <Tagline text="Work" />
             <h2 id="work-title">Selected Work</h2>
             <p>

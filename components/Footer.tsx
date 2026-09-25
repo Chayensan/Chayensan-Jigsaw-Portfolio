@@ -10,7 +10,7 @@ export default function Footer() {
       </p>
       <div className="footer-inner">
         <div className="footer-main">
-          <div className="footer-statement">
+          <div className="footer-statement" data-scroll-reveal="copy">
             <p className="footer-colophon">
               Systems of Belonging · Desi Kamdrawati · 2026
             </p>
@@ -27,7 +27,7 @@ export default function Footer() {
             <span className="footer-cta-rule" aria-hidden="true" />
           </div>
 
-          <div className="footer-meta">
+          <div className="footer-meta" data-scroll-reveal="copy">
             <div className="footer-meta-block">
               <span className="footer-meta-rule" aria-hidden="true" />
               <p className="footer-availability">

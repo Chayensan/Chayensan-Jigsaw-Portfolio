@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ScrollReveals from "@/components/ScrollReveals";
 import WorkCaseTemplate from "@/components/WorkCaseTemplate";
 import {
   getWorkCaseStudy,
@@ -67,6 +68,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
     <>
       <Navbar active="work" />
       <main>
+        <ScrollReveals />
         <WorkCaseTemplate
           study={study}
           previousHref={`/work/${previousSlug}`}

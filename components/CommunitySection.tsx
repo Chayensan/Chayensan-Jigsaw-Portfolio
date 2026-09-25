@@ -5,7 +5,7 @@ export default function CommunitySection() {
   return (
     <section className="community-index-section" aria-labelledby="community-index-title">
       <div className="community-index-shell">
-        <header className="community-index-header">
+        <header className="community-index-header" data-scroll-reveal="copy">
           <p className="community-index-kicker">Community / Living archive</p>
           <h2 id="community-index-title">Communities, kept in motion.</h2>
           <p>
@@ -17,6 +17,7 @@ export default function CommunitySection() {
         <Link
           href="/about#community-mat"
           className="community-index-feature"
+          data-scroll-reveal="visual"
           aria-label="Open my community archive: Friends of Friends"
         >
           <figure>

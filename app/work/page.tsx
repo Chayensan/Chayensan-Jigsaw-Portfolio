@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ScrollReveals from "@/components/ScrollReveals";
 import WorkSection from "@/components/WorkSection";
 import Image from "next/image";
 
@@ -8,6 +9,7 @@ export default function WorkPage() {
     <>
       <Navbar active="work" />
       <main>
+        <ScrollReveals />
         <section className="work-figma-hero" aria-labelledby="work-page-title">
           <span className="work-figma-hero-side-index" aria-hidden="true">
             02

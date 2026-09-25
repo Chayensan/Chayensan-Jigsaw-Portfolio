@@ -10849,9 +10849,9 @@ html:has(.about-page.about-editorial),
   }
 
   .about-editorial-aphantasia {
-    min-height: calc(48rem - 30px);
-    padding-block: 4rem 1.875rem;
-    align-content: start;
+    min-height: 48rem;
+    padding-block: 3rem;
+    align-content: center;
     row-gap: 1.65rem;
   }
 
@@ -10961,5 +10961,118 @@ html:has(.about-page.about-editorial),
 
   .community-board-photo img {
     transition: none;
+  }
+}
+
+/* Scroll chapters shared by Home, Work, and the case studies. JavaScript only
+   marks content below the viewport, so all copy remains visible without it. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-reveal] {
+    transition:
+      opacity 680ms var(--ease),
+      transform 760ms var(--ease);
+  }
+
+  [data-scroll-reveal].is-scroll-pending {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0);
+  }
+
+  [data-scroll-reveal="visual"].is-scroll-pending {
+    transform: translate3d(0, 2rem, 0) scale(0.985);
+  }
+
+  [data-scroll-reveal="fade"].is-scroll-pending {
+    transform: none;
+  }
+
+  .work-figma-hero-kicker {
+    animation: work-hero-copy-in 720ms var(--ease) 240ms both;
+  }
+
+  .work-figma-hero-summary {
+    animation: work-hero-copy-in 820ms var(--ease) 960ms both;
+  }
+
+  .case-back-link,
+  .case-hero {
+    animation: work-hero-copy-in 760ms var(--ease) both;
+  }
+
+  .case-hero {
+    animation-delay: 120ms;
+  }
+
+  .case-main-image img {
+    animation: case-image-in 900ms var(--ease) 260ms both;
+  }
+
+  @keyframes work-hero-copy-in {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  @keyframes case-image-in {
+    from {
+      opacity: 0;
+      transform: scale(1.025);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  /* Give the apple, labels, and closing thought separate vertical bands
+     without adding empty space below the orange section. */
+  .about-editorial-aphantasia-visual {
+    height: clamp(16rem, 64vw, 18rem);
+    aspect-ratio: auto;
+  }
+
+  .about-editorial-aphantasia-prompt {
+    top: 5%;
+  }
+
+  .about-editorial-aphantasia-label {
+    top: 19%;
+  }
+
+  .about-editorial-aphantasia-trait--red {
+    top: 42%;
+  }
+
+  .about-editorial-aphantasia-trait--crisp,
+  .about-editorial-aphantasia-trait--round {
+    top: 57%;
+  }
+
+  .about-editorial-aphantasia-trait--sweet {
+    top: 76%;
+  }
+
+  .about-editorial-aphantasia-caption {
+    bottom: 5%;
+  }
+}
+
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .about-editorial-hero {
+    animation: about-mobile-hero-fade-in 900ms ease-out both;
+  }
+
+  @keyframes about-mobile-hero-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }

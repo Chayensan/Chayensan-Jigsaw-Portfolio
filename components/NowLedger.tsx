@@ -14,7 +14,7 @@ export default function NowLedger() {
       <p className="section-index" aria-hidden="true">
         05
       </p>
-      <div className="now-header">
+      <div className="now-header" data-scroll-reveal="copy">
         <p className="now-kicker">Now</p>
         <h2 id="now-title">A ledger of what&rsquo;s active now.</h2>
         <p className="now-intro">
@@ -28,6 +28,7 @@ export default function NowLedger() {
           <li
             key={row.id}
             className={`now-row${row.primary ? " now-row-primary" : ""}`}
+            data-scroll-reveal="copy"
           >
             <span className="now-row-index">{row.index}</span>
             <div className="now-row-body">
