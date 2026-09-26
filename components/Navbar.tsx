@@ -27,7 +27,10 @@ const navItems: Array<{
 
 export default function Navbar({ active }: { active: NavKey }) {
   const [socialsOpen, setSocialsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const socialsRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuToggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!socialsOpen) return;
@@ -46,6 +49,29 @@ export default function Navbar({ active }: { active: NavKey }) {
       document.removeEventListener("keydown", closeOnEscape);
     };
   }, [socialsOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!mobileMenuRef.current?.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        mobileMenuToggleRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header id="top" className="site-nav">
@@ -111,6 +137,72 @@ export default function Navbar({ active }: { active: NavKey }) {
           )}
         </div>
       </nav>
+
+      <div className="nav-mobile-menu" ref={mobileMenuRef}>
+        <button
+          ref={mobileMenuToggleRef}
+          type="button"
+          className="nav-mobile-toggle"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="nav-mobile-panel"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <span>{mobileMenuOpen ? "Close" : "Menu"}</span>
+          <span className="nav-mobile-toggle-line" aria-hidden="true" />
+        </button>
+        {mobileMenuOpen && (
+          <nav
+            id="nav-mobile-panel"
+            className="nav-mobile-panel"
+            aria-label="Mobile navigation and social links"
+            onClickCapture={() => setMobileMenuOpen(false)}
+          >
+            <div className="nav-mobile-pages">
+              {navItems.map((item) => (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className="nav-mobile-page"
+                  aria-current={active === item.key ? "page" : undefined}
+                >
+                  <span className="nav-mobile-index">{item.index}</span>
+                  <span>{item.label}</span>
+                  <span className="nav-mobile-page-mark" aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
+            <div className="nav-mobile-social-group">
+              <p className="nav-mobile-social-heading">Connect</p>
+              <div className="nav-mobile-social-list">
+                <ContactTrigger className="nav-mobile-social-link" ariaLabel="Open email form">
+                  <EnvelopeSimple size={19} weight="regular" aria-hidden="true" />
+                  <span>Email</span>
+                </ContactTrigger>
+                {!isPlaceholderSocialUrl(socialLinks.linkedin) && (
+                  <a className="nav-mobile-social-link" href={socialLinks.linkedin} target="_blank" rel="noreferrer">
+                    <LinkedinLogo size={19} weight="regular" aria-hidden="true" />
+                    <span>LinkedIn</span>
+                  </a>
+                )}
+                {!isPlaceholderSocialUrl(socialLinks.twitter) && (
+                  <a className="nav-mobile-social-link" href={socialLinks.twitter} target="_blank" rel="noreferrer">
+                    <XLogo size={19} weight="regular" aria-hidden="true" />
+                    <span>X / Twitter</span>
+                  </a>
+                )}
+                <a className="nav-mobile-social-link" href={socialLinks.github} target="_blank" rel="noreferrer">
+                  <GithubLogo size={19} weight="regular" aria-hidden="true" />
+                  <span>GitHub</span>
+                </a>
+                <a className="nav-mobile-social-link" href={socialLinks.resume} download>
+                  <FilePdf size={19} weight="regular" aria-hidden="true" />
+                  <span>Resume PDF</span>
+                </a>
+              </div>
+            </div>
+          </nav>
+        )}
+      </div>
 
       <div className="nav-socials" aria-label="Contact and social links">
         <ContactTrigger className="nav-email" ariaLabel="Open email form">

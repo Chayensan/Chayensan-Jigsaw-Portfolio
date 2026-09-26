@@ -98,7 +98,8 @@ export default function NarrativeSection() {
         <Tagline text="Chapters" />
         <h2 id="field-title">Six chapters, one field.</h2>
         <p className="field-instruction">
-          Hover or tap to open a chapter.
+          <span className="field-instruction-desktop">Hover or tap to open a chapter.</span>
+          <span className="field-instruction-mobile">Tap a chapter to explore.</span>
         </p>
         <p className="field-industries">
           Working across Web3 &middot; AI &middot; Emerging Tech &middot; Culture
@@ -169,13 +170,16 @@ export default function NarrativeSection() {
       </div>
 
       <div className="field-bands" aria-label="Career chapters" data-scroll-reveal="copy">
-        {homeChapters.map((chapter) => (
+        {homeChapters.map((chapter, index) => (
           <details key={chapter.id} className="field-band">
             <summary className="field-band-summary">
+              <span className="field-band-image" aria-hidden="true" />
+              <span className="field-band-index" aria-hidden="true">0{index + 1}</span>
               <span className="field-band-label">{chapter.label}</span>
-              <span className="field-band-capability">{chapter.capability}</span>
+              <span className="field-band-open-mark" aria-hidden="true">+</span>
             </summary>
             <div className="field-band-body">
+              <p className="field-band-capability">{chapter.capability}</p>
               <p className="field-band-activity">{chapter.activity}</p>
               <p className="field-band-evidence">{renderEvidence(chapter.evidence)}</p>
             </div>
