@@ -47,6 +47,8 @@ type CommunityGalleryEntry =
       src: string;
       fit?: "contain" | "cover";
       position?: string;
+      scale?: number;
+      background?: string;
     };
 
 type CommunityBoardCard = {
@@ -62,7 +64,7 @@ type CommunityBoardCard = {
   status?: string;
 };
 
-const COMMUNITY_IMAGE_VERSION = "community-popups-20260912c";
+const COMMUNITY_IMAGE_VERSION = "community-popups-20261012e";
 
 const communityImage = (
   src: string,
@@ -163,8 +165,14 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
     gallery: [
       communityImage("/assets/about/FF1.png", { position: "center top" }),
       communityImage("/assets/about/FF2.png", { position: "center top" }),
-      communityImage("/assets/about/FF3.png", { position: "center top" }),
       communityImage("/assets/about/FF3.JPG", { position: "center top" }),
+      communityImage("/assets/about/FF4.png", { position: "center top" }),
+      communityImage("/assets/about/FF5.png", {
+        fit: "contain",
+        position: "center",
+        scale: 1.08,
+        background: "#000",
+      }),
     ],
     alt: "Friends of Friends gathering cover",
     caption: "F*F",
@@ -494,8 +502,9 @@ export default function AboutPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const isCommunityBoard = entry.target === communityBoardRef.current;
           sceneByElement.get(entry.target as HTMLElement)?.(
-            entry.isIntersecting && entry.intersectionRatio >= 0.3,
+            entry.isIntersecting && (isCommunityBoard || entry.intersectionRatio >= 0.3),
           );
         });
       },
@@ -627,6 +636,14 @@ export default function AboutPage() {
     typeof activeCommunityImageEntry === "string"
       ? "center"
       : activeCommunityImageEntry?.position ?? "center";
+  const activeCommunityImageScale =
+    typeof activeCommunityImageEntry === "string"
+      ? 1
+      : activeCommunityImageEntry?.scale ?? 1;
+  const activeCommunityImageBackground =
+    typeof activeCommunityImageEntry === "string"
+      ? undefined
+      : activeCommunityImageEntry?.background;
 
   const stepCommunityImage = (direction: -1 | 1) => {
     if (!activeCommunityEvent) return;
@@ -1149,7 +1166,10 @@ export default function AboutPage() {
 
                 <div className="community-event-dialog-grid">
                   <div className="community-event-media">
-                    <div className="community-event-main-photo">
+                    <div
+                      className="community-event-main-photo"
+                      style={{ background: activeCommunityImageBackground }}
+                    >
                       {activeCommunityImageSrc ? (
                         <Image
                           key={activeCommunityImageSrc}
@@ -1162,6 +1182,7 @@ export default function AboutPage() {
                           style={{
                             objectFit: activeCommunityImageFit,
                             objectPosition: activeCommunityImagePosition,
+                            transform: `scale(${activeCommunityImageScale})`,
                           }}
                         />
                       ) : (

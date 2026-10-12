@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Desi Kamdrawati",
   description:
     "Desi Kamdrawati helps early-stage teams turn attention into users, members, and partners.",
+  icons: {
+    icon: "/assets/dk-logo-trimmed.png",
+  },
 };
 
 export default function RootLayout({

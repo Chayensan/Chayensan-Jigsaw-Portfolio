@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 const profileRows = [
   {
@@ -42,6 +42,52 @@ const profileRows = [
 
 export default function HomeAboutSection() {
   const [activeRow, setActiveRow] = useState(1);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 760px)");
+    let frame = 0;
+
+    const updateActiveRow = () => {
+      frame = 0;
+      if (!mobile.matches || !profileRef.current) return;
+
+      const rows = Array.from(profileRef.current.querySelectorAll<HTMLElement>(".home-about-row"));
+      const profileRect = profileRef.current.getBoundingClientRect();
+      if (profileRect.bottom < 0 || profileRect.top > window.innerHeight) return;
+
+      const readingLine = window.innerHeight * 0.45;
+      let closestRow = 0;
+      let closestDistance = Infinity;
+
+      rows.forEach((row, index) => {
+        const rect = row.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - readingLine);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestRow = index;
+        }
+      });
+
+      setActiveRow((current) => (current === closestRow ? current : closestRow));
+    };
+
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveRow);
+    };
+
+    requestUpdate();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    mobile.addEventListener("change", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      mobile.removeEventListener("change", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
     <section className="home-about-section" aria-labelledby="home-about-title">
@@ -59,6 +105,7 @@ export default function HomeAboutSection() {
         </header>
 
         <div
+          ref={profileRef}
           className="home-about-profile"
           data-scroll-reveal="visual"
           style={{ "--marker-position": `${12.5 + activeRow * 25}%` } as CSSProperties}

@@ -15,8 +15,8 @@ export default function Footer() {
               Systems of Belonging · Desi Kamdrawati · 2026
             </p>
             <h2>
-              I&apos;m open work, especially where people, community, or growth are part of what
-              you&apos;re building.
+              I&apos;m open to work, especially where people, community, or growth are part of
+              what you&apos;re building.
             </h2>
             <ContactTrigger className="footer-cta" ariaLabel="Open email form">
               <span>Email</span>

@@ -209,18 +209,6 @@ export default function WorkSection({ compact = true }: { compact?: boolean }) {
           </aside>
 
           <div className="work-index">
-            <CompactRowList tier="flagship">
-              <WorkRow
-                number={flagshipItem.number}
-                title={flagshipItem.title}
-                role={flagshipItem.role}
-                text={flagshipItem.text}
-                date={flagshipItem.date}
-                slug={flagshipItem.slug}
-                thumbnail={flagshipItem.caseHeroImage}
-              />
-            </CompactRowList>
-
             <CompactRowList tier="selected">
               {selectedItems.map((item) => (
                 <WorkRow
