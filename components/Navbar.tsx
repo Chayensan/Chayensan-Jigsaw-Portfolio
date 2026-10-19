@@ -155,7 +155,7 @@ export default function Navbar({ active }: { active: NavKey }) {
             id="nav-mobile-panel"
             className="nav-mobile-panel"
             aria-label="Mobile navigation and social links"
-            onClickCapture={() => setMobileMenuOpen(false)}
+            onClick={() => setMobileMenuOpen(false)}
           >
             <div className="nav-mobile-pages">
               {navItems.map((item) => (

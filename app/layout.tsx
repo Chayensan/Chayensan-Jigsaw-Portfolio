@@ -15,7 +15,7 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Desi Kamdrawati",
   description:
-    "Desi Kamdrawati helps early-stage teams turn attention into users, members, and partners.",
+    "Attention is only the beginning. Desi builds what makes people join, stay, and bring others in.",
   icons: {
     icon: "/assets/dk-logo-trimmed.png",
   },

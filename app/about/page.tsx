@@ -16,20 +16,11 @@ const APHANTASIA_COPY =
 const METHOD_COPY =
   "Whatever it is, it's not visual. It's more like I feel when something's off before I can say why. A room that's too cold. A campaign with no pulse. A community that has people but no glue holding them there yet. I can't picture the fix. I just know when I've found it.";
 const SURVEYED_GROUND_COPY =
-  "I don't think I'm unfinished, even on the days it feels that way. Just one whole thing, seen from a lot of angles I haven't all stood in yet. The field on the homepage works the same way: not missing pieces, one ground, cut into six ways of looking at it, spatial design, event production, community building, growth, partnerships, creative production.";
+  "I’ve never been very good at seeing a career as one straight line. One day, a good friend of mine, someone deep in Web3 who I really looked up to, randomly asked me, “Where do you see yourself in five years? Still working in interior design?” Very interview-y, completely out of nowhere, but it stuck with me. I didn’t have a neat answer, so I followed my curiosity instead. One side quest led to another, and somehow spatial design became events, communities, growth, partnerships and creative production. Looking back, they were never separate paths. They were all different ways of exploring the same thing: how people find each other, connect and choose to stay.";
 const SYSTEMS_BELONGING_COPY =
   "If you want a name for it, maybe systems of belonging. What I've noticed, over and over, is the thing that makes someone stay is almost never the loudest thing happening. It's smaller than that. Quieter.";
 const OFF_CLOCK_COPY =
   "Raves. Knitting. Weightlifting. Wandering a museum with zero plan. Whatever weird object has taken over my brain this week. I like watching people come alive, doesn't matter where, a dance floor, in front of a painting, under a bar that's a bit too heavy. And incense, aloeswood specifically, in a way I probably don't need to explain but will anyway if you ask.";
-
-const PARCELS = [
-  { n: "01", label: "Spatial Design", x: 8, y: 15 },
-  { n: "02", label: "Event Production", x: 39, y: 14 },
-  { n: "03", label: "Community Building", x: 70, y: 16 },
-  { n: "04", label: "Growth", x: 9, y: 65 },
-  { n: "05", label: "Partnerships", x: 40, y: 67 },
-  { n: "06", label: "Creative Production", x: 71, y: 65 },
-];
 
 const METHOD_SIGNALS = [
   "Pattern",
@@ -76,91 +67,6 @@ const communityImage = (
 
 const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
   {
-    src: `/assets/about/FL1.PNG?v=${COMMUNITY_IMAGE_VERSION}`,
-    gallery: [
-      communityImage("/assets/about/FL1.PNG"),
-      communityImage("/assets/about/FL2.PNG"),
-      communityImage("/assets/about/FL3.JPG"),
-      communityImage("/assets/about/FL4.jpg"),
-      communityImage("/assets/about/FL5.JPG"),
-    ],
-    alt: "Fitlife community and local fitness brand moment",
-    caption: "FITLIFE",
-    title: "Fitlife",
-    location: "Jakarta, Indonesia",
-    date: "2020-2021",
-    description:
-      "During Covid in Jakarta, the gym became one of my first local communities. What started as training led to a Fitlife ambassador role, a connection with Neveres, a local gym apparel brand, and friendships with gym regulars, models, and brand owners. I began turning brand promos into community moments: shoots, outdoor activities, and small gatherings that brought people together while helping the brands feel more lived-in and real.",
-  },
-  {
-    src: `/assets/about/rave1.jpg?v=${COMMUNITY_IMAGE_VERSION}`,
-    gallery: [
-      communityImage("/assets/about/rave1.jpg"),
-      communityImage("/assets/about/rave2.jpg"),
-      communityImage("/assets/about/rave3.jpg"),
-      communityImage("/assets/about/rave4.jpg"),
-      communityImage("/assets/about/rav5.jpg"),
-    ],
-    alt: "Community group gathered at an outdoor music event",
-    caption: "RAVEBENDOORS",
-    title: "Ravebendoors",
-    location: "Melbourne, Australia",
-    date: "2023-2026",
-    description:
-      "Built from a small group of friends into an 80+ person rave community that kept finding reasons to show up for each other beyond the dance floor. What started around music became dinners, Christmas parties, outdoor days, pre-rave rituals, post-rave recovery, and a shared rhythm of gathering. Most meetups brought 20+ people together, not because they had to, but because the room had become part of their lives.",
-  },
-  {
-    src: `/assets/about/ppia1.png?v=${COMMUNITY_IMAGE_VERSION}`,
-    gallery: [
-      communityImage("/assets/about/ppia1.png"),
-      communityImage("/assets/about/ppia2.JPG"),
-      communityImage("/assets/about/ppia3.png"),
-      communityImage("/assets/about/ppia4.png"),
-      communityImage("/assets/about/ppia5.png"),
-    ],
-    alt: "Performers sharing a stage at a community event",
-    caption: "PPIA",
-    title: "PPIA",
-    location: "Melbourne, Australia",
-    date: "2019-2021",
-    description:
-      "Supported events production and student liaison for RMIT's Indonesian student association, helping bridge the gap between arriving in a new country and feeling held by something familiar. The work was about more than logistics: it was creating small points of comfort, connection, and recognition for Indonesian students finding their place in Australia.",
-  },
-  {
-    src: `/assets/about/traders-breakfast1.png?v=${COMMUNITY_IMAGE_VERSION}`,
-    gallery: [
-      communityImage("/assets/about/traders-breakfast1.png"),
-      communityImage("/assets/about/traders-breakfast2.jpg"),
-      communityImage("/assets/about/traders-breakfast3.jpg"),
-      communityImage("/assets/about/traders-breakfast4.jpg"),
-      communityImage("/assets/about/traders-breakfast5.jpg"),
-    ],
-    alt: "People gathering around shared tables",
-    caption: "TRADERS BREAKFAST",
-    title: "Traders Breakfast",
-    location: "Bali, Indonesia",
-    date: "2025",
-    description:
-      "Produced Derive.xyz's first-ever live event at Coinfest Bali 2025 after four years of being fully digital: a morning breakfast gathering for institutional traders during Coinfest Bali. Across the morning, 100+ traders moved through the space over food, coffee, conversation, and merch. It became a physical meeting point for the options community.",
-  },
-  {
-    src: `/assets/about/mahindharama1.JPG?v=${COMMUNITY_IMAGE_VERSION}`,
-    gallery: [
-      communityImage("/assets/about/mahindharama1.JPG"),
-      communityImage("/assets/about/mahindharama2.JPG"),
-      communityImage("/assets/about/mahindharama3.JPG"),
-      communityImage("/assets/about/mahindharama4.JPG"),
-      communityImage("/assets/about/mahindharama5.JPG"),
-    ],
-    alt: "Community members making a shared light painting",
-    caption: "MAHINDHARAMA",
-    title: "Mahindharama",
-    location: "Penang, Malaysia",
-    date: "2011-2013",
-    description:
-      "The origin piece. Before the portfolio, before growth, before events became work, there was Mahindharama: a youth community built around learning, service, and showing up. Through educational camps, volunteering, and fundraiser causes, it became one of the first places I understood how much care goes into building a room where young people feel useful, connected, and part of something bigger than themselves.",
-  },
-  {
     src: `/assets/about/FFcover.png?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
       communityImage("/assets/about/FF1.png", { position: "center top" }),
@@ -182,6 +88,91 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
     status: "Currently building",
     description:
       "Friends of Friends: A friend of a friend is someone you don’t know yet, but already trust. F*F is a private social circle built on the simple truth that the best relationships don't come from algorithms, cold networking, or pitch decks, they come from shared trust, genuine connection, and mutual care.",
+  },
+  {
+    src: `/assets/about/rave1.jpg?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/rave1.jpg"),
+      communityImage("/assets/about/rave2.jpg"),
+      communityImage("/assets/about/rave3.jpg"),
+      communityImage("/assets/about/rave4.jpg"),
+      communityImage("/assets/about/rav5.jpg"),
+    ],
+    alt: "Community group gathered at an outdoor music event",
+    caption: "RAVEBENDOORS",
+    title: "Ravebendoors",
+    location: "Melbourne, Australia",
+    date: "2023-2026",
+    description:
+      "Built from a small group of friends into an 80+ person rave community that kept finding reasons to show up for each other beyond the dance floor. What started around music became dinners, Christmas parties, outdoor days, pre-rave rituals, post-rave recovery, and a shared rhythm of gathering. Most meetups brought 20+ people together, not because they had to, but because the room had become part of their lives.",
+  },
+  {
+    src: `/assets/about/traders-breakfast1.png?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/traders-breakfast1.png"),
+      communityImage("/assets/about/traders-breakfast2.jpg"),
+      communityImage("/assets/about/traders-breakfast3.jpg"),
+      communityImage("/assets/about/traders-breakfast4.jpg"),
+      communityImage("/assets/about/traders-breakfast5.jpg"),
+    ],
+    alt: "People gathering around shared tables",
+    caption: "TRADERS BREAKFAST",
+    title: "Traders Breakfast",
+    location: "Bali, Indonesia",
+    date: "2025",
+    description:
+      "Produced Derive.xyz's first-ever live event at Coinfest Bali 2025 after four years of being fully digital: a morning breakfast gathering for institutional traders during Coinfest Bali. Across the morning, 100+ traders moved through the space over food, coffee, conversation, and merch. It became a physical meeting point for the options community.",
+  },
+  {
+    src: `/assets/about/FL1.PNG?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/FL1.PNG"),
+      communityImage("/assets/about/FL2.PNG"),
+      communityImage("/assets/about/FL3.JPG"),
+      communityImage("/assets/about/FL4.jpg"),
+      communityImage("/assets/about/FL5.JPG"),
+    ],
+    alt: "Fitlife community and local fitness brand moment",
+    caption: "FITLIFE",
+    title: "Fitlife",
+    location: "Jakarta, Indonesia",
+    date: "2020-2021",
+    description:
+      "During Covid in Jakarta, the gym became one of my first local communities. What started as training led to a Fitlife ambassador role, a connection with Neveres, a local gym apparel brand, and friendships with gym regulars, models, and brand owners. I began turning brand promos into community moments: shoots, outdoor activities, and small gatherings that brought people together while helping the brands feel more lived-in and real.",
+  },
+  {
+    src: `/assets/about/ppia1.png?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/ppia1.png"),
+      communityImage("/assets/about/ppia2.JPG"),
+      communityImage("/assets/about/ppia3.png"),
+      communityImage("/assets/about/ppia4.png"),
+      communityImage("/assets/about/ppia5.png"),
+    ],
+    alt: "Performers sharing a stage at a community event",
+    caption: "PPIA",
+    title: "PPIA",
+    location: "Melbourne, Australia",
+    date: "2019-2021",
+    description:
+      "Supported events production and student liaison for RMIT's Indonesian student association, helping bridge the gap between arriving in a new country and feeling held by something familiar. The work was about more than logistics: it was creating small points of comfort, connection, and recognition for Indonesian students finding their place in Australia.",
+  },
+  {
+    src: `/assets/about/mahindharama1.JPG?v=${COMMUNITY_IMAGE_VERSION}`,
+    gallery: [
+      communityImage("/assets/about/mahindharama1.JPG"),
+      communityImage("/assets/about/mahindharama2.JPG"),
+      communityImage("/assets/about/mahindharama3.JPG"),
+      communityImage("/assets/about/mahindharama4.JPG"),
+      communityImage("/assets/about/mahindharama5.JPG"),
+    ],
+    alt: "Community members making a shared light painting",
+    caption: "MAHINDHARAMA",
+    title: "Mahindharama",
+    location: "Penang, Malaysia",
+    date: "2011-2013",
+    description:
+      "The origin piece. Before the portfolio, before growth, before events became work, there was Mahindharama: a youth community built around learning, service, and showing up. Through educational camps, volunteering, and fundraiser causes, it became one of the first places I understood how much care goes into building a room where young people feel useful, connected, and part of something bigger than themselves.",
   },
 ];
 
@@ -524,7 +515,7 @@ export default function AboutPage() {
   }, []);
 
   useEffect(() => {
-    const scenes = [groundRef.current, systemsRef.current, offClockRef.current]
+    const scenes = [systemsRef.current, offClockRef.current]
       .filter((scene): scene is HTMLElement => Boolean(scene));
     let frame = 0;
 
@@ -718,6 +709,128 @@ export default function AboutPage() {
 
         <div className="about-editorial-story">
           <section
+            className={`about-editorial-journey${groundVisible ? " is-visible" : ""}`}
+            ref={groundRef}
+            aria-labelledby="ground-title"
+          >
+            <div className="about-editorial-journey-inner">
+              <div className="about-editorial-journey-intro">
+                <h2 id="ground-title">How I Got Here<span aria-hidden="true">+</span></h2>
+                <p aria-label="This is the longer answer to how I got here. I started in interior design, then followed a few side quests into events, communities, growth and partnerships. The settings changed, but I kept coming back to the same question: how do people find each other?">
+                  {"This is the longer answer to how I got here. I started in interior design, then followed a few side quests into events, communities, growth and partnerships. The settings changed, but I kept coming back to the same question: how do people find each other?".split(" ").map((word, index) => (
+                    <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
+                      {word}{" "}
+                    </span>
+                  ))}
+                </p>
+              </div>
+
+              <figure className="about-editorial-journey-image">
+                <Image
+                  src="/assets/about/how-i-got-here-field.png"
+                  alt="People gathering in small groups across a sunlit green field"
+                  fill
+                  sizes="(max-width: 760px) 100vw, 86vw"
+                />
+                <figcaption>[ Systems of Belonging]</figcaption>
+              </figure>
+
+              <div className="about-editorial-journey-byline">
+                <span className="about-editorial-journey-line" aria-label="Desi Kamdrawati">
+                  {"Desi Kamdrawati".split(" ").map((word, index) => (
+                    <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
+                      {word}{" "}
+                    </span>
+                  ))}
+                </span>
+                <span className="about-editorial-journey-line" aria-label="Open to the right room, wherever it is.">
+                  {"Open to the right room, wherever it is.".split(" ").map((word, index) => (
+                    <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
+                      {word}{" "}
+                    </span>
+                  ))}
+                </span>
+              </div>
+              <div className="about-editorial-journey-rule" aria-hidden="true" />
+
+              <div className="about-editorial-journey-story">
+                <h3>One Complete Picture<span aria-hidden="true">+</span></h3>
+                <p aria-label={SURVEYED_GROUND_COPY}>
+                  {SURVEYED_GROUND_COPY.split(" ").map((word, index) => (
+                    <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
+                      {word}{" "}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="community-mat"
+            ref={communityBoardRef}
+            className={`about-editorial-community-board${
+              communityBoardVisible ? " is-visible" : ""
+            }`}
+            aria-label="Rooms I’ve Helped Bring to Life"
+          >
+            <figure className="about-editorial-community-board-figure">
+              <div
+                className="community-board-canvas"
+                role="group"
+                aria-label="Editable editorial visual board exploring community through rooms, meals, critiques, and shared spaces"
+              >
+                <div className="community-board-panel">
+                  <span className="community-board-coordinates">
+                    S 06 12&apos; 26.5&quot;&nbsp;&nbsp; E 106 48&apos; 37.0&quot;
+                  </span>
+                  <div className="community-board-title">
+                    <h2>Rooms I’ve Helped Bring to Life</h2>
+                    <p>Collaborate. Share. Learn. Grow.</p>
+                  </div>
+
+                  <div className="community-board-cards">
+                    {COMMUNITY_BOARD_CARDS.map((card, index) => (
+                      <button
+                        type="button"
+                        className={`community-board-card community-board-card--${index + 1}`}
+                        key={card.title}
+                        onClick={() => openCommunityCard(index)}
+                        aria-haspopup="dialog"
+                        aria-label={`Open details for ${card.title}`}
+                      >
+                        <div
+                          className={`community-board-photo${
+                            card.src ? "" : " community-board-photo--placeholder"
+                          }`}
+                        >
+                          {card.src ? (
+                            <Image
+                              src={card.src}
+                              alt={card.alt}
+                              fill
+                              sizes="(max-width: 760px) 76vw, 22vw"
+                              quality={90}
+                            />
+                          ) : (
+                            <span className="community-board-photo-placeholder" aria-hidden="true">
+                              <small>Archive pending</small>
+                              <strong>The Fold</strong>
+                            </span>
+                          )}
+                        </div>
+                        <p>{card.caption}</p>
+                      </button>
+                    ))}
+                  </div>
+
+                  <span className="community-board-panel-cross" aria-hidden="true" />
+                </div>
+              </div>
+            </figure>
+          </section>
+
+          <section
             className={`about-editorial-place-room${
               placeRoomVisible ? " about-editorial-place-room--visible" : ""
             }`}
@@ -817,6 +930,48 @@ export default function AboutPage() {
                 />
                 <span className="about-editorial-cross about-editorial-cross--plate" aria-hidden="true" />
               </div>
+            </figure>
+          </section>
+
+          <section
+            className={`about-editorial-systems about-editorial-scroll-scene${
+              systemsVisible ? " about-editorial-scroll-scene--visible" : ""
+            }`}
+            ref={systemsRef}
+            aria-labelledby="systems-title"
+          >
+            <div className="about-editorial-scene-copy about-editorial-systems-copy">
+              <h2 id="systems-title">
+                <span className="about-editorial-title-line">Systems of</span>
+                <span className="about-editorial-title-line">
+                  Belonging<span aria-hidden="true">+</span>
+                </span>
+              </h2>
+              <p aria-label={SYSTEMS_BELONGING_COPY}>
+                {SYSTEMS_BELONGING_COPY.split(" ").map((word, index) => (
+                  <span
+                    className="about-editorial-scene-word"
+                    style={{ "--word-index": index } as CSSProperties}
+                    aria-hidden="true"
+                    key={`${word}-${index}`}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+            <figure
+              className="about-editorial-systems-plate about-editorial-scene-visual"
+              aria-label="Three hands reaching toward a shared point of light"
+            >
+              <Image
+                src="/assets/about/systems.png"
+                alt="Three painted hands reaching toward a shared point of light"
+                fill
+                sizes="(max-width: 760px) 92vw, 44vw"
+                unoptimized
+              />
             </figure>
           </section>
 
@@ -924,116 +1079,6 @@ export default function AboutPage() {
           </section>
 
           <section
-            className={`about-editorial-ground about-editorial-scroll-scene${
-              groundVisible ? " about-editorial-scroll-scene--visible" : ""
-            }`}
-            ref={groundRef}
-            aria-labelledby="ground-title"
-          >
-            <div className="about-editorial-scene-copy about-editorial-ground-copy">
-              <h2 id="ground-title">
-                One Complete Picture<span aria-hidden="true">+</span>
-              </h2>
-              <p aria-label={SURVEYED_GROUND_COPY}>
-                {SURVEYED_GROUND_COPY.split(" ").map((word, index) => (
-                  <span
-                    className="about-editorial-scene-word"
-                    style={{ "--word-index": index } as CSSProperties}
-                    aria-hidden="true"
-                    key={`${word}-${index}`}
-                  >
-                    {word}{" "}
-                  </span>
-                ))}
-              </p>
-            </div>
-
-            <div
-              className="about-editorial-parcels about-editorial-scene-visual"
-              role="img"
-              aria-label="Six surveyed parcels: spatial design, event production, community building, growth, partnerships, and creative production"
-            >
-              <Image
-                src="/assets/about/about-terrain-parcels.png"
-                alt=""
-                fill
-                sizes="(max-width: 760px) 100vw, 58vw"
-                unoptimized
-              />
-              <svg viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true">
-                <g className="about-editorial-parcel-cells">
-                  <path d="M0 0H34L31 29L0 32Z" />
-                  <path d="M34 0H67L65 30L31 29Z" />
-                  <path d="M67 0H100V31L65 30Z" />
-                  <path d="M0 32L31 29L34 56H0Z" />
-                  <path d="M31 29L65 30L67 56H34Z" />
-                  <path d="M65 30L100 31V56H67Z" />
-                </g>
-                <g className="about-editorial-parcel-lines">
-                  <path d="M0 32L31 29L65 30L100 31" />
-                  <path d="M34 0L31 29L34 56" />
-                  <path d="M67 0L65 30L67 56" />
-                </g>
-              </svg>
-              {PARCELS.map((parcel) => (
-                <span
-                  key={parcel.n}
-                  className="about-editorial-parcel"
-                  style={{ left: `${parcel.x}%`, top: `${parcel.y}%` }}
-                >
-                  <b>{parcel.n}</b>
-                  <small>{parcel.label}</small>
-                </span>
-              ))}
-              <span className="about-editorial-ground-side" aria-hidden="true">
-                One field / six cuts
-              </span>
-            </div>
-          </section>
-
-          <section
-            className={`about-editorial-systems about-editorial-scroll-scene${
-              systemsVisible ? " about-editorial-scroll-scene--visible" : ""
-            }`}
-            ref={systemsRef}
-            aria-labelledby="systems-title"
-          >
-            <div className="about-editorial-scene-copy about-editorial-systems-copy">
-              <h2 id="systems-title">
-                <span className="about-editorial-title-line">Systems of</span>
-                <span className="about-editorial-title-line">
-                  Belongings<span aria-hidden="true">+</span>
-                </span>
-              </h2>
-              <p aria-label={SYSTEMS_BELONGING_COPY}>
-                {SYSTEMS_BELONGING_COPY.split(" ").map((word, index) => (
-                  <span
-                    className="about-editorial-scene-word"
-                    style={{ "--word-index": index } as CSSProperties}
-                    aria-hidden="true"
-                    key={`${word}-${index}`}
-                  >
-                    {word}{" "}
-                  </span>
-                ))}
-              </p>
-            </div>
-
-            <figure
-              className="about-editorial-systems-plate about-editorial-scene-visual"
-              aria-label="Three hands reaching toward a shared point of light"
-            >
-              <Image
-                src="/assets/about/systems.png"
-                alt="Three painted hands reaching toward a shared point of light"
-                fill
-                sizes="(max-width: 760px) 92vw, 44vw"
-                unoptimized
-              />
-            </figure>
-          </section>
-
-          <section
             className={`about-editorial-offclock about-editorial-scroll-scene${
               offClockVisible ? " about-editorial-scroll-scene--visible" : ""
             }`}
@@ -1066,70 +1111,6 @@ export default function AboutPage() {
                 sizes="(max-width: 760px) 92vw, 38vw"
                 quality={92}
               />
-            </figure>
-          </section>
-
-          <section
-            id="community-mat"
-            ref={communityBoardRef}
-            className={`about-editorial-community-board${
-              communityBoardVisible ? " is-visible" : ""
-            }`}
-            aria-label="Community Building"
-          >
-            <figure className="about-editorial-community-board-figure">
-              <div
-                className="community-board-canvas"
-                role="group"
-                aria-label="Editable editorial visual board exploring community through rooms, meals, critiques, and shared spaces"
-              >
-                <div className="community-board-panel">
-                  <span className="community-board-coordinates">
-                    S 06 12&apos; 26.5&quot;&nbsp;&nbsp; E 106 48&apos; 37.0&quot;
-                  </span>
-                  <div className="community-board-title">
-                    <h2>Community Building</h2>
-                    <p>Collaborate. Share. Learn. Grow.</p>
-                  </div>
-
-                  <div className="community-board-cards">
-                    {COMMUNITY_BOARD_CARDS.map((card, index) => (
-                      <button
-                        type="button"
-                        className={`community-board-card community-board-card--${index + 1}`}
-                        key={card.title}
-                        onClick={() => openCommunityCard(index)}
-                        aria-haspopup="dialog"
-                        aria-label={`Open details for ${card.title}`}
-                      >
-                        <div
-                          className={`community-board-photo${
-                            card.src ? "" : " community-board-photo--placeholder"
-                          }`}
-                        >
-                          {card.src ? (
-                            <Image
-                              src={card.src}
-                              alt={card.alt}
-                              fill
-                              sizes="(max-width: 760px) 76vw, 22vw"
-                              quality={90}
-                            />
-                          ) : (
-                            <span className="community-board-photo-placeholder" aria-hidden="true">
-                              <small>Archive pending</small>
-                              <strong>The Fold</strong>
-                            </span>
-                          )}
-                        </div>
-                        <p>{card.caption}</p>
-                      </button>
-                    ))}
-                  </div>
-
-                  <span className="community-board-panel-cross" aria-hidden="true" />
-                </div>
-              </div>
             </figure>
           </section>
 
