@@ -17,6 +17,10 @@ const METHOD_COPY =
   "Whatever it is, it's not visual. It's more like I feel when something's off before I can say why. A room that's too cold. A campaign with no pulse. A community that has people but no glue holding them there yet. I can't picture the fix. I just know when I've found it.";
 const SURVEYED_GROUND_COPY =
   "I’ve never been very good at seeing a career as one straight line. One day, a good friend of mine, someone deep in Web3 who I really looked up to, randomly asked me, “Where do you see yourself in five years? Still working in interior design?” Very interview-y, completely out of nowhere, but it stuck with me. I didn’t have a neat answer, so I followed my curiosity instead. One side quest led to another, and somehow spatial design became events, communities, growth, partnerships and creative production. Looking back, they were never separate paths. They were all different ways of exploring the same thing: how people find each other, connect and choose to stay.";
+const SURVEYED_GROUND_MOBILE_INTRO_COPY =
+  "I’ve never been very good at seeing a career as one straight line. One day, a good friend of mine, someone deep in Web3 who I really looked up to, randomly asked me, “Where do you see yourself in five years? Still working in interior design?” Very interview-y, completely out of nowhere, but it stuck with me.";
+const SURVEYED_GROUND_MOBILE_CONTINUATION_COPY =
+  "I didn’t have a neat answer, so I followed my curiosity instead. One side quest led to another, and somehow spatial design became events, communities, growth, partnerships and creative production. Looking back, they were never separate paths. They were all different ways of exploring the same thing: how people find each other, connect and choose to stay.";
 const SYSTEMS_BELONGING_COPY =
   "If you want a name for it, maybe systems of belonging. What I've noticed, over and over, is the thing that makes someone stay is almost never the loudest thing happening. It's smaller than that. Quieter.";
 const OFF_CLOCK_COPY =
@@ -70,7 +74,7 @@ const COMMUNITY_BOARD_CARDS: CommunityBoardCard[] = [
     src: `/assets/about/FFcover.png?v=${COMMUNITY_IMAGE_VERSION}`,
     gallery: [
       communityImage("/assets/about/FF1.png", { position: "center top" }),
-      communityImage("/assets/about/FF2.png", { position: "center top" }),
+      communityImage("/assets/about/FF2.jpg", { position: "center center" }),
       communityImage("/assets/about/FF3.JPG", { position: "center top" }),
       communityImage("/assets/about/FF4.png", { position: "center top" }),
       communityImage("/assets/about/FF5.png", {
@@ -755,13 +759,22 @@ export default function AboutPage() {
 
               <div className="about-editorial-journey-story">
                 <h3>One Complete Picture<span aria-hidden="true">+</span></h3>
-                <p aria-label={SURVEYED_GROUND_COPY}>
+                <p className="about-editorial-journey-copy-desktop" aria-label={SURVEYED_GROUND_COPY}>
                   {SURVEYED_GROUND_COPY.split(" ").map((word, index) => (
                     <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
                       {word}{" "}
                     </span>
                   ))}
                 </p>
+                {[SURVEYED_GROUND_MOBILE_INTRO_COPY, SURVEYED_GROUND_MOBILE_CONTINUATION_COPY].map((copy) => (
+                  <p className="about-editorial-journey-copy-mobile" aria-label={copy} key={copy}>
+                    {copy.split(" ").map((word, index) => (
+                      <span className="about-editorial-journey-word" style={{ "--word-index": index } as CSSProperties} aria-hidden="true" key={`${word}-${index}`}>
+                        {word}{" "}
+                      </span>
+                    ))}
+                  </p>
+                ))}
               </div>
             </div>
           </section>
